@@ -8,7 +8,7 @@ You have an N by N board. Write a function that, given N, returns the number of 
 
 """
 
-# Add steps one by one and push into array for recording
+# Add and validate queue one by one, and push into array for recording
 
 def is_valid(board):
     current_row,current_col=len(board)-1,board[-1]

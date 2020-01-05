@@ -12,6 +12,8 @@ You can assume the list has at least three integers.
 
 """
 
+# Article: https://leetcode.com/articles/maximmum-product-of-three-numbers/#
+
 # O(n^3)
 def bruteforce(nums):
     n=len(nums)
@@ -33,15 +35,13 @@ def get_largest_product_with_sort(nums):
 
 # O(n) time, O(1) space
 # get last max 3 items and first min 2 items
-import sys
 def get_largest_product(nums):
     n=len(nums)
     if n<3:
         return 0
 
-    maxsize=sys.maxsize
-    maxa,maxb,maxc=-maxsize,-maxsize,-maxsize
-    mina,minb=maxsize,maxsize
+    maxa,maxb,maxc=float('-inf'),float('-inf'),float('-inf')
+    mina,minb=float('inf'),float('inf')
     for n in nums:
         if n>maxa:
             maxc=maxb

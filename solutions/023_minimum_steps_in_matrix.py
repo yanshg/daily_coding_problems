@@ -49,12 +49,10 @@ def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
         return path
 
     # Notes: use the copy of intermediate results for path and visited
-    pathes=[ helper(matrix,rows,columns,(sx+1,sy),end_point,path[:],visited.copy()),
-             helper(matrix,rows,columns,(sx-1,sy),end_point,path[:],visited.copy()),
-             helper(matrix,rows,columns,(sx,sy-1),end_point,path[:],visited.copy()),
-             helper(matrix,rows,columns,(sx,sy+1),end_point,path[:],visited.copy()) ]
+    direction_points=[(sx+1,sy),(sx-1,sy),(sx,sy-1),(sx,sy+1)]
+    pathes=[ helper(matrix,rows,columns,point,end_point,path[:],visited.copy()) for point in direction_points ]
 
-    pathes=[ path for path in pathes if path ]
+    pathes=[ p for p in pathes if p ]
     if pathes:
         #print("pathes:",pathes)
         return min(pathes,key=len)

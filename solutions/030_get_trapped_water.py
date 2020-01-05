@@ -13,11 +13,11 @@ Given the input [3, 0, 1, 3, 0, 5], we can hold 3 units in the first index, 2 in
 
 """
 
-"""
-Idea: An Efficient Solution is to pre-compute highest bar on left and right of every bar in O(n) time. Then use these pre-computed values to find the amount of water in every array element.
-"""
+# Idea: An Efficient Solution is:
+#       Pre-compute highest bar on left and right of every bar in O(n) time,
+#       Then use these values to find the amount of water in every array element.
 
-def get_trapped_water(arr):
+def get_trapped_water_bruteforce(arr):
 
     n=len(arr)
 
@@ -50,13 +50,14 @@ def get_trapped_water(arr):
     return water
 
 
-"""
-Space Optimization in above solution: Instead of maintaing two arrays of size n for storing left and right max of each element, we will just maintain two variables to store the maximum till that point. Since water trapped at any element = min( max_left, max_right) – arr[i] we will calculate water trapped on smaller element out of A[lo] and A[hi] first and move the pointers till lo doesn’t cross hi.
+# Space Optimization in above solution:
+# Instead of maintaing two arrays of size n for storing left and right max of each element,
+# we will just maintain two variables to store the maximum till that point.
+# Since water trapped at any element = min( max_left, max_right) – arr[i],
+# we will calculate water trapped on SMALLER element out of A[lo] and A[hi] first
+# and move the pointers till lo doesn’t cross hi.
 
-Only the first and last element determine if the water trapped.  the higher or lower for the median elements does not matter. so it is enough just need store the left max and right max.
-"""
-def get_trapped_water_optimized(arr):
-    # initialize output
+def get_trapped_water(arr):
     result = 0
 
     # maximum element on left and right
@@ -68,9 +69,9 @@ def get_trapped_water_optimized(arr):
     lo = 0
     hi = n-1
 
-    while(lo <= hi):
-        if(arr[lo] < arr[hi]):
-            if(arr[lo] > left_max):
+    while lo <= hi :
+        if arr[lo] < arr[hi] :
+            if arr[lo] > left_max:
                 # update max in left
                 left_max = arr[lo]
             else:
@@ -78,7 +79,7 @@ def get_trapped_water_optimized(arr):
                 result += left_max - arr[lo]
             lo+= 1
         else:
-            if(arr[hi] > right_max):
+            if arr[hi] > right_max:
                 # update right maximum
                 right_max = arr[hi]
             else:
@@ -86,8 +87,10 @@ def get_trapped_water_optimized(arr):
             hi-= 1
     return result
 
+assert get_trapped_water_bruteforce([2, 1, 2])==1
+assert get_trapped_water_bruteforce([3, 0, 1, 3, 0, 5])==8
+
 assert get_trapped_water([2, 1, 2])==1
 assert get_trapped_water([3, 0, 1, 3, 0, 5])==8
-assert get_trapped_water_optimized([2, 1, 2])==1
-assert get_trapped_water_optimized([3, 0, 1, 3, 0, 5])==8
-assert get_trapped_water_optimized([3, 0, 8, 3, 0, 5])==8
+assert get_trapped_water([3, 0, 8, 3, 0, 5])==10
+assert get_trapped_water([3, 0, 8, 3, 9, 0, 5])==13

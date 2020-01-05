@@ -29,7 +29,7 @@ def get_max_subarray(arr):
     for x in arr:
         max_ending_here=max(x, max_ending_here+x)
         max_so_far=max(max_ending_here,max_so_far)
-        print("max_ending_here:", max_ending_here, "max_so_far: ", max_so_far)
+        #print("max_ending_here:", max_ending_here, "max_so_far: ", max_so_far)
     return max_so_far
 
 assert bruteforce([34, -50, 42, 14, -5, 86])==137

@@ -10,7 +10,7 @@ For example, given the set {1, 2, 3}, it should return {{}, {1}, {2}, {3}, {1, 2
 You may also use a list or array to represent a set.
 """
 
-# Idea: P(S) = P(S-a0) + { a0 + P(S-a0) }
+# Idea: P(S) = P(S-a0) + { (a0 + Pi) for Pi in P(S-a0) }
 
 def get_power_set(arr):
     if len(arr)==0:
