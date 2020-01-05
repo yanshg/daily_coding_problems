@@ -69,27 +69,10 @@ A=Node('A')
 B=Node('B')
 C=Node('C')
 
-print A
-print B
-print C
-print "\n"
-
 m=Map()
 try:
     m.add_rule(A, "N", B)
-    print A
-    print B
-    print C
-    print "\n"
     m.add_rule(B, "NE", C)
-    print A
-    print B
-    print C
-    print "\n"
     m.add_rule(C, "N", A)
-    print A
-    print B
-    print C
-    print "\n"
 except Exception:
     print("Invalid rule")

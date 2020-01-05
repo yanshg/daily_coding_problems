@@ -37,7 +37,6 @@ c=Node(201)
 
 a.left=b
 a.right=c
-print a
 
 assert is_valid_bst(a)
 

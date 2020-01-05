@@ -55,11 +55,11 @@ b.left=d
 b.right=e
 c.left=f
 
-print "original tree: " + repr(a)
+print("original tree: " + repr(a))
 
 revert_tree(a)
 
-print "reverted tree: " + repr(a)
+print("reverted tree: " + repr(a))
 
 assert a.left==c
 assert a.right==b
