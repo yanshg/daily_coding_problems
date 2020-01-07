@@ -9,7 +9,7 @@ Given three 32-bit integers x, y, and b, return x if b is 1 and y if b is 0, usi
 """
 
 def choose_integer(x,y,b):
-    return x * b + y * (1-b)
+    return (x & (0x10000-b)) | (y & (0xffff + b))
 
 assert choose_integer(2,7,1)==2
 assert choose_integer(2,7,0)==7

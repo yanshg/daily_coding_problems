@@ -40,7 +40,7 @@ def merge_2_lists(list1,list2):
     p1,p2=(list1,list2) if list1.val<=list2.val else (list2,list1)
     head=p1
 
-    while p1 or p2:
+    while p1 and p2:
         while p1.next and p1.next.val <= p2.val:
             p1=p1.next
 
@@ -48,7 +48,10 @@ def merge_2_lists(list1,list2):
         p1.next=p2
         p1=tmp_p1
 
-        while p2.next and p2.next.val > p1.val:
+        if not p1:
+            break
+
+        while p2.next and p2.next.val <= p1.val:
             p2=p2.next
 
         tmp_p2=p2.next
