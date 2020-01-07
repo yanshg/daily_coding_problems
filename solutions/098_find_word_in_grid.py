@@ -21,43 +21,41 @@ exists(board, "ABCCED") returns true, exists(board, "SEE") returns true, exists(
 """
 
 # Idea:  Use dynamic programming method
-#        Base cases:  1. if out of the board, return []
-#                     2. if finish checking, return [ path ]
-#                     3. if visited, return []
-#                     4. if not matched, return []
+#        Base cases:  1. if out of the board, return False
+#                     2. if finish checking, return True
+#                     3. if visited, return False
+#                     4. if not matched, return False
 
 def helper(board,rows,cols,x,y,word,path=[],visited=set()):
     if x>=rows or x<0 or y>=cols or y<0:
-        return []
+        return False
 
     if not word:
-        return path
+        print("path: ", path)
+        return True if path else False
 
     coord="{}-{}".format(x,y)
     if coord in visited:
-        return []
+        return False
 
     if board[x][y]!=word[0]:
-        return []
+        return False
 
     path+=[coord]
     visited.add(coord)
 
     moves=[ (0,1),(0,-1),(1,0),(-1,0) ]
     for dx,dy in moves:
-        extended_path=helper(board,rows,cols,x+dx,y+dy,word[1:],path[:],visited.copy())
-        if extended_path:
-            return extended_path
+        if helper(board,rows,cols,x+dx,y+dy,word[1:],path[:],visited.copy()):
+            return True
 
-    return []
+    return False
 
 def exists(board,word):
     rows,cols=len(board),len(board[0])
     for x in range(rows):
         for y in range(cols):
-            path=helper(board,rows,cols,x,y,word,[],set())
-            if path:
-                print("word: ", word, "path: ", path)
+            if helper(board,rows,cols,x,y,word,[],set()):
                 return True
     return False
 
