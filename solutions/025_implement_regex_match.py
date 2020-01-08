@@ -20,13 +20,11 @@ Given the regular expression ".*at" and the string "chat", your function should 
 # Idea: Use danymic programming,
 #       Base cases: 1. zero length of regex
 #                   2. zero length of string
-#                   3. first char is match, check remaining chars
-#                   4. if first char in regex is '*', replace '*' with some numbers of '.'
-
-def first_match(regex,string):
-    return regex[0]==string[0] or (regex[0]=='.' and bool(string))
+#                   3. if first char in regex is '*', recursionly match * with zero or first 1 character in string.
+#                   4. first char is match, check remaining chars
 
 def is_match(regex,string):
+    # if no pattern and no text, return True
     if not regex:
         return not string
 
@@ -35,25 +33,13 @@ def is_match(regex,string):
             return True
         return False
 
-    # len(regex)>0 and len(string)>0
-    if first_match(regex,string):
-        return is_match(regex[1:],string[1:])
+    if regex[0] == '*':
+        # regex[0] consumes no characters or
+        # regex[0] consumes one character
+        return is_match(regex[1:], string) or is_match(regex,string[1:])
 
-    # first char is not match, check '*' cases to replace '*' with multiple '.'
-    if regex[0]=='*':
-        # remove * in regex to get how many '.' need be used.
-        # can use "re.sub(r'\*',r'',string)" to remove '*' in the string.
-        regex_without_star=''.join([ e for e in regex if e!='*' ])
-        lr,ls=len(regex_without_star),len(string)
-        if (lr>ls):
-            return False
-
-        for num_dots in range(ls-lr+1):
-            new_regex='.'*num_dots + regex[1:]
-            if is_match(new_regex,string):
-                return True
-
-    return False
+    first_match = bool(string) and regex[0] in {string[0], '.'}
+    return first_match and is_match(regex[1:], string[1:])
 
 assert is_match(r'ra.', 'ray')
 assert not is_match(r'ra.', 'raymond')
