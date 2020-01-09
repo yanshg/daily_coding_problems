@@ -38,7 +38,7 @@ def is_match(regex,string):
         # regex[0] consumes one character
         return is_match(regex[1:], string) or is_match(regex,string[1:])
 
-    first_match = bool(string) and regex[0] in {string[0], '.'}
+    first_match = regex[0] in {string[0], '.'}
     return first_match and is_match(regex[1:], string[1:])
 
 assert is_match(r'ra.', 'ray')
