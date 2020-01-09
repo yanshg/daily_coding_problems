@@ -24,14 +24,11 @@ Given the regular expression ".*at" and the string "chat", your function should 
 #                   4. first char is match, check remaining chars
 
 def is_match(regex,string):
-    # if no pattern and no text, return True
     if not regex:
         return not string
 
     if not string:
-        if regex == '*' * len(regex):
-            return True
-        return False
+        return True if regex=='*'*len(regex) else False
 
     if regex[0] == '*':
         # regex[0] consumes no characters or
