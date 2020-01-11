@@ -23,8 +23,8 @@ exists(board, "ABCCED") returns true, exists(board, "SEE") returns true, exists(
 # Idea:  Use dynamic programming method
 #        Base cases:  1. if out of the board, return False
 #                     2. if finish checking, return True
+#                     4. if first char not matched, return False
 #                     3. if visited, return False
-#                     4. if not matched, return False
 
 def helper(board,rows,cols,x,y,word,path=[],visited=set()):
     if x>=rows or x<0 or y>=cols or y<0:
@@ -34,11 +34,11 @@ def helper(board,rows,cols,x,y,word,path=[],visited=set()):
         print("path: ", path)
         return True if path else False
 
-    coord="{}-{}".format(x,y)
-    if coord in visited:
+    if board[x][y]!=word[0]:
         return False
 
-    if board[x][y]!=word[0]:
+    coord="{}-{}".format(x,y)
+    if coord in visited:
         return False
 
     path+=[coord]

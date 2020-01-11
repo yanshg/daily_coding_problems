@@ -21,6 +21,7 @@ If you liked this problem, feel free to forward it along so they can subscribe h
 
 # This is a issue about Python closures and later binding.
 # http://quickinsights.io/python/python-closures-and-late-binding/
+# https://eev.ee/blog/2011/04/24/gotcha-python-scoping-closures/
 #
 # Python closures are late binding. that means:
 # The values of variables used in closures are looked up at the time the inner function is called.
