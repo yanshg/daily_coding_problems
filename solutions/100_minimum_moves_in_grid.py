@@ -27,6 +27,15 @@ It takes 1 step to move from (0, 0) to (1, 1). It takes one more step to move fr
 
 """
 
+#
+#             <   ^   >                     Base cases: 1. if out of the matrix, return []
+#              \  |  /                                  2. if get to one point, get to the next point
+#         <-  base point ->                             3. if visited, return []
+#              /  |  \                                  4. if get to last point, return the path.
+#             <   v   >                                  
+#                                           Notes:  record the intermediate data for path, visited.
+#                                                   return the final path with minimum steps
+
 def helper(minx,maxx,miny,maxy,points,index,x,y,path=[],visited=set()):
     if x<minx or x>maxx or y<miny or y>maxy:
         return []
