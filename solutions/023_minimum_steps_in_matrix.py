@@ -44,8 +44,8 @@ def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
 
     path+=[ coord ]
 
-    (ex,ey)=end_point
-    if sx==ex and sy==ey:
+    if start_point==end_point:
+        print("path:",path)
         return path
 
     # Notes: use the copy of intermediate results for path and visited
@@ -53,18 +53,11 @@ def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
     pathes=[ helper(matrix,rows,columns,point,end_point,path[:],visited.copy()) for point in direction_points ]
 
     pathes=[ p for p in pathes if p ]
-    if pathes:
-        #print("pathes:",pathes)
-        return min(pathes,key=len)
-
-    return []
+    return min(pathes,key=len) if pathes else []
 
 def get_min_steps(matrix,start_point,end_point):
     path=helper(matrix,len(matrix),len(matrix[0]),start_point,end_point,[],set())
-    if path:
-        print("path:",path)
-        return len(path)-1
-    return 0
+    return len(path)-1 if path else 0
 
 matrix= [['f', 'f', 'f', 'f'],
          ['t', 't', 'f', 't'],
