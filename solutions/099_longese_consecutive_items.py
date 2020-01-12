@@ -30,7 +30,7 @@ def longest_consecutive_items(nums):
             while i in s:
                 count+=1
                 i+=1
-
-                i+=1
             max_seq=max(max_seq,count)
+    return max_seq
 
+assert longest_consecutive_items([100, 4, 200, 1, 3, 2])==4
