@@ -41,8 +41,8 @@ def helper(matrix,rows,cols,x,y,path=[],visited=set()):
 
     visited.add(coord)
 
-    return sum([ helper(matrix,rows,cols,x,y+1,path[:],visited.copy()), 
-                 helper(matrix,rows,cols,x+1,y,path[:],visited.copy()) ])
+    return helper(matrix,rows,cols,x,y+1,path[:],visited.copy()) + \
+           helper(matrix,rows,cols,x+1,y,path[:],visited.copy())
 
 def get_ways_to_bottom_right(matrix):
     return helper(matrix,len(matrix),len(matrix[0]),0,0,[],set())
