@@ -43,7 +43,6 @@ def check_island(matrix,rows,cols,x,y,visited):
     return 1
 
 def get_islands(matrix):
-    islands=0
     visited=set();
     rows,cols=len(matrix),len(matrix[0])
 
