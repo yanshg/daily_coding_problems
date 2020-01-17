@@ -10,21 +10,39 @@ For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should g
 You can modify the input array in-place.
 """
 
+def findMissingPositive(arr, n):
+
+    # Default smallest Positive Integer
+    m = 1
+
+    # Store values in set which are
+    # greater than variable m
+    x = []
+    for i in range(n):
+
+        # Store value when m is less than
+        # current index of given array
+        if (m < arr[i]):
+            x.append(arr[i])
+
+        elif (m == arr[i]):
+
+            # Increment m when it is equal
+            # to current element
+            m = m + 1
+
+            while (x.count(m)):
+                x.remove(m)
+
+                # Increment m when it is one of the
+                # element of the set
+                m = m + 1
+
+    # Return the required answer
+    return m
+
 def find_first_missing_positive_integer(arr):
-    exists={ n:1 for n in arr }
-
-    found=None
-
-    for n in arr:
-        num=n+1
-        if num not in exists:
-            if not found or num<found:
-                found=num
-
-    if not found or found<=0:
-        found=1
-
-    return found
+    return findMissingPositive(arr,len(arr))
 
 assert find_first_missing_positive_integer([3, 4, -1, 1])==2
 assert find_first_missing_positive_integer([1, 2, 0])==3
