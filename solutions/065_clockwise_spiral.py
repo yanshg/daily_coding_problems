@@ -43,19 +43,28 @@ You should print out the following:
 
 def get_outter_circle(matrix,row,col,rows,cols):
     spiral=[]
-    for c in range(col,col+cols):
-        spiral.append(matrix[row][c])
 
-    c=col+cols-1
-    for r in range(row+1,row+rows):
-        spiral.append(matrix[r][c])
+    top,bottom,left,right=row,row+rows-1,col,col+cols-1
 
-    r=row+rows-1
-    for c in range(col+cols-2,col,-1):
-        spiral.append(matrix[r][c])
+    # Top line, from left to right
+    for c in range(left,right+1):
+        spiral.append(matrix[top][c])
+    top+=1
 
-    for r in range(row+rows-1,row,-1):
-        spiral.append(matrix[r][col])
+    # Right line, from top to bottom
+    for r in range(top,bottom+1):
+        spiral.append(matrix[r][right])
+    right-=1
+
+    # Bottom line, from right to left
+    for c in range(right,left-1,-1):
+        spiral.append(matrix[bottom][c])
+    bottom-=1
+
+    # Left line, from bottom to top
+    for r in range(bottom,top-1,-1):
+        spiral.append(matrix[r][left])
+    left+=1
 
     return spiral
 
