@@ -37,20 +37,19 @@ def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
     if coord in visited:
         return []
 
-    visited.add(coord)
-
     if matrix[sx][sy]=='t':
         return []
 
     path+=[ coord ]
+    visited.add(coord)
 
     if start_point==end_point:
         print("path:",path)
         return path
 
     # Notes: use the copy of intermediate results for path and visited
-    direction_points=[(sx+1,sy),(sx-1,sy),(sx,sy-1),(sx,sy+1)]
-    pathes=[ helper(matrix,rows,columns,point,end_point,path[:],visited.copy()) for point in direction_points ]
+    moves=[(1,0),(-1,0),(0,-1),(0,1)]
+    pathes=[ helper(matrix,rows,columns,(sx+dx,sy+dy),end_point,path[:],visited.copy()) for dx,dy in moves ]
 
     pathes=[ p for p in pathes if p ]
     return min(pathes,key=len) if pathes else []

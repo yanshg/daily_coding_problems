@@ -64,10 +64,7 @@ class Graph():
         return "nodes: {}, edges: {}".format(self.nodes,self.edges)
 
     def _get_connected_nodes(self, node):
-        nodes=list()
-        for start,end in node.edges:
-            nodes.append(self.nodes[end])
-        return nodes
+        return [ self.nodes[end] for start,end in node.edges ]
 
     def _get_path_value(self,path):
         pathvals=defaultdict(int)
@@ -91,17 +88,10 @@ class Graph():
             print("path: ", path)
             return self._get_path_value(path)
 
-        path_value=0
-        for node1 in connected_nodes:
-            path_value=max(path_value,self._get_largest_path(node1,path[:],visited.copy()))
-
-        return path_value
+        return max([ self._get_largest_path(node1,path[:],visited.copy()) for node1 in connected_nodes ])
 
     def get_largest_path(self):
-        max_value=0
-        for node in self.nodes:
-            max_value=max(max_value, self._get_largest_path(node,[],set()))
-        return max_value
+        return max([ self._get_largest_path(node,[],set()) for node in self.nodes ])
 
 g=Graph('ABACA',[(0,1),(0,2),(2,3),(3,4)])
 print(g)
