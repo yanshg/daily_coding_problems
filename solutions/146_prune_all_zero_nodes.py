@@ -24,6 +24,7 @@ should be pruned to:
    1
 
 We do not remove the tree at the root or its left child because it still has a 1 as a descendant.
+
 """
 
 class Node:
@@ -39,11 +40,8 @@ def prune_nodes(root):
     if not root:
         return None
 
-    if root.left:
-        root.left=prune_nodes(root.left)
-
-    if root.right:
-        root.right=prune_nodes(root.right)
+    root.left=prune_nodes(root.left)
+    root.right=prune_nodes(root.right)
 
     if not root.left and not root.right and not root.val:
         return None
