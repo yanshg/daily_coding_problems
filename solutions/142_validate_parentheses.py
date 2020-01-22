@@ -1,24 +1,23 @@
 #!/usr/bin/python
 
 """
+
 This problem was asked by Google.
 
-You're given a string consisting solely of (, ), and *. * can represent either a (, ), or an empty string. Determine whether the parentheses are balanced.
+You're given a string consisting solely of '(', ')', and '*'. * can represent either a (, ), or an empty string. Determine whether the parentheses are balanced.
 
-For example, (()* and (*) are balanced. )*( is not balanced.
+For example, '(()*' and '(*)' are balanced. ')*(' is not balanced.
+
 """
 
 # Idea:  put checked string in stack(), handle '*' case in remaining.
 #        Handle only one character in each DP sub calling
 
 def validate_parentheses(string,stack=list()):
-    if not string and not stack:
-        return True
-    elif not string:
-        return False
+    if not string:
+        return not stack
 
-    ch=string[0]
-    remain=string[1:]
+    ch,remain=string[0],string[1:]
     s=stack.copy();
 
     if ch=='*':
