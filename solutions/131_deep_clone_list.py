@@ -18,16 +18,13 @@ class Node:
         return "{}=>{}".format(self.val,self.next)
 
 def deep_clone(head):
-    curr=head
-
-    arr_orig=list()
     arr_clone=list()
     hash_orig=dict()
 
     # get the 'random' nodes' index and replay in cloned list
     i=0
+    curr=head
     while curr:
-        arr_orig.append(curr)
         hash_orig[curr]=i
 
         node_clone=Node(curr.val)
@@ -36,16 +33,15 @@ def deep_clone(head):
         curr=curr.next
         i+=1
 
-    l=len(arr_orig)
-    for i in range(l):
-        if i<l-1:
-            arr_clone[i].next=arr_clone[i+1]
+    i=0
+    curr=head
+    while curr:
+        node_clone=arr_clone[i]
+        node_clone.next=None if not curr.next else arr_clone[hash_orig[curr.next]]
+        node_clone.random=None if not curr.random else arr_clone[hash_orig[curr.random]]
 
-        random_node=arr_orig[i].random
-        if random_node and \
-                random_node in hash_orig:
-            idx=hash_orig[random_node]
-            arr_clone[i].random=arr_clone[idx]
+        curr=curr.next
+        i+=1
 
     return arr_clone[0]
 

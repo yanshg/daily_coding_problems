@@ -31,19 +31,21 @@ def get_min_sum_path_helper(node,sum,path):
     if not node:
         return (sum,path)
 
-    sum_to_here=sum+node.val
-    path_to_here=path+[node.val]
+    sum+=node.val
+    path+=[node.val]
 
     if not node.left and not node.right:
-        return (sum_to_here,path_to_here)
+        return (sum,path)
 
-    sum_left,path_left=get_min_sum_path_helper(node.left,sum_to_here,path_to_here)
-    sum_right,path_right=get_min_sum_path_helper(node.right,sum_to_here,path_to_here)
+    sum_left,sum_right=float('inf'),float('inf')
+    path_left,path_right=path,path
+    if node.left:
+        sum_left,path_left=get_min_sum_path_helper(node.left,sum,path[:])
 
-    if sum_left<sum_right:
-        return (sum_left,path_left)
-    else:
-        return (sum_right,path_right)
+    if node.right:
+        sum_right,path_right=get_min_sum_path_helper(node.right,sum,path[:])
+
+    return (sum_left,path_left) if sum_left<sum_right else (sum_right,path_right)
 
 def get_min_sum_path(root):
     _, path=get_min_sum_path_helper(root,0,[])
@@ -64,5 +66,4 @@ node5.left=node6
 
 print(node1)
 
-assert get_min_sum_path(node1)==[10,5,1,-1]
 assert get_min_sum_path(node1)==[10,5,1,-1]
