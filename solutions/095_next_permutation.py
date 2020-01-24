@@ -19,6 +19,14 @@ Can you perform the operation without allocating extra memory (disregarding the 
 #        3. Swap array[j] and array[i − 1].
 #        4. Reverse the suffix starting at array[i].
 
+# Use (0, 1, 2, 5, 3, 3, 0) as one example:
+#            ^  ^     ^
+#            |  |     |
+#            |  i     |
+#            |        j: need swap with pivot
+#          pivot
+#              | reverse |
+
 def next_permutation(nums):
     # First get longest descenting nums from the right end
     l=len(nums)

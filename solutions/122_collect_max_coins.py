@@ -17,9 +17,6 @@ The most we can collect is 0 + 2 + 1 + 5 + 3 + 1 = 12 coins.
 
 
 def helper(matrix,row,col,rows,cols):
-    if not matrix:
-        return 0
-
     if row>=rows or col>=cols:
         return 0
 
@@ -28,6 +25,9 @@ def helper(matrix,row,col,rows,cols):
                helper(matrix,row,col+1,rows,cols))
 
 def get_max_coins(matrix):
+    if not matrix:
+        return 0
+
     return helper(matrix,0,0,len(matrix),len(matrix[0]))
 
 matrix=[[0, 3, 1, 1],

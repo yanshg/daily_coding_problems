@@ -1,0 +1,71 @@
+#!/usr/bin/python
+
+"""
+This problem was asked by Google.
+
+You are given an array of length n + 1 whose elements belong to the set {1, 2, ..., n}. By the pigeonhole principle, there must be a duplicate. Find it in linear time and space.
+
+"""
+
+# Note:
+
+#    1. You must not modify the array (assume the array is read only).
+#    2. You must use only constant, O(1) extra space.
+#    3. Your runtime complexity should be less than O(n2).
+#    4. There is only one duplicate number in the array, but it could be repeated more than once.
+
+# Proved by Pigeonhole principle that at least one of the numbers is duplicated
+
+# Article: https://leetcode.com/articles/find-the-duplicate-number/
+
+# Idea 1: first sort the array, then return the duplicate element as soon as we find it.
+
+# O(nlogn), O(n) space
+def find_duplicated1(nums):
+    nums1=sorted(nums)
+    for i in range(len(nums1)-1):
+        if nums1[i]==nums1[i+1]:
+            return nums1[i]
+    return None
+
+# Idea 2: use set
+
+# O(n), O(n) space
+def find_duplicated2(nums):
+    seen=set()
+    for num in nums:
+        if num in seen:
+            return num
+        seen.add(num)
+    return None
+
+# Idea 3: Link Cycle Dectection (Floyd's Tortoise and Hare)
+#         if fast and slow pointer's value is same value, then it get into a cycle
+
+# O(n), O(1) space
+def find_duplicated3(nums):
+    slow,fast=nums[0],nums[0]
+    while True:
+        slow=nums[slow]
+        fast=nums[nums[fast]]
+        print("slow:", slow, "fast:", fast)
+        if slow==fast:
+            break
+
+    # Find the "entrance" to the cycle
+    ptr1 = nums[0]
+    ptr2 = slow
+    while ptr1 != ptr2:
+        ptr1 = nums[ptr1]
+        ptr2 = nums[ptr2]
+
+    return ptr1
+
+assert find_duplicated1([1,3,4,2,2])==2
+assert find_duplicated1([3,1,3,4,2])==3
+assert find_duplicated2([1,3,4,2,2])==2
+assert find_duplicated2([3,1,3,4,2])==3
+assert find_duplicated3([1,3,4,2,2])==2
+assert find_duplicated3([3,1,3,4,2])==3
+
+
