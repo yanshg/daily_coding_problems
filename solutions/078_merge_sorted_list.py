@@ -16,17 +16,17 @@ class Node():
     def __repr__(self):
         return "{}->{}".format(self.val,self.next)
 
-def create_list(nums):
-    head,last=None,None
+def generate_list(nums):
+    head,next=None,None
     for num in reversed(nums):
-        head=Node(num,last)
-        last=head
+        head=Node(num,next)
+        next=head
     return head
 
-def get_list_values(head):
+def get_values(head):
     values=[]
     while head:
-        values.append(head.val)
+        values+=[head.val]
         head=head.next
     return values
 
@@ -75,4 +75,4 @@ def merge_lists(lists):
         list2=merge_lists(lists[mid:])
         return merge_2_lists(list1,list2)
 
-assert get_list_values(merge_lists([ create_list([2,5,8]),create_list([1,6,7,9]),create_list([3,5,10,11]) ]))==[1,2,3,5,5,6,7,8,9,10,11]
+assert get_values(merge_lists([ generate_list([2,5,8]),generate_list([1,6,7,9]),generate_list([3,5,10,11]) ]))==[1,2,3,5,5,6,7,8,9,10,11]

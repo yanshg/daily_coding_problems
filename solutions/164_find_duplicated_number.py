@@ -39,9 +39,21 @@ def find_duplicated2(nums):
         seen.add(num)
     return None
 
-# Idea 3: Link Cycle Dectection (Floyd's Tortoise and Hare)
+# Idea 3: Link Cycle Detection (Floyd's Tortoise and Hare)
 #         if fast and slow pointer's value is same value, then it get into a cycle
-
+#
+# It is easier to understand after converting the array to a singly linked list like below:
+#
+# index   [0]     [1]     [2]     [3]     [4]     [5]     [6]
+# value    2       6       4       1       3       1       5
+#
+# linked list with cycle:
+#
+# index   [0]     [2]     [4]     [3]     [1]     [6]
+# value    2 ->    4->     3 ->    1 ->    6 ->    5 points by to 1 via index [5]
+#
+# and it became question #142 (Link Cycle detection problem) from here.
+#
 # O(n), O(1) space
 def find_duplicated3(nums):
     slow,fast=nums[0],nums[0]
@@ -61,11 +73,24 @@ def find_duplicated3(nums):
 
     return ptr1
 
+# Idea 4:  Iteratively put nums[0] to the correct place so that the value equal to the index;
+#          Then 1 to n will be put at index 1 to index n, except for nums[0]
+
+def find_duplicated4(nums):
+    while nums[nums[0]] != nums[0]:
+        nums[nums[0]],nums[0]=nums[0],nums[nums[0]]
+    return nums[0]
+
 assert find_duplicated1([1,3,4,2,2])==2
 assert find_duplicated1([3,1,3,4,2])==3
+
 assert find_duplicated2([1,3,4,2,2])==2
 assert find_duplicated2([3,1,3,4,2])==3
+
 assert find_duplicated3([1,3,4,2,2])==2
 assert find_duplicated3([3,1,3,4,2])==3
+
+assert find_duplicated4([1,3,4,2,2])==2
+assert find_duplicated4([3,1,3,4,2])==3
 
 

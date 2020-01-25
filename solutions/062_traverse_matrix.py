@@ -14,29 +14,24 @@ Given a 5 by 5 matrix, there are 70 ways to get to the bottom-right.
 """
 
 # Base cases:   1. out of the matrix, return 0
-#               2. visited, return 0
-#               3. reach the bottom-right, return 1
+#               2. reach the bottom-right, return 1
 
-def helper(rows,cols,row=0,col=0,path=[],visited=set()):
+def helper(rows,cols,row=0,col=0,path=[]):
     if col>=cols or row>=rows:
         return 0
 
     coord="{}-{}".format(row,col)
-    if coord in visited:
-        return 0
-
-    visited.add(coord)
     path+=[coord]
 
     if row==rows-1 and col==cols-1:
-        #print("path: ", path)
+        print("path: ", path)
         return 1
 
-    return helper(rows,cols,row+1,col,path[:],visited.copy()) + \
-           helper(rows,cols,row,col+1,path[:],visited.copy())
+    return helper(rows,cols,row+1,col,path[:]) + \
+           helper(rows,cols,row,col+1,path[:])
 
 def traverse_matrix(rows,cols):
-    return helper(rows,cols,0,0,[],set())
+    return helper(rows,cols,0,0,[])
 
 assert not traverse_matrix(1, 0)
 assert traverse_matrix(1, 1) == 1

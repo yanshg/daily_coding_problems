@@ -57,8 +57,7 @@ def run_markov_chain(probabilities,start,steps):
     results[state]+=1
 
     for i in range(steps):
-        r=random.random()
-        state=get_next_state(trans_map,state,r)
+        state=get_next_state(trans_map,state,random.random())
         results[state]+=1
 
     return results
@@ -74,4 +73,6 @@ probabilities=[ ('a', 'a', 0.9),
                 ('c', 'c', 0.5)
 ]
 
-print(run_markov_chain(probabilities,'a',5000))
+results=run_markov_chain(probabilities,'a',5000)
+print(results)
+assert results['a']>results['b']>results['c']
