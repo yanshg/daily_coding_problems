@@ -13,19 +13,21 @@ Which of the two games should Alice elect to play? Does it even matter? Write a 
 
 """
 
-# Idea:  Should choose first game
+# Idea:  Should choose first game which end with five followed by a six.
 
-# Both games are identical until Alice rolls a 5. At that point, on the next roll, she has a 1/6 chance of rolling a 5, and a 1/6 chance of rolling a 6.
+# With single roll:
+#
+# Both games are identical until Alice rolls a 5.
+# At that point, on the next roll, she has a 1/6 chance of rolling a 5, and a 1/6 chance of rolling a 6.
 # So her chances of winning at this point are identical between both games.
 
-# But what makes this interesting is what happens if she does not win immediately after rolling her first 5.
-
-# In the second game, suppose Alice rolls a 5 and then a non-5. She's now back to square one, having to roll a 5 again before looking for her second 5. She will require a minimum of two more rolls to win.
-# In contrast, in the first game, it's possible for Alice to roll a 5 followed by a non-6, which could be a 5. In the second game, failure to win doesn't necessarily revert the player to square one - there's a possibility she could still be just one roll away from winning.
+# The problem is how many rolls need be done and finally win in the long run after multiple start-overs
+#
+# So the problem become the probability to start over after rolling first 5.
 
 # After rolling the first 5,
-# A player of the first game has a 1/6 chance of winning, a 1/6 chance of trying again, and a 4/6 chance of starting over.
-# A player of the second game has a 1/6 chance of winning and a 5/6 chance of having to start over.
+# A player of the first game has a 1/6 chance of winning(6), a 1/6 chance of trying again(5), and a 4/6 chance of starting over(1-4).
+# A player of the second game has a 1/6 chance of winning(5) and a 5/6 chance of having to start over(1-4, 6).
 
 # So the first game will take fewer rolls to win, on average.
 
@@ -45,7 +47,7 @@ num_experiments=10000
 
 # First game: average 36
 
-print("\n===== 5, 6 ======")
+print("\n===== Game with 5/6 to end ======")
 sum=0
 for i in range(num_experiments):
     rolls=game(5,6)
@@ -56,7 +58,7 @@ print("average rolls for first game: ",average1)
 
 # Second game: average 41
 
-print("\n===== 5, 5 ======")
+print("\n===== Game with 5/5 to end ======")
 sum=0
 for i in range(num_experiments):
     rolls=game(5,5)
