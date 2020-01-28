@@ -28,6 +28,7 @@ class ConwayGameLife():
     def __repr__(self):
         xs,ys=list(zip(*self.cells))
         xmin,xmax,ymin,ymax=min(xs),max(xs),min(ys),max(ys)
+        #return '\n'.join([ ''.join([ '*' if (x,y) in self.cells else '.' for x in range(xmin,xmax+1)]) for y in range(ymin,ymax+1) ])
         return ''.join(('*' if (x,y) in self.cells else '.') + ('\n' if x==xmax else '') \
                        for y in range(ymin,ymax+1) for x in range(xmin,xmax+1))
 
@@ -37,18 +38,23 @@ class ConwayGameLife():
 
     def active_next_round(self,x,y):
         neighbours=[(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y),(x+1,y),(x-1,y+1),(x,y+1),(x+1,y+1)]
-        neighbour_count=sum(1 if (x,y) in self.cells else 0 for (x,y) in neighbours)
+        neighbour_count=sum(1 for (x,y) in neighbours if (x,y) in self.cells)
         return neighbour_count==3 or (neighbour_count==2 and (x,y) in self.cells)
 
     def process_to_next_round(self):
         active_cells=set((x+xd,y+yd) for (x,y) in self.cells for xd in [-1,0,1] for yd in [-1,0,1])
         self.cells=set((x,y) for (x,y) in active_cells if self.active_next_round(x,y))
 
-    def play(self,steps):
+    def play(self):
         self.show_cells()
-        for step in range(steps):
+        prev_cells=str(self)
+        while True:
             self.process_to_next_round()
             self.show_cells()
+            curr_cells=str(self)
+            if curr_cells == prev_cells:
+                break
+            prev_cells=curr_cells
 
 game1=ConwayGameLife([(0,0),(1,0),(1,1),(2,5),(2,6),(3,9),(4,8),(5,9),(5,10)])
-game1.play(4)
+game1.play()

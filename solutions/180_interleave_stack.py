@@ -13,14 +13,23 @@ Hint: Try working backwards from the end state.
 
 """
 
-def interleave_stack(s):
+from collections import deque
+
+def interleave_stack(s,dq,index=1):
     l=len(s)
-    mid=(l+1)//2
+    if index==l:
+        return s
 
-    for i in range(1,mid):
-        s[i],s[-1]=s[-1],s[i]
-    return s
+    for i in range(l-index):
+        dq.append(s.pop())
 
-#assert interleave_stack([1, 2, 3, 4, 5, 6, 7, 8, 9]) == [1, 9, 2, 8, 3, 7, 4, 6, 5 ]
-assert interleave_stack([1, 2, 3, 4, 5]) == [1, 5, 2, 4, 3]
-assert interleave_stack([1, 2, 3, 4]) == [1, 4, 2, 3]
+    while dq:
+        s.append(dq.popleft())
+
+    return interleave_stack(s,dq,index+1)
+
+dq=deque()
+
+assert interleave_stack([1, 2, 3, 4, 5, 6, 7, 8, 9],dq,1) == [1, 9, 2, 8, 3, 7, 4, 6, 5 ]
+assert interleave_stack([1, 2, 3, 4, 5],dq,1) == [1, 5, 2, 4, 3]
+assert interleave_stack([1, 2, 3, 4],dq,1) == [1, 4, 2, 3]
