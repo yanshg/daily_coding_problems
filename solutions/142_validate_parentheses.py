@@ -13,7 +13,7 @@ For example, '(()*' and '(*)' are balanced. ')*(' is not balanced.
 # Idea:  put checked string in stack(), handle '*' case in remaining.
 #        Handle only one character in each DP sub calling
 
-def validate_parentheses(string,stack=list()):
+def validate_parentheses_helper(string,stack=list()):
     if not string:
         return not stack
 
@@ -21,9 +21,9 @@ def validate_parentheses(string,stack=list()):
     s=stack.copy();
 
     if ch=='*':
-        return validate_parentheses('('+remain,s) or \
-               validate_parentheses(')'+remain,s) or \
-               validate_parentheses(remain,s)
+        return validate_parentheses_helper('('+remain,s) or \
+               validate_parentheses_helper(')'+remain,s) or \
+               validate_parentheses_helper(remain,s)
 
     if ch==')' and not s:
         return False
@@ -32,7 +32,10 @@ def validate_parentheses(string,stack=list()):
     else:
         s.append(ch)
 
-    return validate_parentheses(remain,s)
+    return validate_parentheses_helper(remain,s)
+
+def validate_parentheses(string):
+    return validate_parentheses_helper(string,[])
 
 assert validate_parentheses("(()*")
 assert validate_parentheses("(())")
