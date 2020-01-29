@@ -53,15 +53,13 @@ def merge(nums,left,right):
     return inversions
 
 def get_inversions_with_merge_sort(nums):
-    inversions=0
     n=len(nums)
+    if n<=1:
+        return 0
 
-    if not nums or n==1:
-        return inversions
-
-    l=n//2
-    left,right=nums[:l],nums[l:]
-    inversions+=get_inversions_with_merge_sort(left)
+    mid=n//2
+    left,right=nums[:mid],nums[mid:]
+    inversions=get_inversions_with_merge_sort(left)
     inversions+=get_inversions_with_merge_sort(right)
     inversions+=merge(nums,left,right)
 
