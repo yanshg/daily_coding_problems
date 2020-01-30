@@ -1,5 +1,8 @@
-test:
-	cd solutions
-	for i in *.py; do
-	    python $i;
-	done
+all: test
+
+test: 
+	@cd solutions; \
+        for file in *.py; do \
+            python $$file; \
+        done
+
