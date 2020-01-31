@@ -12,25 +12,20 @@ For example, given [1, 3, 2, 8, 4, 10] and fee = 2, you should return 9, since y
 
 """
 
-def max_stock_profit_helper(prices,fee,records=[],index=0,buy_price=0,profit=0):
-    if index==len(prices):
+def max_stock_profit_helper(prices,fee,profit=0,buyable=True,records=[]):
+    if not prices:
         print("records: ", records, "profit: ", profit)
         return profit
 
-    price=prices[index]
+    price=prices[0]
+    gain=-price if buyable else price-fee
 
-    if buy_price==0:
-        # buy stock with current price or hold for next
-        profit_buy=max_stock_profit_helper(prices,fee,records+[-price],index+1,price,profit-price)
-        profit_hold=max_stock_profit_helper(prices,fee,records[:],index+1,0,profit)
-        return max(profit_buy,profit_hold)
-    else:
-        # sell stock with current price or hold for next
-        profit_sell=max_stock_profit_helper(prices,fee,records+[price],index+1,0,profit+price-fee)
-        profit_hold=max_stock_profit_helper(prices,fee,records[:],index+1,price,profit)
-        return max(profit_sell,profit_hold)
+    profit_buy_or_sell=max_stock_profit_helper(prices[1:],fee,profit+gain,not buyable,records+[price])
+    profit_hold=max_stock_profit_helper(prices[1:],fee,profit,buyable,records[:])
+
+    return max(profit_buy_or_sell,profit_hold)
 
 def max_stock_profit(prices,fee):
-    return max_stock_profit_helper(prices,fee,[],0,0,0)
+    return max_stock_profit_helper(prices,fee,0,True,[])
 
 assert max_stock_profit([1, 3, 2, 8, 4, 10],2)==9
