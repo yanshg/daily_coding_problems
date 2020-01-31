@@ -11,24 +11,33 @@ Do this in O(N) time and O(1) space.
 
 """
 
+# Article:  https://stackoverflow.com/questions/14100169/find-the-element-that-appears-once
+            https://www.quora.com/Given-an-integer-array-such-that-every-element-occurs-3-times-except-one-element-which-occurs-only-once-how-do-I-find-that-single-element-in-O-1-space-and-O-n-time-complexity
 
-# Note: the code below fails for negative numbers, but you could shift the entire array by the minimum.
-# Note 2: the implementation below makes it evident that the space complexity is O(log_2(n)) rather than O(1).
-# This is always the case, unless a specific integer type or a maximum value are specified (they are not above).
+# Idea:
+#     Bits in 'ones' are set to 1, when that particular bit occurs for the first time.
+#     Bits in 'twos' are set to 1, when that particular bit occurs for the second time.
+#     If a bit is occurring for more than 2 times, we throw it away and start couting again.
 
-import math
+# ones = ones ^ x:                 If it exists in ones, remove it, otherwise, add it.
+#
+# ones = (ones ^ x) & ~twos:       If appear once, add it to ones,
+#                                  If appear twice (exists in ones), remove it from ones,
+#                                  If appear third (not exists in ones), throw it away and do not add it in ones.
+
+# twos = (ones & x) | twos:        If exists in ones, add it to twos
+#
+# twos = (ones & x) | (twos & ~x): If appear once, remove it from twos
+#                                  If appear twice (exists in ones), add it to twos
+#                                  If appear third (not exists in ones), throw it away and remove it from twos
+#
 
 def get_non_duplicated_number(numbers):
-    bits = [0] * int(math.ceil(math.log(max(numbers), 2)))  # low endian
-
-    for number in numbers:
-        index = 0
-        while number > 0:
-            bits[index] += number & 1
-            number //= 2
-            index += 1
-
-    return sum((b % 3) * 2**i for i, b in enumerate(bits))
+    ones, twos = 0, 0
+    for x in numbers:
+        ones, twos = (ones ^ x) & ~twos, (ones & x) | (twos & ~x)
+    assert twos == 0
+    return ones
 
 
 assert get_non_duplicated_number([6, 1, 3, 3, 3, 6, 6]) == 1
