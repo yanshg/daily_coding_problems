@@ -11,15 +11,12 @@ Given start = "dog", end = "cat", and dictionary = {"dot", "tod", "dat", "dar"},
 
 """
 
-from collections import deque
-
 def words_distance(w1,w2):
     if w1==w2:
         return 0
 
     l1,l2=len(w1),len(w2)
-    if l1>l2:
-        l1,l2=l2,l1
+    l1,l2=(l1,l2) if l1<l2 else (l2,l1)
 
     distance=l2-l1
     for i in range(l1):
@@ -27,41 +24,37 @@ def words_distance(w1,w2):
     return distance
 
 # Get graph
-def get_mapping(start,words):
-    dq=deque([start])
-    mapping=dict()
-    while dq:
-        w=dq.popleft()
+def get_graph(start,words):
+    graph=dict()
+    all_words=words if start in words else [start]+list(words)
+    for w1 in all_words:
         trans=[]
-        for word in words:
-            if words_distance(w,word)==1:
-                trans.append(word)
-                if word not in dq and word not in mapping:
-                    dq.append(word)
-
-        mapping[w]=trans
-
-    return mapping
+        for w2 in words:
+            if words_distance(w1,w2)==1:
+                trans.append(w2)
+        graph[w1]=trans
+    return graph
 
 # DFS on graph
-def helper(start,end,mapping,path_so_far,all_paths):
-    if start==end and path_so_far:
-        all_paths.append(path_so_far)
-    elif start in mapping:
-        for word in mapping[start]:
-            if word not in path_so_far:
-                helper(word,end,mapping,path_so_far+[word],all_paths)
+def helper(start,end,graph,path):
+    if start==end:
+        return path
+
+    shortest_path=[]
+    for word in graph[start]:
+        if word not in path:
+           sub_path=helper(word,end,graph,path+[word])
+           if sub_path and \
+                (not shortest_path or len(sub_path)<=len(shortest_path)):
+               shortest_path=sub_path
+
+    return shortest_path
 
 def find_shortest_transform_path(start,end,words):
-    all_paths=[]
-    mapping=get_mapping(start,words)
-    print("mapping:", mapping)
-    helper(start,end,mapping,[start],all_paths)
-    if all_paths:
-        print("all_paths: ", all_paths)
-        return min(all_paths,key=len)
-    return None
+    graph=get_graph(start,words)
+    print("graph:", graph)
+    return helper(start,end,graph,[start])
 
 assert find_shortest_transform_path('dog','cat',{"dot", "dop", "dat", "cat"}) == ["dog", "dot", "dat", "cat"];
-assert find_shortest_transform_path('dog','cat',{"dot", "tod", "dat", "dar"}) == None
+assert not find_shortest_transform_path('dog','cat',{"dot", "tod", "dat", "dar"})
 
