@@ -20,22 +20,24 @@ def get_candidates(n):
         i+=1
     return candidates
 
-def helper(n,candidates,path_so_far=[],all_paths=[]):
-    if n==0 and path_so_far:
-        all_paths.append(path_so_far)
-        return
+def helper(n,candidates,path):
+    if n==0 and path:
+        return path
 
+    smallest_path=[]
     for i in candidates:
         if i*i<=n:
-            helper(n-i*i, candidates, path_so_far+[i], all_paths)
+            sub_path=helper(n-i*i, candidates, path+[i])
+            if sub_path and \
+                (not smallest_path or len(sub_path)<=len(smallest_path)):
+                smallest_path=sub_path
+    return smallest_path
 
 def get_smallest_squared_integers(n):
     candidates=get_candidates(n)
-    all_paths=list()
-    helper(n,candidates,[],all_paths)
-    print("all_paths: ", all_paths)
-    return min(list(map(len,all_paths)))
-
+    smallest_path=helper(n,candidates,[])
+    print(smallest_path)
+    return len(smallest_path)
 
 assert get_smallest_squared_integers(13)==2
 assert get_smallest_squared_integers(27)==3
