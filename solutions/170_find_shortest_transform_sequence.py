@@ -24,7 +24,7 @@ def words_distance(w1,w2):
     return distance
 
 # Get graph
-def get_graph(start,words):
+def build_graph(start,words):
     graph=dict()
     all_words=words if start in words else [start]+list(words)
     for w1 in all_words:
@@ -51,7 +51,7 @@ def helper(start,end,graph,path):
     return shortest_path
 
 def find_shortest_transform_path(start,end,words):
-    graph=get_graph(start,words)
+    graph=build_graph(start,words)
     print("graph:", graph)
     return helper(start,end,graph,[start])
 
