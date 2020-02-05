@@ -32,11 +32,10 @@ def get_transition_map(probabilities):
         if source not in trans_map:
             trans_map[source]=([],[])
 
-        trans_map[source][0].append(target)
-        prev_prob=0
-        if trans_map[source][1]:
-            prev_prob=trans_map[source][1][-1]
-        trans_map[source][1].append(prev_prob+prob)
+        next_states,probs=trans_map[source]
+        next_states.append(target)
+        prev_prob=0 if not probs else probs[-1]
+        probs.append(prev_prob+prob)
 
     return trans_map
 
@@ -44,9 +43,9 @@ def get_next_state(trans_map,source,prob):
     if source not in trans_map:
         return source
 
-    probs=trans_map[source][1]
+    next_states,probs=trans_map[source]
     index=bisect.bisect(probs,prob)
-    return trans_map[source][0][index]
+    return next_states[index]
 
 def run_markov_chain(probabilities,start,steps):
     trans_map=get_transition_map(probabilities)

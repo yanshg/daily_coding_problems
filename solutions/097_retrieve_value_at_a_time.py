@@ -31,48 +31,59 @@ It should contain the following methods:
 """
 
 import bisect
+from collections import defaultdict
 
-class TimeMap:
+class ValueTimeMap:
     def __init__(self):
-        self.map=dict()
-        pass
+        self.values=list()
+        self.times=list()
 
     def __repr__(self):
-        return str(self.map)
+        return str(list(zip(self.times,self.values)))
 
-    def set(self,key,value,time):
-        if key not in self.map:
-            self.map[key]=[[time],[value]]
-            return
-
-        times,values=self.map[key]
+    def set(self,value,time):
+        times,values=self.times,self.values
         index=bisect.bisect(times,time)
-        times.insert(index,time)
-        values.insert(index,value)
+        if index<len(times) and times[index]==time:
+            values[index]=value
+        else:
+            times.insert(index,time)
+            values.insert(index,value)
 
-    def get(self,key,time):
-        if key not in self.map:
-            return None
-
-        times,values=self.map[key]
+    def get(self,time):
+        times,values=self.times,self.values
         index=bisect.bisect(times,time)
         if not index:
             return None
-        return values[index]
+        return values[index-1]
 
-d=TimeMap()
+class KeyValueTimeMap:
+    def __init__(self):
+        self.keyvaluetime_map=defaultdict(ValueTimeMap)
+
+    def __repr__(self):
+        return str(self.keyvaluetime_map)
+
+    def set(self,key,value,time):
+        return self.keyvaluetime_map[key].set(value,time)
+
+    def get(self,key,time):
+        return self.keyvaluetime_map[key].get(time)
+
+
+d=KeyValueTimeMap()
 d.set(1, 1, 0)
 d.set(1, 2, 2)
 print(d)
 assert d.get(1, 1)==1
 assert d.get(1, 3)==2
 
-d=TimeMap()
+d=KeyValueTimeMap()
 d.set(1, 1, 5)
 assert not d.get(1, 0)
 assert d.get(1, 10)==1
 
-d=TimeMap()
+d=KeyValueTimeMap()
 d.set(1, 1, 0)
 d.set(1, 2, 0)
 assert d.get(1, 0)==2

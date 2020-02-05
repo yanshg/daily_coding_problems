@@ -35,6 +35,11 @@ def inorder_traverse_recursive(root):
 # Note: could not use deque for inorder traversal
 #       deque is for traversal level by level
 
+# Idea:
+#       1. current=root
+#       1. push all nodes from the current node to its leftmost leaf to stack
+#       2. pop node from the stack
+#       3. for each popped node, perform same actions from #1 for its right subtree
 def inorder_traverse_with_stack(root):
     if not root:
         return []
@@ -80,11 +85,15 @@ def moriss_traverse(root):
     return results
 
 """
-      1
-    /   \
-   2     3
-  /     / \
- 4     5   6
+      1                        2
+    /   \                    /   \
+   2     3           ->     4     5
+  / \   / \                        \
+ 4   5 6   7                        1
+                                     \
+                                      3
+                                    /   \
+                                   6     7
 
 """
 
@@ -94,13 +103,15 @@ n3=Node(3)
 n4=Node(4)
 n5=Node(5)
 n6=Node(6)
+n7=Node(7)
 n1.left=n2
 n1.right=n3
 n2.left=n4
-n3.left=n5
-n3.right=n6
+n2.right=n5
+n3.left=n6
+n3.right=n7
 
-assert inorder_traverse_recursive(n1)==[4,2,1,5,3,6]
-assert inorder_traverse_with_stack(n1)==[4,2,1,5,3,6]
-assert moriss_traverse(n1)==[4,2,1,5,3,6]
+assert inorder_traverse_recursive(n1)==[4,2,5,1,6,3,7]
+assert inorder_traverse_with_stack(n1)==[4,2,5,1,6,3,7]
+assert moriss_traverse(n1)==[4,2,5,1,6,3,7]
 

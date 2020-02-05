@@ -2,9 +2,18 @@ The following problems are good to review again and again:
 
 Dynamic programming
 * 025_implement_regex_match.py
-* 039_conway_cell_life_game.py
 * 181_split_to_palindrome_strs.py
 * 194_get_intersect_lines.py
+
+zip:
+** 039_conway_cell_life_game.py
+* 194_get_intersect_lines.py
+
+bisect:
+* 175_markov_chain.py
+** 097_retrieve_value_at_a_time.py
+* 132_hit_counter.py
+* 165_count_smaller_elements_on_right.py
 
 Probability
 * 178_probability_games.py
