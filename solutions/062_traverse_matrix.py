@@ -16,6 +16,8 @@ Given a 5 by 5 matrix, there are 70 ways to get to the bottom-right.
 # Base cases:   1. out of the matrix, return 0
 #               2. reach the bottom-right, return 1
 
+# 'path' argument is used to verify the path, it could be removed to save space.
+
 def helper(rows,cols,row=0,col=0,path=[]):
     if col>=cols or row>=rows:
         return 0

@@ -12,33 +12,25 @@ Given the multiset {15, 5, 20, 10, 35}, it would return false, since we can't sp
 
 def helper(nums,k,subset=[]):
     if not nums and k:
-        return []
+        return False
 
     if not k:
-        return subset
+        print("subset: ",subset)
+        return bool(subset)
 
-    with_first=helper(nums[1:],k-nums[0],subset+[nums[0]])
-    if with_first:
-        return with_first
+    # with or without first number
+    if helper(nums[1:],k-nums[0],subset+[nums[0]]) or \
+       helper(nums[1:],k,subset):
+        return True
 
-    without_first=helper(nums[1:], k, subset)
-    if without_first:
-        return without_first
-
-    return []
+    return False
 
 def can_partition_as_two_subsets(nums):
-    #print("nums: ", nums)
     s=sum(nums)
     if s%2==1:
         return False
 
-    k=s//2
-    subset=helper(nums,k)
-    #print("subset: ", subset)
-    if subset:
-        return True
-    return False
+    return helper(nums,s//2,[])
 
 assert can_partition_as_two_subsets([15, 5, 20, 10, 35, 15, 10])
 assert not can_partition_as_two_subsets([15, 5, 20, 10, 35])

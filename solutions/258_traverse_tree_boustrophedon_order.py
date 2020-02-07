@@ -37,13 +37,14 @@ def boustrophedon_order_traverse(root):
     dq=deque([(root,0)])
     while dq:
         node,level=dq.popleft()
-        if not node:
-            continue
 
         level_dict[level]+=[node.val]
 
-        dq.append((node.left,level+1))
-        dq.append((node.right,level+1))
+        if node.left:
+            dq.append((node.left,level+1))
+
+        if node.right:
+            dq.append((node.right,level+1))
 
     values=[]
     for i in range(len(level_dict)):

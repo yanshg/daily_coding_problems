@@ -28,6 +28,7 @@ Trie:
 Backtracking:
 * 038_place_board_queues.py
 * 054_sudoku.py
+* 250_cryptarithmetic_puzzle.py
 
 Bit Manipulation:
 * 040_get_non_duplicated_number.py
@@ -36,5 +37,6 @@ Bit Manipulation:
 Graph:
 * 072_get_largest_value_of_graph.py
 * 170_find_shortest_transform_sequence.py
+* 246_word_chain_circle.py
 
 
