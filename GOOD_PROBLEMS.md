@@ -37,6 +37,7 @@ Bit Manipulation:
 Graph:
 * 072_get_largest_value_of_graph.py
 * 170_find_shortest_transform_sequence.py
+* 226_alien_dictionary_order.py
 * 246_word_chain_circle.py
 
 
