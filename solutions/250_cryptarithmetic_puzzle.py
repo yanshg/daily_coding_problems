@@ -23,7 +23,15 @@ Given a three-word puzzle like the one above, create an algorithm that finds a s
 
 # Idea: use backtracking
 #
-# Need support 4+ words
+#       1. First initialize ordered dictionary for letters,
+#       2. Then get unassigned letters, and numbers for assign
+#       3. Choose one number and assign to one unassigned letter, 
+#       4. Check if valid, if valid, continue same procedure for other letters.
+#       5. if not valid, choose another number
+#
+# Notes:
+#       1. Need support 4+ words
+#       2. Prepare to use map(len,words) to get length information for all words and re-use it
 
 from collections import OrderedDict
 
@@ -87,7 +95,7 @@ def solve_cryptarithmetic_puzzle(words):
     letters=initialize_letters(words,lens)
     unassigned=list(letters.keys())
     nums=set(range(10))
-    print("words:",words, "letters:",letters, "unassigned:", unassigned)
+    #print("words:",words, "letters:",letters, "unassigned:", unassigned)
 
     return solve_puzzle(words,lens,letters,unassigned,nums)
 
