@@ -9,21 +9,23 @@ For example, [2, 0, 1, 0] returns True while [1, 1, 0, 1] returns False.
 
 """
 
-# Note:  last_index:  the idex of last item of the list.
+# Note:  end:  the idex of last item of the list.
 
-def reach_last_helper(numbers, start_index, last_index):
-    if start_index==last_index:
+def helper(nums,start,end):
+    if start==end:
         return True
-
-    hops=numbers[start_index]
-    if start_index+hops>last_index:
+    elif start>end:
         return False
 
-    return reach_last_helper(numbers,start_index+hops,last_index)
+    hops=nums[start]
+    if hops==0:
+        return False
 
-def reach_last(numbers):
-    return reach_last_helper(numbers, 0, len(numbers)-1)
+    return helper(nums,start+nums[start],end)
 
-assert reach_last([2,0,1,0])
-assert not reach_last([1,1,0,1])
-assert not reach_last([2,1])
+def reach_end(nums):
+    return helper(nums,0,len(nums)-1)
+
+assert reach_end([2,0,1,0])
+assert not reach_end([1,1,0,1])
+assert not reach_end([2,1])

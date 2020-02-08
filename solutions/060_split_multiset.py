@@ -19,11 +19,8 @@ def helper(nums,k,subset=[]):
         return bool(subset)
 
     # with or without first number
-    if helper(nums[1:],k-nums[0],subset+[nums[0]]) or \
-       helper(nums[1:],k,subset):
-        return True
-
-    return False
+    return helper(nums[1:],k-nums[0],subset+[nums[0]]) or \
+           helper(nums[1:],k,subset)
 
 def can_partition_as_two_subsets(nums):
     s=sum(nums)
