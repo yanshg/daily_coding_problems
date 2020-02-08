@@ -18,15 +18,14 @@ class Node:
         return "{}->({},{})".format(self.val,self.left,self.right)
 
 
+# Base cases: 1. 0 number
+#             2. 1 number  (could be covered by 2+ numbers case)
+#             3. 2+ numbers
 def construct_bst(nums):
     if not nums:
         return None
 
-    n=len(nums)
-    if n==1:
-        return Node(nums[0])
-
-    mid=n//2
+    mid=len(nums)//2
     return Node(nums[mid], construct_bst(nums[:mid]), construct_bst(nums[mid+1:]))
 
 def preorder(root):
