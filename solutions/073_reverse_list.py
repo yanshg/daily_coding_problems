@@ -16,15 +16,15 @@ class Node:
     def __repr__(self):
         return "{}->{}".format(self.val,self.next)
 
-def create_list(vals):
-    head,last=None,None
+def generate_list(vals):
+    head,next=None,None
     for val in reversed(vals):
-        head=Node(val,last)
-        last=head
+        head=Node(val,next)
+        next=head
     return head
 
-def get_list_values(head):
-    return [] if not head else [ head.val ] + get_list_values(head.next)
+def get_values(head):
+    return [head.val]+get_values(head.next) if head else []
 
 def _reverse_list(curr):
     if not curr:
@@ -44,5 +44,5 @@ def reverse_list(head):
     head,tail=_reverse_list(head)
     return head
 
-assert get_list_values(reverse_list(create_list([1,2,3,4,5])))==[5,4,3,2,1]
+assert get_values(reverse_list(generate_list([1,2,3,4,5])))==[5,4,3,2,1]
 

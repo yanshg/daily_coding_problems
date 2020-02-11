@@ -49,10 +49,7 @@ class Graph():
         self._initialize_edges(edges)
 
     def _initialize_nodes(self,chars):
-        self.nodes=list()
-        for char in chars:
-            node=Node(char)
-            self.nodes.append(node)
+        self.nodes=[ Node(c) for c in chars ]
 
     def _initialize_edges(self,edges):
         for edge in edges:

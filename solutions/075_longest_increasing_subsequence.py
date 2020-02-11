@@ -10,6 +10,10 @@ For example, given the array [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 
 
 """
 
+# Idea: Use recursion program
+#       1. Use list 'path' to record the increasing subsequence,
+#       2. Compare the last item in path[] with the un-checked number
+
 def get_longest_increase_seq(nums,path=[]):
     if not nums:
         return path

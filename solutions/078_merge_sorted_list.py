@@ -24,11 +24,7 @@ def generate_list(nums):
     return head
 
 def get_values(head):
-    values=[]
-    while head:
-        values+=[head.val]
-        head=head.next
-    return values
+    return [head.val]+get_values(head.next) if head else []
 
 def merge_2_lists(list1,list2):
     if not list1:
@@ -62,13 +58,11 @@ def merge_2_lists(list1,list2):
 
 def merge_lists(lists):
     if not lists:
-        return lists
+        return []
 
     n=len(lists)
     if n==1:
         return lists[0]
-    elif n==2:
-        return merge_2_lists(lists[0],lists[1])
     else:
         mid=n//2
         list1=merge_lists(lists[:mid])

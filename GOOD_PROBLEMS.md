@@ -24,6 +24,7 @@ Tree:
 Trie:
 * 011_autocomplete.py
 * 162_shortest_unique_prefix.py
+* 249_get_max_xor.py
 
 Backtracking:
 * 038_place_board_queues.py

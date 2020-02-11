@@ -26,16 +26,9 @@ def construct_bst(nums):
         return None
 
     mid=len(nums)//2
-    return Node(nums[mid], construct_bst(nums[:mid]), construct_bst(nums[mid+1:]))
+    return Node(nums[mid],construct_bst(nums[:mid]),construct_bst(nums[mid+1:]))
 
 def preorder(root):
-    results=[]
-
-    if root:
-        results+=[root.val]
-        results+=preorder(root.left)
-        results+=preorder(root.right)
-
-    return results
+    return [root.val]+preorder(root.left)+preorder(root.right) if root else []
 
 assert preorder(construct_bst(list(range(4))))==[2,1,0,3]
