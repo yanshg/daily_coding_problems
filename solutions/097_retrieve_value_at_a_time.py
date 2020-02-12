@@ -44,8 +44,8 @@ class ValueTimeMap:
     def set(self,value,time):
         times,values=self.times,self.values
         index=bisect.bisect(times,time)
-        if index<len(times) and times[index]==time:
-            values[index]=value
+        if index>0 and times[index-1]==time:
+            values[index-1]=value
         else:
             times.insert(index,time)
             values.insert(index,value)

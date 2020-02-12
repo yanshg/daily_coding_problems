@@ -40,14 +40,6 @@ def get_contiguous_positive_numbers_sum_to_target(list,target):
             i+=1
     return []
 
-assert bruteforce([1, 2, 3, 4, 5], 0) == []
-assert bruteforce([1, 2, 3, 4, 5], 1) == [1]
-assert bruteforce([1, 2, 3, 4, 5], 5) == [2, 3]
-assert bruteforce([5, 4, 3, 4, 5], 12) == [5, 4, 3]
-assert bruteforce([5, 4, 3, 4, 5], 11) == [4, 3, 4]
-assert bruteforce([1, 2, 3, 4, 5], 9) == [2, 3, 4]
-assert bruteforce([1, 2, 3, 4, 5], 3) == [1, 2]
-
 assert get_contiguous_numbers_sum_to_target([1, 2, 3, 4, 5], 0) == []
 assert get_contiguous_numbers_sum_to_target([1, 2, 3, 4, 5], 1) == [1]
 assert get_contiguous_numbers_sum_to_target([1, 2, 3, 4, 5], 5) == [2, 3]
