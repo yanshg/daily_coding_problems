@@ -31,9 +31,7 @@ class Node:
 def sum_to_k(node,target):
     vhash=dict()
 
-    dq=deque()
-    dq.append(node)
-
+    dq=deque([node])
     while(dq):
         n=dq.popleft()
 

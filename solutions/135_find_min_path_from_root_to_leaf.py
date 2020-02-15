@@ -37,13 +37,8 @@ def get_min_sum_path_helper(node,sum,path):
     if not node.left and not node.right:
         return (sum,path)
 
-    sum_left,sum_right=float('inf'),float('inf')
-    path_left,path_right=path,path
-    if node.left:
-        sum_left,path_left=get_min_sum_path_helper(node.left,sum,path[:])
-
-    if node.right:
-        sum_right,path_right=get_min_sum_path_helper(node.right,sum,path[:])
+    sum_left,path_left=get_min_sum_path_helper(node.left,sum,path[:])
+    sum_right,path_right=get_min_sum_path_helper(node.right,sum,path[:])
 
     return (sum_left,path_left) if sum_left<sum_right else (sum_right,path_right)
 

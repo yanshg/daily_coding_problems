@@ -13,13 +13,12 @@ import random
 
 def flip_coins(n):
     rounds=0
-    coins=n
     while True:
         rounds+=1
-        for i in range(coins):
+        for i in range(n):
             if (random.random()<0.5):
-                coins-=1
-        if coins<=1:
+                n-=1
+        if n<=1:
             break
     return rounds
 
