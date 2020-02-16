@@ -12,13 +12,18 @@ For example, given S = [12, 1, 61, 5, 9, 2] and k = 24, return [12, 9, 2, 1] sin
 
 """
 
-def get_subset_sum_to_k(nums,k,subset=[]):
-    if not nums:
+def helper(nums,n,k,subset=[]):
+    if n==0:
         return subset if k==0 else None
 
     # with or without first number
-    return get_subset_sum_to_k(nums[1:],k-nums[0],subset+[nums[0]]) or \
-            get_subset_sum_to_k(nums[1:],k,subset)
+    first=nums[-n]
+    return helper(nums,n-1,k-first,subset+[first]) or \
+            helper(nums,n-1,k,subset)
+
+def get_subset_sum_to_k(nums,k):
+    n=len(nums)
+    return helper(nums,n,k,[])
 
 assert get_subset_sum_to_k([12, 1, 61, 5, 9, 2], 24)==[12, 1, 9, 2]
 assert get_subset_sum_to_k([12, 1, 61, 5, 9, 2], 100)==None

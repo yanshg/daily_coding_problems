@@ -5,6 +5,13 @@ Dynamic programming
 * 181_split_to_palindrome_strs.py
 * 194_get_intersect_lines.py
 
+split array with sum
+* 042_get_subset_sum_to_k.py
+* 060_split_multiset.py
+* 186_smallest_sum_diff_two_subsets.py
+* 243_split_array.py
+
+ 
 zip:
 ** 039_conway_cell_life_game.py
 * 194_get_intersect_lines.py
