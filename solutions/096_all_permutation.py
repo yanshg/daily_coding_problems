@@ -12,13 +12,7 @@ def get_permutations(nums):
     if len(nums)<2:
         return [nums]
 
-    permutations=[]
-    for i,num in enumerate(nums):
-        child_perms=get_permutations(nums[:i] + nums[i+1:])
-        for perm in child_perms:
-            permutations.append([num] + perm)
-
-    return permutations
+    return [ [num]+perm for i,num in enumerate(nums) for perm in get_permutations(nums[:i]+nums[i+1:]) ]
 
 assert get_permutations([])==[[]]
 assert get_permutations([1])==[[1]]

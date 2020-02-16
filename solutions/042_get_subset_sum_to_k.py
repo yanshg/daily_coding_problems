@@ -16,11 +16,9 @@ def get_subset_sum_to_k(nums,k,subset=[]):
     if not nums:
         return subset if k==0 else None
 
-    withfirst=get_subset_sum_to_k(nums[1:],k-nums[0],subset+[nums[0]])
-    if withfirst:
-        return withfirst
-    else:
-        return get_subset_sum_to_k(nums[1:],k,subset)
+    # with or without first number
+    return get_subset_sum_to_k(nums[1:],k-nums[0],subset+[nums[0]]) or \
+            get_subset_sum_to_k(nums[1:],k,subset)
 
 assert get_subset_sum_to_k([12, 1, 61, 5, 9, 2], 24)==[12, 1, 9, 2]
 assert get_subset_sum_to_k([12, 1, 61, 5, 9, 2], 100)==None
