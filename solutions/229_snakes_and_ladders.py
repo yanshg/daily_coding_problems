@@ -27,6 +27,12 @@ ladders = {1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100}
 #
 #        Since all edges are of equal weight, we can efficiently find shortest path using Breadth First Search of the graph. 
 
+
+#    Turn 0,         Turn 1,                   Turn 2,               ...        Turn N
+#    1          next steps {1..6}          next steps {1..6}                   Reach 100
+#    2
+#    ...
+
 from collections import deque
 
 LENGTH=100
