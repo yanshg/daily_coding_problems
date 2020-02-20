@@ -37,14 +37,15 @@ def value(c):
 
 def convert_roman_to_decimal(s):
     result=0
-    for i in range(len(s)):
-        v=value(s[i])
+    for i,c in enumerate(s):
+        v=value(c)
         if not v:
             raise ValueError("Not valid Roman string")
         result+=v
 
-        if i>0 and v>value(s[i-1]):
-            result-=2*value(s[i-1])
+        prev=value(s[i-1]) if i>0 else 0
+        if prev>0 and v>prev:
+            result-=2*prev
 
     return result
 
