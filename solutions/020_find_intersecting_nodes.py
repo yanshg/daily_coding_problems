@@ -31,7 +31,7 @@ def get_intersect_node(list1,list2):
 
     # handle cases that one of list is None
     p1,p2=(list1,list2) if list1 and list2 else (None,None)
-    connected1,connected=False,False
+    connected1,connected2=False,False
 
     while p1 and p2 and p1!=p2:
         p1=p1.next

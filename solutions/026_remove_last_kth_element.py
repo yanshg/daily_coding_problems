@@ -94,22 +94,22 @@ class List():
             self.tail=prev
 
     def get_last_nth(self,n):
-        runner=self.head
+        fast=self.head
         i=0
-        while runner and i<n:
-            runner=runner.next
+        while fast and i<n:
+            fast=fast.next
             i+=1
 
         # if n>len(list)
         if i<n:
             return None
 
-        cur=self.head
-        while runner:
-            cur=cur.next
-            runner=runner.next
+        slow=self.head
+        while fast:
+            slow=slow.next
+            fast=fast.next
 
-        return cur.val
+        return slow.val
 
 arr=[1,2,3,4,5,6,7,8,9,10]
 li=List()
