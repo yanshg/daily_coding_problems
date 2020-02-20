@@ -29,7 +29,7 @@ def product_all_other_nums(nums):
         pre.append(pre[-1] * nums[i])
         post.append(post[-1] * nums[-1-i])
 
-    return [ pre[i] * post[n-i-1] for i in range(n) ]
+    return [ pre[i] * post[-1-i] for i in range(n) ]
 
 assert product_all_other_nums([1, 2, 3, 4, 5]) == [120, 60, 40, 30, 24]
 assert product_all_other_nums([3, 2, 1]) == [2, 3, 6]

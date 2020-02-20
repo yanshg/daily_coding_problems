@@ -52,5 +52,6 @@ Graph:
 
 
 Return functions:
-* 301_array_actions_without_resize.py
+* 005_pair_func.py
+* 301_array_actions_without_resize.py  (BloomFilter)
 

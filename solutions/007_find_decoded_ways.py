@@ -11,6 +11,11 @@ You can assume that the messages are decodable. For example, '001' is not allowe
 """
 
 
+# Idea: need use memorize.
+
+#       helper(string) = helper(string[:1])+helper(string[:2])
+#       helper(string[:1]) = helper(string[:2]) + helper(string[:3])
+
 def decode_ways(string):
     if not string:
         return 0

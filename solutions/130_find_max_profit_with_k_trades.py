@@ -10,22 +10,25 @@ For example, given k = 2 and the array [5, 2, 4, 0, 1], you should return 3.
 
 """
 
-def helper(prices,curr_index,curr_profit,remain_buys,remain_sells):
-    if (curr_index==len(prices)) or not remain_sells:
-        return curr_profit
+# O(2^n)
+def helper(prices,n,index,profit,remain_buys,remain_sells,records=[]):
+    if index==n or not remain_sells:
+        print("records:",records,"profit:",profit)
+        return profit
 
+    profit_hold=helper(prices,n,index+1,profit,remain_buys,remain_sells,records[:])
+
+    price=prices[index]
     if remain_buys<remain_sells:
-        # already buy stocks, you can hold or sell the stocks
-        profit_hold=helper(prices,curr_index+1,curr_profit,remain_buys,remain_sells)
-        profit_sell=helper(prices,curr_index+1,curr_profit+prices[curr_index],remain_buys,remain_sells-1)
+        # already buy stocks, sell the stocks
+        profit_sell=helper(prices,n,index+1,profit+price,remain_buys,remain_sells-1,records+[price])
         return max(profit_hold,profit_sell)
     elif remain_buys==remain_sells:
-        # you can wait or buy but can not sell stocks
-        profit_hold=helper(prices,curr_index+1,curr_profit,remain_buys,remain_sells)
-        profit_buy=helper(prices,curr_index+1,curr_profit-prices[curr_index],remain_buys-1,remain_sells)
+        # buy stocks
+        profit_buy=helper(prices,n,index+1,profit-price,remain_buys-1,remain_sells,records+[price])
         return max(profit_hold,profit_buy)
 
-def get_max_profit_from_k_trades(prices, k):
-    return helper(prices,0,0,k,k)
+def get_max_profit_from_k_trades(prices,k):
+    return helper(prices,len(prices),0,0,k,k,[])
 
-assert get_max_profit_from_k_trades([5,2,4,0,1], 2)==3
+assert get_max_profit_from_k_trades([5,2,4,0,1],2)==3

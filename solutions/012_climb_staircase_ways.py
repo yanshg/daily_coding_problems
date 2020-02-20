@@ -19,6 +19,8 @@ What if, instead of being able to climb 1 or 2 steps at a time, you could climb 
 
 # f(n)=f(n-1) + f(n-2)
 
+# If only need get the number of ways, then need memorize
+
 def climb_staircase_ways(step_num, step_sizes={1,2},path=[],ways=[]):
     for s in step_sizes:
         if s==step_num:
