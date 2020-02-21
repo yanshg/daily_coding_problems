@@ -43,8 +43,8 @@ def convert_roman_to_decimal(s):
             raise ValueError("Not valid Roman string")
         result+=v
 
-        prev=value(s[i-1]) if i>0 else 0
-        if prev>0 and v>prev:
+        prev=0 if i==0 else value(s[i-1])
+        if prev and v>prev:
             result-=2*prev
 
     return result

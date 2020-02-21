@@ -9,9 +9,10 @@ Implement the function fib(n), which returns the nth number in the Fibonacci seq
 """
 
 def fib(n):
+    if n==0 or n==1:
+        return n
+
     a,b=0,1
-    if n==0:
-        return 0
     for i in range(1,n):
         a,b=b,a+b
     return b
@@ -23,5 +24,6 @@ assert fib(3)==2
 assert fib(4)==3
 assert fib(5)==5
 assert fib(6)==8
+assert fib(7)==13
 
 
