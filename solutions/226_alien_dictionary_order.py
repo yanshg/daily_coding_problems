@@ -10,7 +10,7 @@ For example, given ['xww', 'wxyz', 'wxyw', 'ywx', 'ywz'], you should return ['x'
 
 """
 
-# Idea:  build a directed graph, then DFS to get the longest path
+# Idea:  build a directed graph, then BFS to get the longest path
 
 from collections import defaultdict
 
@@ -28,7 +28,7 @@ def alien_order(words):
     chars = set(''.join(words))
 
     chars_to_process = chars - set(pre)
-    order = [] 
+    order = []
     while chars_to_process:
         ch = chars_to_process.pop()
         order += [ch]
