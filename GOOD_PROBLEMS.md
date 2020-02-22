@@ -55,3 +55,5 @@ Return functions:
 * 005_pair_func.py
 * 301_array_actions_without_resize.py  (BloomFilter)
 
+Longest increasing subsequence
+* 364_longest_increasing_subsequence.py
