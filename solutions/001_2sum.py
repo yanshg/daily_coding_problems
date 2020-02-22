@@ -11,11 +11,11 @@ Bonus: Can you do this in one pass?
 """
 
 def sum_two(nums,k):
-    hash=dict()
-    for i in nums:
-        if k-i in hash:
+    hashset=set()
+    for num in nums:
+        if k-num in hashset:
             return True
-        hash[i]=1
+        hashset.add(num)
     return False
 
 assert sum_two([10, 15, 3, 7], 17)
