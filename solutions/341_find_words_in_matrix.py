@@ -71,6 +71,8 @@ class Boggle:
         if '#' in trie:
            # find a new word
            all_words.add(current_word)
+           if len(trie)==1:
+               return
         
         moves=[(0,1),(0,-1),(-1,0),(1,0)]
         for (dx,dy) in moves:
