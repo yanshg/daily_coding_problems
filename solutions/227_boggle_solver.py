@@ -8,6 +8,9 @@ Boggle is a game played on a 4 x 4 grid of letters. The goal is to find as many 
 
 """
 
+# use DFS with Trie
+
+# O(N^3)
 class Trie:
     def __init__(self):
         self._trie=dict()
@@ -18,6 +21,7 @@ class Trie:
             if c not in trie:
                 trie[c]=dict()
             trie=trie[c]
+        trie['#']=''
 
 class Boggle:
     def __init__(self,grid,dictionay):
@@ -29,12 +33,6 @@ class Boggle:
 
     # DFS
     def _find_all_words(self,grid,trie,rows,cols,i,j,current_word='',all_words=set(),visited=set()):
-        if not trie:
-            if current_word:
-                # find a new word
-                all_words.add(current_word)
-            return
-
         if i<0 or i>=rows or j<0 or j>=cols:
             return
 
@@ -44,6 +42,9 @@ class Boggle:
 
         c=grid[i][j]
         if c not in trie:
+            if current_word and '#' in trie:
+                # find a new word
+                all_words.add(current_word)
             return
 
         visited.add(coord)
@@ -76,3 +77,4 @@ words = b.find_all_words()
 for w in words:
   print(w)
 
+# Results: cater cat art eat ton
