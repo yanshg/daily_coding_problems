@@ -2,9 +2,29 @@
 
 """
 
-This problem was asked by Facebook.
+This problem was asked by Google.
 
-Boggle is a game played on a 4 x 4 grid of letters. The goal is to find as many words as possible that can be formed by a sequence of adjacent letters in the grid, using each cell at most once. Given a game board and a dictionary of valid words, implement a Boggle solver.
+You are given an N by N matrix of random letters and a dictionary of words. Find the maximum number of words that can be packed on the board from the given dictionary.
+
+A word is considered to be able to be packed on the board if:
+
+    It can be found in the dictionary
+    It can be constructed from untaken letters by other words found so far on the board
+    The letters are adjacent to each other (vertically and horizontally, not diagonally).
+
+Each tile can be visited only once by any word.
+
+For example, given the following dictionary:
+
+{ 'eat', 'rain', 'in', 'rat' }
+
+and matrix:
+
+[['e', 'a', 'n'],
+ ['t', 't', 'i'],
+ ['a', 'r', 'a']]
+
+Your function should return 3, since we can make the words 'eat', 'in', and 'rat' without them touching each other. We could have alternatively made 'eat' and 'rain', but that would be incorrect since that's only 2 words.
 
 """
 
@@ -52,26 +72,27 @@ class Boggle:
            # find a new word
            all_words.add(current_word)
         
-        moves=[(0,1),(0,-1),(-1,-1),(-1,0),(-1,1),(1,-1),(1,0),(1,1)]
+        moves=[(0,1),(0,-1),(-1,0),(1,0)]
         for (dx,dy) in moves:
-            self._find_all_words(grid,trie,rows,cols,i+dx,j+dy,current_word,all_words,visited.copy())
+            self._find_all_words(grid,trie,rows,cols,i+dx,j+dy,current_word,all_words,visited)
 
     def find_all_words(self):
         all_words=set()
+        visited=set()
         grid=self.grid
         trie=self.trie._trie
         rows,cols=len(grid),len(grid[0])
         for i in range(rows):
             for j in range(cols):
-                self._find_all_words(grid,trie,rows,cols,i,j,'',all_words,set())
+                self._find_all_words(grid,trie,rows,cols,i,j,'',all_words,visited)
 
         return all_words
 
-grid = [['c', 'a', 't'],
-        ['r', 'r', 'e'],
-        ['t', 'o', 'n']]
+grid = [['e', 'a', 'n'],
+        ['t', 't', 'i'],
+        ['a', 'r', 'a']]
 
-dictionary = set(["cat", "cater", "cartoon", "art", "toon", "moon", "eat", "ton"])
+dictionary = { 'eat', 'rain', 'in', 'rat' }
 
 b = Boggle(grid, dictionary)
 words = b.find_all_words()
@@ -79,4 +100,3 @@ words = b.find_all_words()
 for w in words:
   print(w)
 
-# Results: cater cat art eat ton

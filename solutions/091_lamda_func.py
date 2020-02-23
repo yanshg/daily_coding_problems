@@ -13,10 +13,6 @@ for i in range(10):
 for f in functions:
     print(f())
 
-Upgrade to premium and get in-depth solutions to every problem, including this one. Since you were referred by one of our affiliates, you'll get a 10% discount on checkout!
-
-If you liked this problem, feel free to forward it along so they can subscribe here! As always, shoot us an email if there's anything we can help with!
-
 """
 
 # This is a issue about Python closures and later binding.
