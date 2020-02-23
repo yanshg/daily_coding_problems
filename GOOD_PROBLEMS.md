@@ -42,6 +42,7 @@ Bit Manipulation:
 * 040_get_non_duplicated_number.py
 * 214_longest_one_in_binary.py
 * 277_validate_utf8.py
+* 338_next_bigger_number.py
 
 Graph:
 * 072_get_largest_value_of_graph.py
