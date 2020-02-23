@@ -13,6 +13,12 @@ You can assume that all values get cleared at the end of the day, and that you w
 
 """
 
+# Fenwick tree
+
+# Basic idea:  index & -index:  only keep the rightmost set bit.
+#              -index:   two's complement,  reverse all bits and add 1. 
+#              For example,   6 = b'110',  -6=b'001'+1=b'010',  6 & -6 = b'010'
+
 # O(log n)
 
 class BIT:
