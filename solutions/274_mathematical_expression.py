@@ -53,7 +53,9 @@ def evaluate(string):
     values,ops=[],[]
 
     # check if invalide characters
-    valid_chars=r" 1234567890+-*/()"
+    string=string.strip(' ')
+
+    valid_chars=r"1234567890+-*/()"
     if set(string)-set(valid_chars):
         raise ValueError("Invalid characters in expression")
 
@@ -61,14 +63,6 @@ def evaluate(string):
     i,n=0,len(string)
     value_expected=True
     while i<n:
-
-        # skip spaces
-        while i<n and string[i]==' ':
-            i+=1
-
-        if i==n:
-            break
-
         #print("values:", values, "ops: ",ops)
         if string[i]=='(':
             ops.append('(')
