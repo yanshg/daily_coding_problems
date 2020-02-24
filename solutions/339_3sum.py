@@ -8,9 +8,9 @@ Given an array of numbers and a number k, determine if there are three entries i
 
 """
 
-def sum2(nums,i,k):
+def sum2(nums,n,k):
     hashset=set()
-    for i in range(i):
+    for i in range(n):
         num=nums[i]
         if k-num in hashset:
             return True
@@ -18,8 +18,8 @@ def sum2(nums,i,k):
     return False
 
 def sum3(nums,k):
-    for i in range(len(nums)):
-        if i>=2 and sum2(nums,i,k-nums[i]):
+    for i in range(2,len(nums)):
+        if sum2(nums,i,k-nums[i]):
             return True
     return False
 
