@@ -28,7 +28,7 @@ def is_match(regex,string):
         return not string
 
     if not string:
-        return True if regex=='*'*len(regex) else False
+        return bool(regex=='*'*len(regex))
 
     if regex[0] == '*':
         # regex[0] consumes no characters or
