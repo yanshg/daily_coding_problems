@@ -3,48 +3,37 @@
 """
 This problem was asked by Facebook.
 
-Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, count the number of ways it can be decoded.
+Given the mapping a = 1, b = 2, ... z = 26, and an encoded message, count the number of ways it can be encoded.
 
-For example, the message '111' would give 3, since it could be decoded as 'aaa', 'ka', and 'ak'.
+For example, the message '111' would give 3, since it could be encoded as 'aaa', 'ka', and 'ak'.
 
 You can assume that the messages are decodable. For example, '001' is not allowed.
 """
 
 
-# Idea: need use memorize.
+# Idea: need memorize.
+#
 
-#       helper(string) = helper(string[:1])+helper(string[:2])
-#       helper(string[:1]) = helper(string[:2]) + helper(string[:3])
-
-def decode_ways(string):
-    if not string:
-        return 0
-
-    mapping=dict()
-    for i in range(1,26):
-        mapping[str(i)]=chr(ord('a')+i-1)
-
-    for char in string:
-        if char not in mapping:
-            return 0
-
-    return helper(string,mapping)
-
-def helper(string,mapping):
-    if not string or len(string)==1:
+def encode_ways_dp(s):
+    if not s:
         return 1
 
-    ways=helper(string[1:],mapping);
-    if (string[0:2] in mapping):
-        ways+=helper(string[2:],mapping)
+    if s.startswith('0'):
+        return 0
 
-    return ways
+    if len(s)==1:
+        return 1
+    
+    total=encode_ways_dp(s[1:])
+    if int(s[:2])<26:
+        total+=encode_ways_dp(s[2:])
 
-assert decode_ways('81') == 1
-assert decode_ways('11') == 2
-assert decode_ways('111') == 3
-assert decode_ways('1111') == 5
-assert decode_ways('1311') == 4
-assert decode_ways('001')==0
-assert decode_ways('') == 0
+    return total
+
+assert encode_ways('81') == 1
+assert encode_ways('11') == 2
+assert encode_ways('111') == 3
+assert encode_ways('1111') == 5
+assert encode_ways('1311') == 4
+assert encode_ways('001')==0
 
