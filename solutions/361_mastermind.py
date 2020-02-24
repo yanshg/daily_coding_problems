@@ -19,11 +19,7 @@ However, it is impossible for any key to result in the following scores, so in t
 """
 
 def is_code_guess_match(code,guess,count):
-    matched=0
-    for pair in zip(list(str(code)),list(str(guess))):
-        if pair[0]==pair[1]:
-            matched+=1
-    return matched==count
+    return sum([bool(pair[0]==pair[1]) for pair in zip(list(str(code)),list(str(guess)))])==count
 
 def is_valid_guesses(guesses):
     for code in range(100000,1000000):

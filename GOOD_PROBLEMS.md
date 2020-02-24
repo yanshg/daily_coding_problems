@@ -22,6 +22,10 @@ bisect:
 * 132_hit_counter.py
 * 165_count_smaller_elements_on_right.py
 
+Heap:
+* 033_get_running_medians.py
+* 287_top_similarity_websites.py
+
 Probability
 * 178_probability_games.py
 

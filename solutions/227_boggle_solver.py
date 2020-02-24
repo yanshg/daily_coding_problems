@@ -45,8 +45,8 @@ class Boggle:
             return
 
         visited.add(coord)
-
         current_word+=c
+
         trie=trie[c]
         if '#' in trie:
            # find a new word
