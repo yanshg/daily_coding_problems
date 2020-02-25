@@ -65,3 +65,6 @@ Return functions:
 
 Longest increasing subsequence
 * 364_longest_increasing_subsequence.py
+
+Intervals (use stack)
+* 077_merge_intervals.py
