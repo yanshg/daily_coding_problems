@@ -11,6 +11,7 @@ Describe and give an example of each of the following types of polymorphism:
 
 """
 
+"""
 * Ad-hoc polymorphism
      * Allow multiple functions that perform an operation on different
      * `add(int, int)` and `add(str, str)` would be separately implemented
@@ -23,3 +24,4 @@ Describe and give an example of each of the following types of polymorphism:
      * This allows subclass instances to be treated by a function they same way as it would superclass instances
      * e.g. Instances of `Cat` will be operated on a function the same way as instances of it's superclass `Animal`.
 
+"""

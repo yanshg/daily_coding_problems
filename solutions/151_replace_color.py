@@ -19,6 +19,8 @@ B B B
 
 """
 
+# Use DFS or BFS. both are fine.
+
 def helper(matrix,rows,cols,x,y,old_color,new_color,visited=set()):
     if x<0 or x>=rows or y<0 or y>=cols:
         return

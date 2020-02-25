@@ -55,6 +55,9 @@ Graph:
 * 229_snakes_and_ladders.py
 * 246_word_chain_circle.py
 
+BFS:
+** 023_minimum_steps_in_matrix.py
+** 100_minimum_moves_in_grid.py
 
 Return functions:
 * 005_pair_func.py

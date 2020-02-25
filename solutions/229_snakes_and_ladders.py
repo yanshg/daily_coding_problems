@@ -17,15 +17,15 @@ ladders = {1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100}
 """
 
 
-# Idea:  Use Graph BFS algorithm 
-# 
+# Idea:  Use Graph BFS algorithm
+#
 #        Consider the given snake and ladder board as a directed graph with number of vertices equal to the number of cells in the board.
 #        The problem reduces to finding the shortest path in a graph.
 #        Every vertex of the graph has an edge to next six vertices if next 6 vertices do not have a snake or ladder.
 #        If any of the next six vertices has a snake or ladder, then the edge from current vertex goes to the top of the ladder
 #        or tail of the snake.
 #
-#        Since all edges are of equal weight, we can efficiently find shortest path using Breadth First Search of the graph. 
+#        Since all edges are of equal weight, we can efficiently find shortest path using Breadth First Search of the graph.
 
 
 #    Turn 0,         Turn 1,                   Turn 2,               ...        Turn N
@@ -58,19 +58,21 @@ def minimum_turns(snakes,ladders):
     turns=0
     visited=set()
 
-    dq=deque([(start,turns)])
+    dq=deque([(start,turns,[start])])
     while dq:
-        start,turns=dq.popleft()
+        start,turns,path=dq.popleft()
+        #print("point:",start,"turn:",turns,"path:",path)
+
         turns+=1
+        visited.add(start)
 
         for steps in range(1,7):
             next=start+steps
             if next>=end:
+                print("path: ",path+[next])
                 return turns
             elif next not in visited:
-                visited.add(next)
-                visited.add(board[next])
-                dq.append((board[next],turns))
+                dq.append((board[next],turns,path+[board[next]]))
 
     return turns
 

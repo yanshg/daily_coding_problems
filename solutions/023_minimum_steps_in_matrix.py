@@ -18,6 +18,8 @@ and start = (3, 0) (bottom left) and end = (0, 0) (top left), the minimum number
 
 """
 
+# Should use BFS
+
 # Idea:  get the pathes for 4 different directions, compare and get the path with minimum number of steps
 #
 #                 ^                         Base cases: 1. if out of the matrix, return []
@@ -28,6 +30,7 @@ and start = (3, 0) (bottom left) and end = (0, 0) (top left), the minimum number
 #                                           Notes:  record the intermediate data for path, visited.
 #                                                   return the final path with minimum steps
 
+# DFS
 def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
     (sx,sy)=start_point
     if sx<0 or sx>=rows or sy<0 or sy>=columns:
@@ -54,16 +57,52 @@ def helper(matrix,rows,columns,start_point,end_point,path=[],visited=set()):
     pathes=[ p for p in pathes if p ]
     return min(pathes,key=len) if pathes else []
 
-def get_min_steps(matrix,start_point,end_point):
+def get_min_steps_dfs(matrix,start_point,end_point):
     path=helper(matrix,len(matrix),len(matrix[0]),start_point,end_point,[],set())
     return len(path)-1 if path else 0
+
+
+# BFS
+from collections import deque
+def get_min_steps_bfs(matrix,start_point,end_point):
+    rows,cols=len(matrix),len(matrix[0])
+    visited=set()
+
+    dq=deque([(start_point,[start_point])])
+    while dq:
+        point,path=dq.popleft()
+        if point==end_point:
+            print(path)
+            return len(path)-1
+
+        x,y=point
+        coord="{}-{}".format(x,y)
+        visited.add(coord)
+
+        moves=[(1,0),(-1,0),(0,-1),(0,1)]
+        for dx,dy in moves:
+            nx,ny=x+dx,y+dy
+            coord="{}-{}".format(nx,ny)
+            if nx<0 or nx>=rows or ny<0 or ny>=cols or \
+                matrix[nx][ny]=='t' or coord in visited:
+                continue
+
+            point=(nx,ny)
+            dq.append((point,path+[point]))
+
+    return 0
 
 matrix= [['f', 'f', 'f', 'f'],
          ['t', 't', 'f', 't'],
          ['f', 'f', 'f', 'f'],
          ['f', 'f', 'f', 'f']]
 
-assert get_min_steps(matrix,(3,0),(0,0))==7
-assert get_min_steps(matrix,(0,0),(0,0))==0
-assert get_min_steps(matrix,(0,1),(0,0))==1
-assert get_min_steps(matrix,(3,0),(0,3))==6
+assert get_min_steps_dfs(matrix,(3,0),(0,0))==7
+assert get_min_steps_dfs(matrix,(0,0),(0,0))==0
+assert get_min_steps_dfs(matrix,(0,1),(0,0))==1
+assert get_min_steps_dfs(matrix,(3,0),(0,3))==6
+
+assert get_min_steps_bfs(matrix,(3,0),(0,0))==7
+assert get_min_steps_bfs(matrix,(0,0),(0,0))==0
+assert get_min_steps_bfs(matrix,(0,1),(0,0))==1
+assert get_min_steps_bfs(matrix,(3,0),(0,3))==6

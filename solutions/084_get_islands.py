@@ -17,7 +17,8 @@ For example, this matrix has 4 islands.
 
 """
 
-# Idea: Use dynamic programming
+# Idea: Use DFS
+#
 #       Base cases:  1. if out of the matrix, return 0
 #                    2. if visited, return 0
 #                    3. if 0, return 0

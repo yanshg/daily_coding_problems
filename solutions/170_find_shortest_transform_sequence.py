@@ -11,6 +11,8 @@ Given start = "dog", end = "cat", and dictionary = {"dot", "tod", "dat", "dar"},
 
 """
 
+# Should use BFS
+
 def words_distance(w1,w2):
     if w1==w2:
         return 0

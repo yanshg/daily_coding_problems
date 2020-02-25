@@ -10,23 +10,23 @@ Given an integer n, find the next biggest integer with the same number of 1-bits
 
 # Article:  https://www.geeksforgeeks.org/next-higher-number-with-same-number-of-set-bits/
 
-def get_next_bigger_number(x): 
+def get_next_bigger_number(x):
     next = 0
-    if(x): 
-        # right most set bit 
-        right_one = x & -(x) 
-          
-        next_higher_one_bit = x + right_one 
-          
-        right_ones_pattern = x ^ next_higher_one_bit 
-          
-        # right adjust pattern 
-        right_ones_pattern = right_ones_pattern / right_one
-          
-        # correction factor 
+    if(x):
+        # right most set bit
+        right_one = x & -(x)
+
+        next_higher_one_bit = x + right_one
+
+        right_ones_pattern = x ^ next_higher_one_bit
+
+        # right adjust pattern
+        right_ones_pattern = int(right_ones_pattern / right_one)
+
+        # correction factor
         right_ones_pattern = right_ones_pattern >> 2
-          
-        next = next_higher_one_bit | right_ones_pattern 
+
+        next = next_higher_one_bit | right_ones_pattern
 
     return next
 
