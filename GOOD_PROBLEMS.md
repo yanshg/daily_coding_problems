@@ -67,4 +67,6 @@ Longest increasing subsequence
 * 364_longest_increasing_subsequence.py
 
 Intervals (use stack)
+* 021_minimum_rooms.py
 * 077_merge_intervals.py
+* 119_get_smallest_cover_intervals.py
