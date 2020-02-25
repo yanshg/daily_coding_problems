@@ -13,9 +13,17 @@ For example, given [(1, 3), (5, 8), (4, 10), (20, 25)], you should return [(1, 3
 """
 
 def merge_intervals(intervals):
+    # Sort intervals with start time
     intervals.sort(key=lambda x:x[0])
-    starts,ends=list(zip(*intervals))
-    print("starts: ", starts, "ends: ", ends)
-    pass
+
+    results=[intervals[0]]
+    for i in range(1,len(intervals)):
+        last_start,last_end=results[-1]
+        start,end=intervals[i]
+        if last_end<=start or last_end<end:
+            # Not overlap or some overlap
+            results.append(intervals[i])
+
+    return results
 
 assert merge_intervals([(1, 3), (5, 8), (4, 10), (20, 25)])==[(1, 3), (4, 10), (20, 25)]
