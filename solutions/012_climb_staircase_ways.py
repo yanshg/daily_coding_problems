@@ -19,17 +19,26 @@ What if, instead of being able to climb 1 or 2 steps at a time, you could climb 
 
 # f(n)=f(n-1) + f(n-2)
 
-# If only need get the number of ways, then need memorize
+def staircase_ways_dp(n,steps=[1,2]):
+    if n<0:
+        return 0
 
-def climb_staircase_ways(step_num, step_sizes={1,2},path=[],ways=[]):
-    for s in step_sizes:
-        if s==step_num:
-            ways.append(path+[s])
-        elif s<step_num:
-            climb_staircase_ways(step_num-s, step_sizes, path+[s], ways)
-    return ways
+    if n==0:
+        return 1
 
-def get_climb_staircase_ways_number(step_num, step_sizes={1,2}):
-    return len(climb_staircase_ways(step_num, step_sizes, [], []))
+    return sum([staircase_ways_dp(n-step) for step in steps])
 
-assert climb_staircase_ways(4)==[[1, 1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1], [2, 2]]
+
+# Memorize
+
+def staircase_ways(n,steps=[1,2]):
+    cache=[0]*(n+1)
+    cache[0]=1
+
+    for i in range(1,n+1):
+        cache[i]=sum([cache[i-step] for step in steps if i-step>=0 ])
+    
+    return cache[n]
+
+assert staircase_ways_dp(4)==5
+assert staircase_ways(4)==5
