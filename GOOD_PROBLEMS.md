@@ -51,13 +51,16 @@ Bit Manipulation:
 Graph:
 * 072_get_largest_value_of_graph.py
 * 170_find_shortest_transform_sequence.py
-* 226_alien_dictionary_order.py
-* 229_snakes_and_ladders.py
 * 246_word_chain_circle.py
+
+Topological sort
+* 092_get_courses_order.py
+* 226_alien_dictionary_order.py
 
 BFS:
 ** 023_minimum_steps_in_matrix.py
 ** 100_minimum_moves_in_grid.py
+** 229_snakes_and_ladders.py
 
 Return functions:
 * 005_pair_func.py
@@ -66,7 +69,8 @@ Return functions:
 Longest increasing subsequence
 * 364_longest_increasing_subsequence.py
 
-Intervals (use stack)
+Intervals
 * 021_minimum_rooms.py
-* 077_merge_intervals.py
+* 077_merge_intervals.py (use stack)
 * 119_get_smallest_cover_intervals.py
+** 191_remove_overlap_intervals.py 
