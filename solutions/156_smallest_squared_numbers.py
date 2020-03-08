@@ -13,24 +13,27 @@ Given n = 27, return 3 since 27 = 3**2 + 3**2 + 3**2 = 9 + 9 + 9.
 """
 
 def get_candidates(n):
-    candidates=[]
+    candidates=[1]
     i=2
-    while i<n//2 and i*i<=n:
+    while i<=n//2 and i*i<=n:
         candidates+=[i]
         i+=1
     return candidates
 
 def helper(n,candidates,path):
-    if n==0 and path:
+    if n==0:
         return path
+
+    if n<0:
+        return []
 
     smallest_path=[]
     for i in candidates:
-        if i*i<=n:
-            sub_path=helper(n-i*i, candidates, path+[i])
-            if sub_path and \
-                (not smallest_path or len(sub_path)<=len(smallest_path)):
-                smallest_path=sub_path
+        sub_path=helper(n-i*i, candidates, path+[i])
+        if sub_path and \
+            (not smallest_path or len(sub_path)<=len(smallest_path)):
+            smallest_path=sub_path
+
     return smallest_path
 
 def get_smallest_squared_integers(n):
