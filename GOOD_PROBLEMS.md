@@ -53,14 +53,17 @@ Graph:
 * 170_find_shortest_transform_sequence.py
 * 246_word_chain_circle.py
 
-Topological sort
-* 092_get_courses_order.py
-* 226_alien_dictionary_order.py
+DFS:
+* 218_reverse_directed_graph.py
 
 BFS:
 ** 023_minimum_steps_in_matrix.py
 ** 100_minimum_moves_in_grid.py
 ** 229_snakes_and_ladders.py
+
+Topological sort
+* 092_get_courses_order.py
+* 226_alien_dictionary_order.py
 
 Return functions:
 * 005_pair_func.py
