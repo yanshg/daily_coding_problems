@@ -41,6 +41,7 @@ Backtracking:
 * 038_place_board_queues.py
 * 054_sudoku.py
 * 250_cryptarithmetic_puzzle.py
+* 260_reconstruct_jumbled_array.py
 
 Bit Manipulation:
 * 040_get_non_duplicated_number.py
@@ -77,3 +78,7 @@ Intervals
 * 077_merge_intervals.py (use stack)
 * 119_get_smallest_cover_intervals.py
 ** 191_remove_overlap_intervals.py 
+
+Decreasing or Peak element in array
+* 079_modify_non_decreasing_array.py
+* 311_peak_element.py
