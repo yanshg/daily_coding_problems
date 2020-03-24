@@ -11,6 +11,10 @@ split array with sum
 * 186_smallest_sum_diff_two_subsets.py
 * 243_split_array.py
 
+Distinct elements in array
+* 013_longest_substring_contain_k_distinct_chars.py
+* 189_longest_subarray_with_distinct_elements.py 
+* 320_smallest_window_with_distinct_chars.py
  
 zip:
 ** 039_conway_cell_life_game.py
@@ -24,6 +28,7 @@ bisect:
 
 Heap:
 * 033_get_running_medians.py
+* 231_no_same_adjacent_char.py
 * 287_top_similarity_websites.py
 
 Probability
@@ -57,7 +62,7 @@ Graph:
 DFS:
 * 218_reverse_directed_graph.py
 
-BFS:
+BFS and BBFS(Bidirection BFS):
 ** 023_minimum_steps_in_matrix.py
 ** 100_minimum_moves_in_grid.py
 ** 229_snakes_and_ladders.py
