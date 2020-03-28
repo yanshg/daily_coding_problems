@@ -31,13 +31,10 @@ def largest_divisible_subset(arr):
 
     max_index=0
     for i in range(1,n):
-        max=0
         for j in range(i):
-            if arr[i]%arr[j]==0:
-                if counts[j]+1>max:
-                    counts[i]=counts[j]+1
-                    prev[i]=j
-                    max=counts[i]
+            if arr[i]%arr[j]==0 and counts[j]+1>counts[i]:
+                counts[i]=counts[j]+1
+                prev[i]=j
         if counts[i]>counts[max_index]:
             max_index=i
 
