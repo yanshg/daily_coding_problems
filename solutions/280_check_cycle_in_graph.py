@@ -9,44 +9,34 @@ Given an undirected graph, determine if it contains a cycle.
 """
 
 # Idea:  use DFS
+#
+#        need check if one vertex has itself as its neighbor, so use 'parent' to identify
 
-class Node:
-    def __init__(self,val):
-        self.val=val
-        self.adj_nodes=[]
-        
-class Graph:
-    def __init__(self, vertex, edges):
-        self.vertex=vertex
-        self.edges=edges
+def search_dfs(graph,vertex,visited,parent):
+    visited.add(vertex)
 
-    def is_cycle_exists(self):
-        return False
-
-
-def dfs_helper(graph,start,visited=set()):
-    if start in visisted:
-        return True
-
-    visited.add(start)
-
-    for next in graph[start]:
-        if dfs_helper(graph,next,visited)
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            if search_dfs(graph,neighbor,visited,vertex):
+                return True
+        elif neighbor!=parent:
             return True
 
     return False
 
-def is_cycle_exist(gragh):
-    for start in graph:
-        if dfs_helper(graph,start,set()):
-            return True
+def is_cycle_exist(graph):
+    visited=set()
+    for vertex in graph:
+        if vertex not in visited:
+            if search_dfs(graph,vertex,visited,None):
+                return True
     return False
 
 
-gragh={
+graph={
     'a': [ 'b', 'c' ],
     'b': [ 'd' ],
     'c': [ 'd' ],
     'd': [ 'a' ],
 }
-assert is_cycle_exist(gragh)
+assert is_cycle_exist(graph)
