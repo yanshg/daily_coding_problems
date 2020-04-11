@@ -12,7 +12,9 @@ split array with sum
 * 243_split_array.py
 
 Distinct elements in array
+* 111_find_anagrams_word_in_string.py
 * 013_longest_substring_contain_k_distinct_chars.py
+* 103_shortest_substring.py
 * 189_longest_subarray_with_distinct_elements.py 
 * 320_smallest_window_with_distinct_chars.py
  
