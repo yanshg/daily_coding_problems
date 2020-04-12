@@ -21,17 +21,11 @@ Write a program to determine whether a given input is a Toeplitz matrix.
 #
 #        For each element (r, c), check r == 0 OR c == 0 OR matrix[r-1][c-1] == matrix[r][c]
 #
-
 def is_toeplitz_matrix(matrix):
-    #return all([r==0 or c==0 or matrix[r-1][c-1]==val
-    #              for r,row in enumerate(matrix)
-    #                for c,val in enumerate(row) ])
     for r in range(1,len(matrix)):
-        row=matrix[r]
-        for c in range(1,len(row)):
+        for c in range(1,len(matrix[0])):
             if matrix[r-1][c-1]!=matrix[r][c]:
                 return False
-
     return True
 
 matrix=[

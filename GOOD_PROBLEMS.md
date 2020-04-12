@@ -59,6 +59,8 @@ Bit Manipulation:
 * 338_next_bigger_number.py
 
 Graph:
+* 207_bipartite_graph.py
+* 280_check_cycle_in_graph.py
 * 072_get_largest_value_of_graph.py
 * 170_find_shortest_transform_sequence.py
 * 246_word_chain_circle.py
