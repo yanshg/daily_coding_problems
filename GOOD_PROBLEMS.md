@@ -51,6 +51,8 @@ Backtracking:
 * 260_reconstruct_jumbled_array.py
 
 Bit Manipulation:
+* 085_choose_integer.py
+* 248_get_max_two_numders.py
 * 040_get_non_duplicated_number.py
 * 214_longest_one_in_binary.py
 * 277_validate_utf8.py

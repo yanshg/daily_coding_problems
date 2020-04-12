@@ -8,8 +8,10 @@ Given three 32-bit integers x, y, and b, return x if b is 1 and y if b is 0, usi
 
 """
 
+# Idea: Same with problem #248:   y + ( (x-y) & b )
+
 def choose_integer(x,y,b):
-    return (x & (0x10000-b)) | (y & (0xffff + b))
+    return y + ( (x-y) & b )
 
 assert choose_integer(2,7,1)==2
 assert choose_integer(2,7,0)==7
