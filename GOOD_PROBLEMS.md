@@ -49,6 +49,7 @@ Backtracking:
 * 054_sudoku.py
 * 250_cryptarithmetic_puzzle.py
 * 260_reconstruct_jumbled_array.py
+* 334_play_24_game.py
 
 Bit Manipulation:
 * 085_choose_integer.py
