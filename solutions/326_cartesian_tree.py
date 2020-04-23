@@ -36,7 +36,7 @@ def inorder_seq(root):
         return []
     return inorder_seq(root.left)+[root.val]+inorder_seq(root.right)
 
-def construct_cartesian_tree_with_search(nums):
+def construct_cartesian_tree(nums):
     if not nums:
         return None
 
@@ -51,25 +51,6 @@ def construct_cartesian_tree_with_search(nums):
                 construct_cartesian_tree(nums[:min_index]),
                 construct_cartesian_tree(nums[min_index+1:]))
 
-def helper(nums,last,root):
-    if not nums:
-        return root
-
-    node=Node(nums[0])
-    if not last:
-        return helper(nums[1:],node,node)
-
-    if last.val>node.val:
-        node.left=last
-        return helper(nums[1:],node,node)
-    else:
-        last.right=node
-        return helper(nums[1:],last,last)
-
-def construct_cartesian_tree(nums):
-    return helper(nums,None,None)
-
-assert inorder_seq(construct_cartesian_tree_with_search([]))==[]
-assert inorder_seq(construct_cartesian_tree_with_search([3, 2, 6, 1, 9]))==[3, 2, 6, 1, 9]
 assert inorder_seq(construct_cartesian_tree([]))==[]
 assert inorder_seq(construct_cartesian_tree([3, 2, 6, 1, 9]))==[3, 2, 6, 1, 9]
+assert inorder_seq(construct_cartesian_tree([9, 3, 7, 1, 8, 12, 10, 20, 15, 18, 5]))==[9, 3, 7, 1, 8, 12, 10, 20, 15, 18,5]
