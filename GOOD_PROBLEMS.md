@@ -63,17 +63,25 @@ Graph:
 * 207_bipartite_graph.py
 * 280_check_cycle_in_graph.py
 * 072_get_largest_value_of_graph.py
-* 170_find_shortest_transform_sequence.py
 * 246_word_chain_circle.py
 * 344_remove_edge.py
 
 DFS:
 * 218_reverse_directed_graph.py
 
-BFS and BBFS(Bidirection BFS):
+BFS
 ** 023_minimum_steps_in_matrix.py
 ** 100_minimum_moves_in_grid.py
 ** 229_snakes_and_ladders.py
+** 321_smallest_steps_to_one.py
+
+Bidirectional BFS
+* 023_minimum_steps_in_matrix.py
+* 170_word_ladder.py
+* 229_snakes_and_ladders.py
+
+A* search (f(n)=g(n)+h(n), h(n) is a heuristic function that estimates the cost of the cheapest path from n to the goal)
+* 023_minimum_steps_in_matrix.py
 
 Topological sort
 * 092_get_courses_order.py
