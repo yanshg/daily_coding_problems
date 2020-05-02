@@ -103,3 +103,6 @@ Intervals
 Decreasing or Peak element in array
 * 079_modify_non_decreasing_array.py
 * 311_peak_element.py
+
+Array of Array
+* 351_ambiguous_words.py
