@@ -22,6 +22,8 @@ Given a sentence, most of whose words are contained in the meaning list above, c
 #
 #       Return Array of Array
 
+import re
+
 def helper(words,word_meanings):
     if not words:
         return [[]]
@@ -44,8 +46,8 @@ def helper(words,word_meanings):
     return results
 
 def get_ambiguous_sentences(s,word_meanings):
-    words=s.split()
-    return [ ' '.join(new_words) for new_words in helper(words,word_meanings) ]
+    words=re.split(r'(\W+)',s)
+    return [ ''.join(new_words) for new_words in helper(words,word_meanings) ]
 
 word_meanings={
     "word1": ["word1_meaning1", "word1_meaning2" ],
@@ -54,6 +56,6 @@ word_meanings={
     "word4": ["word4_meaning1", "word4_meaning2", "word4_meaning3", "word4_meaning4" ],
 }
 
-s="word1 has word2 and word3 but no word4"
+s="word1 has word2 and word3 but no word4."
 for s in get_ambiguous_sentences(s,word_meanings):
     print(s)

@@ -38,8 +38,8 @@ def helper(words1,words2,synonyms_dict):
     return True
 
 def equivalent_sentences(s1,s2,synonyms):
-    words1=re.split(",|\.| |\t|",s1)
-    words2=re.split(",|\.| |\t|",s2)
+    words1=re.split(r'(\W+)',s1)
+    words2=re.split(r'(\W+)',s2)
 
     if len(words1)!=len(words2):
         return False
