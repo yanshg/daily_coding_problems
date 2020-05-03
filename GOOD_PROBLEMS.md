@@ -109,3 +109,8 @@ Array of Array
 
 Celebrity issue
 * 333_identify_celebrity.py
+
+Prefix Sum
+* 002_product_all_other_nums.py
+* 305_remove_zero_sum_nodes.py
+* 331_flip_letters.py
