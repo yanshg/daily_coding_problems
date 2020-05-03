@@ -106,3 +106,6 @@ Decreasing or Peak element in array
 
 Array of Array
 * 351_ambiguous_words.py
+
+Celebrity issue
+* 333_identify_celebrity.py
