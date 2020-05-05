@@ -17,7 +17,7 @@ Follow-up: Can you do this in linear time and constant space?
 #      x^y: 1 1 0 1 0 0 0 0
 #                 ^
 #                 |
-#      right most 1 bit of x^y position => 'rightmost'
+#      right most 1 bit of x^y => 'rightmost'
 #
 #      x and y should have different bit at the 'rightmost' position
 #
