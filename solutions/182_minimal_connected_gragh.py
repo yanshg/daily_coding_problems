@@ -26,11 +26,9 @@ def graph_has_cycle(graph,vertex,visited):
 
 def is_minimal_connected_graph(graph):
     visited=set()
-    checked=False
     for vertex in graph:
         if vertex not in visited:
-            if checked or graph_has_cycle(graph,vertex,visited):
-                checked=True
+            if graph_has_cycle(graph,vertex,visited):
                 return False
     return True
 

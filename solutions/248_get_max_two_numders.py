@@ -8,7 +8,7 @@ Find the maximum of two numbers without using any if-else statements, branching,
 
 """
 
-# Idea: if x>y, then '(x - y) >> (INT_BIT_LENGTH)' will be 0, else be 1
+# Idea: if x>y, then '(x - y) >> (INT_BIT_LENGTH-1)' will be 0, else be 1
 
 import sys;
 
