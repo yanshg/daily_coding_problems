@@ -31,6 +31,7 @@ class Trie:
             if c not in trie:
                 trie[c]=dict()
             trie=trie[c]
+        trie['#']=''
 
     def _elements(self,trie,path='',results=set()):
         if not trie and path:
@@ -38,7 +39,10 @@ class Trie:
             return results
 
         for c in trie:
-            self._elements(trie[c],path+c,results)
+            if c=='#':
+                results.add(path)
+            else:
+                self._elements(trie[c],path+c,results)
 
         return results
 
@@ -57,5 +61,5 @@ def autocomplete(strs,prefix):
         trie.insert(s)
     return trie.find(prefix)
 
-assert bruteforce({'dog','deer','deal'},'de')=={'deer','deal'}
-assert autocomplete({'dog','deer','deal'},'de')=={'deer','deal'}
+assert bruteforce({'dog','de','deer','deal'},'de')=={'de','deer','deal'}
+assert autocomplete({'dog','de','deer','deal'},'de')=={'de', 'deer','deal'}
