@@ -116,6 +116,9 @@ Prefix Sum
 * 331_flip_letters.py
 
 Regex
+* 017_longest_absolute_path.py
+* 123_validate_number_string.py
+* 263_sentence_checker.py
 * 345_equivalent_sentences.py
 * 349_soundex.py
 * 351_ambiguous_words.py
