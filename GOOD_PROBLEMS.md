@@ -68,6 +68,7 @@ Graph:
 
 DFS:
 * 218_reverse_directed_graph.py
+* 239_valid_unlock_pattern.py
 
 BFS
 ** 023_minimum_steps_in_matrix.py
