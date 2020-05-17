@@ -56,6 +56,7 @@ Bit Manipulation:
 * 248_get_max_two_numders.py
 * 040_get_non_duplicated_number.py
 * 214_longest_one_in_binary.py
+* 268_power_of_four.py
 * 277_validate_utf8.py
 * 338_next_bigger_number.py
 
@@ -123,3 +124,6 @@ Regex
 * 345_equivalent_sentences.py
 * 349_soundex.py
 * 351_ambiguous_words.py
+
+Python basic(file,exception,hash,heapq,defaultdict)
+* 300_vote_candidates.py
