@@ -22,8 +22,7 @@ class KaryTree():
         self.children=children
 
     def __repr__(self):
-        children_str=",".join([str(c) for c in self.children])
-        return "{}: ({})".format(self.val,children_str)
+        return "{}: {}".format(self.val,self.children)
 
 def is_same_shape(tree1,tree2):
     if not tree1 and not tree2:
@@ -65,4 +64,7 @@ n5=KaryTree(3,[n2])
 n6=KaryTree(4,[n3,n4,n5])
 print(n6)
 assert is_symmetric_kary_tree(n6)
+
+n1.val=6
+assert not is_symmetric_kary_tree(n6)
 
