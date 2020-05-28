@@ -127,3 +127,7 @@ Regex
 
 Python basic(file,exception,hash,heapq,defaultdict)
 * 300_vote_candidates.py
+
+Python staticmethod
+* 120_singleton_pattern.py
+* 348_ternary_tree.py

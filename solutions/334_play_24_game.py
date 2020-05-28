@@ -18,7 +18,7 @@ def operate(num1,num2,op):
     if op=='+': return num1+num2
     if op=='-': return num1-num2
     if op=='*': return num1*num2
-    if op=='/': return num1/num2
+    if op=='/': return num1/num2 if num2 else None
 
 def play_24(nums):
     #print("nums:",nums)
@@ -31,9 +31,9 @@ def play_24(nums):
             if i!=j:
                 consolidated_nums=[ num for k,num in enumerate(nums) if i!=k!=j ]
                 for operator in "+-*/":
-                    if operator=='/' and nums[j]==0:
-                        continue
                     new_num=operate(nums[i],nums[j],operator)
+                    if new_num is None:
+                        continue
                     if play_24(consolidated_nums+[new_num]):
                         return True
     return False
