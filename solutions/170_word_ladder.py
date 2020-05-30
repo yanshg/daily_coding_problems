@@ -16,17 +16,17 @@ Given start = "dog", end = "cat", and dictionary = {"dot", "tod", "dat", "dar"},
 from collections import deque
 
 def is_adjacent(w1,w2):
-    if w1==w2 or len(w1)!=len(w2):
+    if w1 == w2 or len(w1) != len(w2):
         return False
-    return (sum([ 1 for i in range(len(w1)) if w1[i]!=w2[i] ]))==1
+    return sum([ c1 != c2 for c1,c2 in zip(w1,w2) ])==1
 
-# Get graph
+# Build graph
 def build_graph(start,words):
-    graph=dict()
+    graph = dict()
 
     # Note: use | to union sets, instead of +
-    for w1 in {start}|words:
-        graph[w1]=[ w2 for w2 in words if is_adjacent(w1,w2) ]
+    for w1 in {start} | words:
+        graph[w1] = [ w2 for w2 in words if is_adjacent(w1,w2) ]
 
     return graph
 
@@ -35,15 +35,16 @@ def word_ladder_bfs(start,end,words):
     if end not in words:
         return None
 
-    graph=build_graph(start,words)
+    graph = build_graph(start,words)
     print("graph:",graph)
 
-    visited=set()
-    dq=deque([(start,[start])])
+    visited = set()
+    dq = deque([(start,[start])])
 
     while dq:
-        (word,path)=dq.popleft()
-        if word==end:
+        (word,path) = dq.popleft()
+        #print(path)
+        if word == end:
             return path
 
         visited.add(word)
@@ -54,46 +55,58 @@ def word_ladder_bfs(start,end,words):
     return None
 
 # Bidirectional BFS
-def word_ladder_bi_bfs(start,end,words):
+#
+# Articles: https://leetcode.com/articles/word-ladder/#
+#           https://blog.csdn.net/ZouCharming/article/details/90757577
+
+# Idea:  1. set queue1 from start point,
+#        2. set queue2 from end point.
+#        3. set the shorter queue as queue1, longer as queue2,
+#        4. get all adjacent words of each word in queue1, and set it to queue3
+#        5. if any word in queue3 can be found in queue2, it is the cross point, return the path
+#        6. queue1=queue3
+#        7. loop from #3
+
+def word_ladder_bibfs(start,end,words):
     if end not in words:
         return None
 
-    graph=build_graph(start,words)
+    graph = build_graph(start,words)
 
-    fwd_visited=set()
-    fwd_dq=deque([(start,[start])])
+    queue1 = { start: [start] }
+    queue2 = { end:   [end] }
+    is_queue1_start = True
 
-    bwd_visited=set()
-    bwd_dq=deque([(end,[end])])
+    visited = set()
 
-    while fwd_dq and bwd_dq:
-        (word1,path1)=fwd_dq.popleft()
-        fwd_visited.add(word1)
+    while queue1 and queue2:
+        if len(queue1)>len(queue2):
+            queue1,queue2 = queue2, queue1
+            is_queue1_start = not is_queue1_start
 
-        (word2,path2)=bwd_dq.popleft()
-        bwd_visited.add(word2)
+        queue3 = dict()
 
-        visited_this_level=set()
+        for word,path in queue1.items():
+            visited.add(word)
 
-        for w in graph[word1]:
-            if w == word2:
-                # Found intersection:
-                return path1+[w]+list(reversed(path2))
-            elif w not in fwd_visited:
-                fwd_dq.append((w,path1+[w]))
-                visited_this_level.add(w)
+            for adj_word in graph[word]:
+                if adj_word in queue2:
+                    # find cross point
+                    if is_queue1_start:
+                        return path + list(reversed(queue2[adj_word]))
+                    else:
+                        return queue2[adj_word] + list(reversed(path))
 
-        for w in graph[word2]:
-            if w == word1 or w in visited_this_level:
-                # Found intersection
-                return path1+[w]+list(reversed(path2))
-            elif w not in bwd_visited:
-                bwd_dq.append((w,path2+[w]))
+                if adj_word not in visited and  \
+                   adj_word not in queue3:
+                    queue3[adj_word]=path+[adj_word]
+                    visited
+
+        queue1=queue3
 
     return None
 
 assert word_ladder_bfs('dog','cat',{"dot", "dop", "dat", "cat"}) == ["dog", "dot", "dat", "cat"];
 assert not word_ladder_bfs('dog','cat',{"dot", "tod", "dat", "dar"})
-assert word_ladder_bi_bfs('dog','cat',{"dot", "dop", "dat", "cat"}) == ["dog", "dot", "dat", "cat"];
-assert not word_ladder_bi_bfs('dog','cat',{"dot", "tod", "dat", "dar"})
-
+assert word_ladder_bibfs('dog','cat',{"dot", "dop", "dat", "cat"}) == ["dog", "dot", "dat", "cat"];
+assert not word_ladder_bibfs('dog','cat',{"dot", "tod", "dat", "dar"})
