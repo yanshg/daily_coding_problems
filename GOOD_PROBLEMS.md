@@ -28,6 +28,11 @@ bisect:
 * 132_hit_counter.py
 * 165_count_smaller_elements_on_right.py
 
+Binary search
+* 058_find_index_in_rotated_list.py
+* 271_binary_search_without_division.py
+* 273_fixed_point.py
+
 Heap:
 * 033_get_running_medians.py
 * 231_no_same_adjacent_char.py
