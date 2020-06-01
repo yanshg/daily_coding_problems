@@ -16,6 +16,7 @@ Write a program that returns the weight of the maximum weight path.
 
 """
 
+# O(N^2)
 def helper(nums_arr,height,sum=0,last_index=0,path=[]):
     l=len(path)
     if l==height:
@@ -39,4 +40,31 @@ def get_maximum_weight_path(nums_arr):
     print("path: ", path)
     return path
 
+# Article: https://www.geeksforgeeks.org/maximum-path-sum-triangle/
+#          https://www.geeksforgeeks.org/minimum-sum-path-triangle/
+#
+
+# Bottom up:
+# 1. Start from the nodes on the bottom row, the max pathsum for these nodes are the values of the nodes themselves.
+# 2. after that, max pathsum at the ith node of kth row would be the max of the pathsum of its two children + the node's value, :
+#      memo[k][i] = max( memo[k+1][i], memo[k+1][i+1]) + A[k][i];
+# OR
+#    Simply set memo as a 1D array, and update it for kth row:
+#      memo[i] = min( memo[i], memo[i+1]) + A[k][i];
+
+def get_maximum_weight_path2(A):
+    memo = [None] * len(A)
+    n = len(A) - 1
+
+    # For the bottom row
+    for i in range(len(A[n])):
+        memo[i] = A[n][i]
+
+    for i in range(len(A) - 2, -1,-1):
+        for j in range( len(A[i])):
+            memo[j] = A[i][j] + max(memo[j], memo[j+1])
+
+    return memo[0]
+
 assert get_maximum_weight_path([[1], [2, 3], [1, 5, 1]])==[1,3,5]
+assert get_maximum_weight_path2([[1], [2, 3], [1, 5, 1]])==9

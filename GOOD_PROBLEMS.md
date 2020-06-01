@@ -5,6 +5,10 @@ Dynamic programming
 * 181_split_to_palindrome_strs.py
 * 194_get_intersect_lines.py
 
+Dynamic programming with cache
+* 201_maximum_weight_path.py
+* 272_throw_dice.py
+
 split array with sum
 * 042_get_subset_sum_to_k.py
 * 060_split_multiset.py
