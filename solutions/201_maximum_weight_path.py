@@ -47,10 +47,10 @@ def get_maximum_weight_path(nums_arr):
 # Bottom up:
 # 1. Start from the nodes on the bottom row, the max pathsum for these nodes are the values of the nodes themselves.
 # 2. after that, max pathsum at the ith node of kth row would be the max of the pathsum of its two children + the node's value, :
-#      memo[k][i] = max( memo[k+1][i], memo[k+1][i+1]) + A[k][i];
+#      memo[k][i] = max(memo[k+1][i], memo[k+1][i+1]) + A[k][i];
 # OR
 #    Simply set memo as a 1D array, and update it for kth row:
-#      memo[i] = min( memo[i], memo[i+1]) + A[k][i];
+#      memo[i] = max(memo[i], memo[i+1]) + A[k][i];
 
 def get_maximum_weight_path2(A):
     memo = [None] * len(A)
@@ -61,7 +61,7 @@ def get_maximum_weight_path2(A):
         memo[i] = A[n][i]
 
     for i in range(len(A) - 2, -1,-1):
-        for j in range( len(A[i])):
+        for j in range(len(A[i])):
             memo[j] = A[i][j] + max(memo[j], memo[j+1])
 
     return memo[0]
