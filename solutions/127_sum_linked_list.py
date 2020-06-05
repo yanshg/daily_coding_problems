@@ -34,29 +34,25 @@ class Node:
         return "{}->{}".format(self.val,self.next)
 
 def convert_num_to_list(num):
-    first=None
-    prev=None
+    head,prev=None,None
     while(num):
         digit=num%10
         num//=10
         node=Node(digit)
-        if not first:
-            first=node
+        if not head:
+            head=node
         if prev:
             prev.next=node
         prev=node
-    return first
+    return head
 
 def convert_list_to_num(head):
     cur=head
-    num=0
-    factor=1
-
+    num,factor=0,1
     while(cur):
         num+=cur.val * factor
         cur=cur.next
         factor*=10
-
     return num
 
 def add_nums_helper(link1,link2,sum_node,carry,level):
@@ -107,4 +103,3 @@ assert convert_list_to_num(convert_num_to_list(25))==25
 assert convert_list_to_num(convert_num_to_list(124))==124
 assert convert_list_to_num(add_nums(convert_num_to_list(99),convert_num_to_list(25)))==124
 assert convert_list_to_num(add_nums(convert_num_to_list(1000),convert_num_to_list(1)))==1001
-

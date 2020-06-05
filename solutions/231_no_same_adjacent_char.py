@@ -10,17 +10,15 @@ For example, given "aaabbc", you could return "ababac". Given "aaab", return Non
 
 """
 
-
 import heapq
 
 def rearrange_string(string):
     counts=[ (-string.count(c),c) for c in set(string) ]
-    heapq.heapify(counts)
-
     if any([-cnt>(len(string)+1)//2 for cnt,c in counts]):
         return None
 
     str=''
+    heapq.heapify(counts)
     while len(counts)>1:
         cnt1,ch1=heapq.heappop(counts)
         cnt2,ch2=heapq.heappop(counts)
@@ -33,7 +31,5 @@ def rearrange_string(string):
 
     return str
 
-
 assert rearrange_string("aaabbc")=="ababac"
 assert not rearrange_string("aaab")
-
