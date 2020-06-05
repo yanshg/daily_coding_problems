@@ -10,4 +10,4 @@ For example, if s = yyz then return yzy. If s = yyy then return null.
 
 """
 
-# Same problem with 166_two_dim_iterator.py
+# Same problem with 231_no_same_adjacent_char.py
