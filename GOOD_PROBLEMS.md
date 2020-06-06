@@ -97,6 +97,7 @@ A* search (f(n)=g(n)+h(n), h(n) is a heuristic function that estimates the cost 
 Topological sort
 * 092_get_courses_order.py
 * 226_alien_dictionary_order.py
+* 360_interleave_playlist.py
 
 Return functions:
 * 005_pair_func.py

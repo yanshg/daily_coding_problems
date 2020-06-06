@@ -23,24 +23,23 @@ def is_exact_tree(t,s):
     if not t or not s:
         return False
 
-    if t.val != s.val:
-        return False
-
-    return is_exact_tree(t.left,s.left) and \
+    return t.val==s.val and \
+            is_exact_tree(t.left,s.left) and \
             is_exact_tree(t.right,s.right)
 
+# check if s is subtree of t:
 def is_subtree(t,s):
+    if s is None:
+        return True
+
+    if t is None:
+        return False
+
     if is_exact_tree(t,s):
         return True
 
-    if s.left and is_subtree(t,s.left):
-        return True
-
-    if s.right and is_subtree(t,s.right):
-        return True
-
-    return False
-
+    return is_subtree(t.left,s) or \
+           is_subtree(t.right,s)
 
 """
        1
@@ -78,5 +77,5 @@ node11.right=node6
 assert is_exact_tree(node1, node6)
 assert not is_exact_tree(node6, node11)
 assert is_subtree(node1, node6)
-assert not is_subtree(node11, node1)
-assert not is_subtree(node11, node3)
+assert not is_subtree(node1, node11)
+assert not is_subtree(node3, node1)
