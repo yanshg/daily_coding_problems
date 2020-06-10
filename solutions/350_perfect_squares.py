@@ -13,37 +13,43 @@ Here are a few examples:
 
 """
 
-def get_candidates(n):
-    candidates=[1]
-    i=2
-    while i<=n//2 and i*i<=n:
-        candidates+=[i]
-        i+=1
-    return list(reversed(candidates))
+# Article: https://www.geeksforgeeks.org/minimum-number-of-squares-whose-sum-equals-to-given-number-n/
 
-def helper(n,candidates,path=[]):
-    if n==0 and path:
-        #print("path,",path)
-        return path
+def get_min_squares(n):
+    if n<=3:
+        return n
 
-    if n<0:
-        return []
+    # 1+1+1+...+1
+    result=n
 
-    smallest_path=[]
-    for c in candidates:
-        sub_path=helper(n-c*c,candidates,path+[c])
-        if sub_path and \
-            (not smallest_path or len(sub_path)<len(smallest_path)):
-            smallest_path=sub_path
+    for i in range(1,n+1):
+        temp=i*i
+        if temp>n:
+            break
+        result=min(result, 1+get_min_squares(n-temp))
 
-    return smallest_path
+    return result
 
-def get_smallest_perfect_squares(n):
-    candidates=get_candidates(n)
-    smallest_path=helper(n,candidates,[])
-    print("candidates:", candidates,"smallest path:",smallest_path)
-    return len(smallest_path)
+# bottom to up
+from math import ceil,sqrt
+def get_min_squares_dp(n):
+    dp=[0,1,2,3]
 
-assert get_smallest_perfect_squares(4)==1
-assert get_smallest_perfect_squares(17)==2
-assert get_smallest_perfect_squares(18)==2
+    for i in range(4,n+1):
+        dp.append(i)
+        k=int(ceil(sqrt(i)))+1
+        for j in range(1,k):
+            temp=j*j
+            if temp>i:
+                break
+            dp[i]=min(dp[i],1+dp[i-temp])
+
+    return dp[n]
+
+
+assert get_min_squares(4)==1
+assert get_min_squares(17)==2
+assert get_min_squares(18)==2
+assert get_min_squares_dp(4)==1
+assert get_min_squares_dp(17)==2
+assert get_min_squares_dp(18)==2
