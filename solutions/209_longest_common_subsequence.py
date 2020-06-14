@@ -8,12 +8,13 @@ Write a program that computes the length of the longest common subsequence of th
 
 """
 
-CHARS="abcdefghijklmnopqrstuvwxyz"
-
 def helper(strings,sequence,indices):
     #print("sequence:",sequence)
+
     lcs=len(sequence)
-    for c in CHARS:
+    chars=set((strings[0])[indices[0]+1:])
+
+    for c in chars:
         # if c is in all the strings' substring ( (strings[i])[indices[i]+1:] )
         #     lcs=min(lcs, helper(strings,sequence+c,new_indices))
         # else:
