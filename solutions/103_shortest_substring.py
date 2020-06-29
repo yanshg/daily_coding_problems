@@ -14,7 +14,7 @@ If there is no substring containing all the characters in the set, return null.
 
 # Idea: Record the last position of the character, and trim the substring from the start
 #
-#       One test case with multiple candidate substrings, like: "figehaeciea" with set {a, e i}
+#       One test case with multiple candidate substrings, like: "figehaeciea" with set {a, e, i}
 #                                                 3 candidates: "igeha", "aeci", "iea"
 
 def get_shortest_substring(string,chars):
