@@ -141,3 +141,4 @@ Python basic(file,exception,hash,heapq,defaultdict)
 Python staticmethod
 * 120_singleton_pattern.py
 * 348_ternary_tree.py
+* 359_anagram_integers.py
