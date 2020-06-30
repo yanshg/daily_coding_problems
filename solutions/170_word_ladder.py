@@ -59,12 +59,12 @@ def word_ladder_bfs(start,end,words):
 # Articles: https://leetcode.com/articles/word-ladder/#
 #           https://blog.csdn.net/ZouCharming/article/details/90757577
 
-# Idea:  1. set queue1 from start point,
-#        2. set queue2 from end point.
-#        3. set the shorter queue as queue1, longer as queue2,
-#        4. get all adjacent words of each word in queue1, and set it to queue3
-#        5. if any word in queue3 can be found in queue2, it is the cross point, return the path
-#        6. queue1=queue3
+# Idea:  1. set q1 from start point,
+#        2. set q2 from end point.
+#        3. set the shorter queue as q1, longer as q2,
+#        4. get all adjacent words of each word in q1, and set it to q3
+#        5. if any word in q3 can be found in q2, it is the cross point, return the path
+#        6. q1=q3
 #        7. loop from #3
 
 def word_ladder_bibfs(start,end,words):
@@ -73,36 +73,36 @@ def word_ladder_bibfs(start,end,words):
 
     graph = build_graph(start,words)
 
-    queue1 = { start: [start] }
-    queue2 = { end:   [end] }
-    is_queue1_start = True
+    q1 = { start: [start] }
+    q2 = { end:   [end] }
 
+    is_q1_start = True
     visited = set()
 
-    while queue1 and queue2:
-        if len(queue1)>len(queue2):
-            queue1,queue2 = queue2, queue1
-            is_queue1_start = not is_queue1_start
+    while q1 and q2:
+        if len(q1)>len(q2):
+            q1,q2 = q2, q1
+            is_q1_start = not is_q1_start
 
-        queue3 = dict()
+        q3 = dict()
 
-        for word,path in queue1.items():
+        for word,path in q1.items():
+            if word in q2:
+                # find cross word
+                if is_q1_start:
+                    full_path=path[:-1] + list(reversed(q2[word]))
+                else:
+                    full_path=q2[word] + list(reversed(path[:-1]))
+                return full_path
+
             visited.add(word)
 
             for adj_word in graph[word]:
-                if adj_word in queue2:
-                    # find cross point
-                    if is_queue1_start:
-                        return path + list(reversed(queue2[adj_word]))
-                    else:
-                        return queue2[adj_word] + list(reversed(path))
-
                 if adj_word not in visited and  \
-                   adj_word not in queue3:
-                    queue3[adj_word]=path+[adj_word]
-                    visited
+                   adj_word not in q3:
+                    q3[adj_word]=path+[adj_word]
 
-        queue1=queue3
+        q1=q3
 
     return None
 

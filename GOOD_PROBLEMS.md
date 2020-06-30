@@ -84,12 +84,14 @@ BFS
 ** 023_minimum_steps_in_matrix.py
 ** 100_minimum_moves_in_grid.py
 ** 229_snakes_and_ladders.py
+** 319_puzzle_game.py
 ** 321_smallest_steps_to_one.py
 
 Bidirectional BFS
 * 023_minimum_steps_in_matrix.py
 * 170_word_ladder.py
 * 229_snakes_and_ladders.py
+* 319_puzzle_game.py
 
 A* search (f(n)=g(n)+h(n), h(n) is a heuristic function that estimates the cost of the cheapest path from n to the goal)
 * 023_minimum_steps_in_matrix.py

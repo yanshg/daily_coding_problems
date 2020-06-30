@@ -92,8 +92,47 @@ class PuzzleBoard():
 
         return []
 
+    # Bidirectional BFS
+    def solve2(self):
+        start=self.tostr()
+        end=self.endstr()
+
+        q1={start: [start]}
+        q2={end: [end]}
+
+        is_q1_start=True
+        visited=set()
+
+        while q1 and q2:
+            if len(q1)>len(q2):
+                q1,q2=q2,q1
+                is_q1_start=not is_q1_start
+
+            q3=dict()
+            for board,path in q1.items():
+                if board in q2:
+                    if is_q1_start:
+                        full_path=path[:-1]+list(reversed(q2[board]))
+                    else:
+                        full_path=q2[board]+list(reversed(path[:-1]))
+                    print("path: ",full_path)
+                    for b in full_path:
+                        print(self.toboard(b))
+                    return full_path
+
+                visited.add(board)
+
+                for next_board in self.next_boards(board):
+                    if next_board not in visited \
+                        and next_board not in q3:
+                        q3[next_board]=path+[next_board]
+
+            q1=q3
+
+        return []
 
 board=[[3,7,1],[8,5,2],[6,4,None]]
 puzzle=PuzzleBoard(board)
-puzzle.solve()
+#puzzle.solve()
+puzzle.solve2()
 
