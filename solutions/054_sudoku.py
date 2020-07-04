@@ -13,26 +13,18 @@ Implement an efficient sudoku solver.
 # Articles:  https://techwithtim.net/tutorials/python-programming/sudoku-solver-backtracking/
 
 # Using backtracking algorithm:
-#    Simply reverting back to the previous step or solution
-#    as soon as we determine that our current solution cannot be continued into a complete one.
-#
-# Starting with an incomplete board:
-#
-#    Find some empty space
-#    Attempt to place the digits 1-9 in that space
-#    Check if that digit is valid in the current spot based on the current board
-#        a. If the digit is valid, recursively attempt to fill the board using steps 1-3.
-#        b. If it is not valid, reset the square you just filled and go back to the previous step.
-#        Once the board is full by the definition of this algorithm we have found a solution.
 
-def is_valid(board,val,row=0,col=0):
+ROWS = 9
+COLS = 9
+
+def is_valid(board,row,col,val):
     # check column
-    for r in range(len(board)):
+    for r in range(ROWS):
         if r!=row and board[r][col] == val:
             return False
 
     # check row
-    for c in range(len(board[0])):
+    for c in range(COLS):
         if c!=col and board[row][c] == val:
             return False
 
@@ -45,52 +37,59 @@ def is_valid(board,val,row=0,col=0):
 
     return True
 
-def find_first_blank_cell(board,row=0,col=0):
-    for r in range(row,len(board)):
-        for c in range(0,len(board[0])):
-            if board[r][c]==0:
-                return r,c
-    return None,None
-
 def solve_sudoku(board,row=0,col=0):
-    # find first cell need evaluate
-    (row,col)=find_first_blank_cell(board,row,col)
-    if row is None:
-        # finish puzzle
-        print_sudoku(board)
-        return board
+    # if get the end of the row, go to the beginning of next row
+    if col==COLS:
+        return solve_sudoku(board,row+1,0)
 
-    for digit in range(1,10):
-        if is_valid(board,digit,row,col):
-            board[row][col]=digit
-            solve_sudoku(board,row,col)
-            board[row][col]=0
+    # if finished the last row, return.
+    if row==ROWS:
+        return True
 
-    return None
+    # if the cell is already solved, go to next cell
+    if board[row][col]:
+        return solve_sudoku(board,row,col+1)
+
+    for n in range(1,10):
+        digit=str(n)
+        if is_valid(board,row,col,digit):
+            board[row][col] = digit
+            if solve_sudoku(board,row,col+1):
+                return True
+            board[row][col] = ''
+
+    return False
 
 def print_sudoku(board):
-    bound='|'+'-'*23+"|\n"
-    string=bound
-    for row in range(len(board)):
-        string+='| ' + \
-                ' '.join(( str(x) if x!=0 else ' ') + ( ' |' if (col+1)%3==0 else '' ) for col,x in enumerate(board[row])) +\
-                "\n"
+    separator = '|'+'-'*23+"|\n"
+
+    string = separator
+    for row,digits in enumerate(board):
+        string += '|'
+        for col,digit in enumerate(digits):
+            string += ' ' + (digit if digit else ' ')
+            if (col+1)%3 == 0:
+                string += ' |'
+        string += '\n'
+
         if (row+1)%3==0:
-            string+=bound
+            string+=separator
+
     print(string)
 
 board = [
-    [7, 8, 0, 4, 0, 0, 1, 2, 0],
-    [6, 0, 0, 0, 7, 5, 0, 0, 9],
-    [0, 0, 0, 6, 0, 1, 0, 7, 8],
-    [0, 0, 7, 0, 4, 0, 2, 6, 0],
-    [0, 0, 1, 0, 5, 0, 9, 3, 0],
-    [9, 0, 4, 0, 6, 0, 0, 0, 5],
-    [0, 7, 0, 3, 0, 0, 0, 1, 2],
-    [1, 2, 0, 0, 0, 7, 4, 0, 0],
-    [0, 4, 9, 2, 0, 6, 0, 0, 7]
+    ['7', '8', '',  '4', '',  '',  '1', '2', '' ],
+    ['6', '',  '',  '',  '7', '5', '',  '',  '9'],
+    ['',  '',  '',  '6', '',  '1', '',  '7', '8'],
+    ['',  '',  '7', '',  '4', '',  '2', '6', '' ],
+    ['',  '',  '1', '',  '5', '',  '9', '3', '' ],
+    ['9', '',  '4', '',  '6', '',  '',  '',  '5'],
+    ['',  '7', '',  '3', '',  '',  '',  '1', '2'],
+    ['1', '2', '',  '',  '',  '7', '4', '',  '' ],
+    ['',  '4', '9', '2', '',  '6', '',  '',  '7']
 ]
 
 print_sudoku(board)
-solve_sudoku(board)
+if solve_sudoku(board):
+     print_sudoku(board)
 
