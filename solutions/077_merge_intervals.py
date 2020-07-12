@@ -18,20 +18,20 @@ def merge_intervals(intervals):
     # Sort intervals with start time
     intervals.sort(key=lambda x:x[0])
 
-    stack=[intervals[0]]
+    result=[]
+    for current in intervals:
+        if not result:
+            result.append(current)
+            continue
 
-    for i in range(1,len(intervals)):
-        last_start,last_end=stack[-1]
-        start,end=intervals[i]
-
-        if last_end<=start:
+        last=result[-1]
+        if last[1]<=current[0]:
             # Not overlap
-            stack.append(intervals[i])
-        elif last_end<end:
+            result.append(current)
+        elif last[1]<current[1]:
             # Some overlap, merge these 2 intervals
-            stack.pop()
-            stack.append((last_start,end))
+            last[1]=current[1]
 
-    return stack
+    return result
 
 assert merge_intervals([(1, 3), (5, 8), (4, 10), (20, 25)])==[(1, 3), (4, 10), (20, 25)]
