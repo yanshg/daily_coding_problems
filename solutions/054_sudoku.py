@@ -44,6 +44,7 @@ def solve_sudoku(board,row=0,col=0):
 
     # if finished the last row, return.
     if row==ROWS:
+        print_sudoku(board)
         return True
 
     # if the cell is already solved, go to next cell
@@ -90,6 +91,5 @@ board = [
 ]
 
 print_sudoku(board)
-if solve_sudoku(board):
-     print_sudoku(board)
+solve_sudoku(board,0,0)
 

@@ -21,85 +21,100 @@ Given a three-word puzzle like the one above, create an algorithm that finds a s
 
 """
 
-# Idea: use backtracking
+# Idea: Use backtracking
 #
-#       1. First initialize ordered dictionary for letters,
-#       2. Then get unassigned letters, and numbers for assign
-#       3. Choose one number and assign to one unassigned letter, 
-#       4. Check if valid, if valid, continue same procedure for other letters.
-#       5. if not valid, choose another number
+# 1. First initialize the words to get the data structure:
+#
+#    'chars':  ['D', 'E', 'Y', 'N', 'R', 'O', 'S', 'M'],
+#    'cols':   [('D', 'E', 'Y'), ('N', 'R', 'E'), ('E', 'O', 'N'), ('S', 'M', 'O'), (' ', ' ', 'M')]}
+#    'values': {'E': None, 'D': None, 'M': None, 'O': None, 'N': None, 'S': None, 'R': None, 'Y': None},
+#
+# 2. Choose one number and assign to first letter in 'chars' array,
+# 4. Check if valid, if valid, continue same procedure for other letters.
+# 5. if not valid, choose another number
 #
 # Notes:
 #       1. Need support 4+ words
 #       2. Prepare to use map(len,words) to get length information for all words and re-use it
 
-from collections import OrderedDict
+SPACE_CHAR = ' '
 
-# For each word, from right to left to add the char into OrderedDict.
-def initialize_letters(words,lens):
-    n=max(lens)
+# For each word, from right to left to add the char.
+def init_crypt_data(words):
+    crypt_data = dict()
 
-    letters=OrderedDict()
-    for i in range(1,n+1):
-        for j,word in enumerate(words):
-            if i<=lens[j]:
-               c=word[-i]
-               if c not in letters:
-                   letters[c]=None
+    values = dict()
+    chars = list()
 
-    return letters
+    max_len = len(words[-1])
+    reversed_words = [ list(reversed(word)) + list((max_len-len(word))*SPACE_CHAR) for word in words ]
+    cols = zip(*reversed_words)
+    for col in cols:
+        for c in col:
+            if c != SPACE_CHAR and c not in values:
+                values[c] = None
+                chars += [c]
 
-def is_valid(words,lens,letters):
-    n=max(lens)
+    crypt_data['chars'] = chars
+    crypt_data['values'] = values
+    crypt_data['cols'] = cols
+    return crypt_data
 
-    # First character should not be zero
-    if any([ letters[word[0]]==0 for word in words ]):
-        return False
+def is_valid(crypt_data):
+    chars = crypt_data['chars']
+    values = crypt_data['values']
+    cols = crypt_data['cols']
 
-    carry=0
-    for i in range(1,n+1):
-        digits=[ letters[word[-i]] for j,word in enumerate(words) if i<=lens[j] ]
-        if any([ digit==None for digit in digits ]):
-            return True
+    carry = 0
+    for col in cols:
+        value = carry
+        l = len(col)
+        for i,c in enumerate(col):
+            if c == SPACE_CHAR:
+                continue
 
-        t=sum(digits[:-1])+carry
-        if t>=10:
-            carry=1
-            t-=10
-        else:
-            carry=0
+            if values[c] is None:
+                return True
 
-        if t!=digits[-1]:
+            if i < l-1:
+                value += values[c]
+
+        if (value % 10) != values[col[-1]]:
+            return False
+
+        carry = value // 10
+
+    for c in cols[-1]:
+        if c != SPACE_CHAR and values[c] == 0:
             return False
 
     return True
 
-def solve_puzzle(words,lens,letters,unassigned,nums):
-    if not unassigned:
-        print("letters: ", dict(letters))
-        return dict(letters)
+def solve_puzzle(crypt_data,i,nums):
+    chars=crypt_data['chars']
+    if i==len(chars):
+        return crypt_data['values']
 
-    c=unassigned[0]
+    if not nums:
+        return None
+
+    c=chars[i]
     for num in nums:
-        letters[c]=num
-        if is_valid(words,lens,letters):
-            solution=solve_puzzle(words,lens,letters,unassigned[1:],nums-{num})
-            if solution:
+        crypt_data['values'][c]=num
+        if is_valid(crypt_data):
+            solution = solve_puzzle(crypt_data,i+1,nums-{num})
+            if solution is not None:
                 return solution
-        letters[c]=None
+        crypt_data['values'][c]=None
 
     return None
 
-def solve_cryptarithmetic_puzzle(words):
-    lens=list(map(len,words))
-    letters=initialize_letters(words,lens)
-    unassigned=list(letters.keys())
+def solve_cryptarithmetic(words):
+    crypt_data=init_crypt_data(words)
     nums=set(range(10))
-    #print("words:",words, "letters:",letters, "unassigned:", unassigned)
 
-    return solve_puzzle(words,lens,letters,unassigned,nums)
+    # Starting from the first character to solv
+    return solve_puzzle(crypt_data,0,nums)
 
-assert is_valid(['SEND','MORE','MONEY'],[4,4,5],{'S':9,'E':5,'N':6,'D':7,'M':1,'O':0,'R':8,'Y':2})
-assert solve_cryptarithmetic_puzzle(['SEND','MORE','MONEY'])=={'S':9,'E':5,'N':6,'D':7,'M':1,'O':0,'R':8,'Y':2}
-assert solve_cryptarithmetic_puzzle(['CP','IS','FUN','TRUE'])=={'P':2,'S':5,'N':7,'E':4,'C':3,'I':6,'U':8,'F':9,'R':0,'T':1}
-
+assert solve_cryptarithmetic(['SEND','MORE','MONEY'])=={'S':9,'E':5,'N':6,'D':7,'M':1,'O':0,'R':8,'Y':2}
+assert solve_cryptarithmetic(['CP','IS','FUN','TRUE'])=={'P':2,'S':5,'N':7,'E':4,'C':3,'I':6,'U':8,'F':9,'R':0,'T':1}
