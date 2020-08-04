@@ -23,19 +23,19 @@ Given a three-word puzzle like the one above, create an algorithm that finds a s
 
 # Idea: Use backtracking
 #
-# 1. First initialize the words to get the data structure:
+#  1. First initialize the words to get the data structure:
 #
 #    'chars':  ['D', 'E', 'Y', 'N', 'R', 'O', 'S', 'M'],
 #    'cols':   [('D', 'E', 'Y'), ('N', 'R', 'E'), ('E', 'O', 'N'), ('S', 'M', 'O'), (' ', ' ', 'M')]}
 #    'values': {'E': None, 'D': None, 'M': None, 'O': None, 'N': None, 'S': None, 'R': None, 'Y': None},
 #
-# 2. Choose one number and assign to first letter in 'chars' array,
-# 4. Check if valid, if valid, continue same procedure for other letters.
-# 5. if not valid, choose another number
+#  2. Choose one number and assign to first letter in 'chars' array,
+#  3. Check if valid, if valid, continue same procedure for other letters.
+#  4. if not valid, choose another number
 #
 # Notes:
-#       1. Need support 4+ words
-#       2. Prepare to use map(len,words) to get length information for all words and re-use it
+#  1. Need support 4+ words
+#  2. Prepare to use map(len,words) to get length information for all words and re-use it
 
 SPACE_CHAR = ' '
 

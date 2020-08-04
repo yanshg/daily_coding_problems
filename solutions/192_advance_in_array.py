@@ -12,7 +12,9 @@ Given the array [1, 2, 1, 0, 0], we can't reach the end, so return false.
 
 """
 
-def helper(nums,pos=0,path_so_far=[0]):
+# DFS
+
+def helper(nums,pos,path_so_far,visited):
     assert nums
 
     l=len(nums)
@@ -24,13 +26,16 @@ def helper(nums,pos=0,path_so_far=[0]):
 
     for steps in range(nums[pos],0,-1):
         index=pos+steps
-        if helper(nums,index,path_so_far+[index]):
-            return True
+        if index not in visited:
+            visited.add(index)
+            if helper(nums,index,path_so_far+[index],visited):
+                return True
 
     return False
 
 def advance_array_to_end(nums):
-    return helper(nums,0,[0])
+    visited=set()
+    return helper(nums,0,[0],visited)
 
 assert advance_array_to_end([1, 3, 1, 2, 0, 1])
 assert not advance_array_to_end([1, 2, 1, 0, 0])
