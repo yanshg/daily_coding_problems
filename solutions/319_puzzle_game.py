@@ -40,7 +40,7 @@ class PuzzleBoard():
     def __repr__(self):
         return ''.join([str(digit) if digit else '0' for row in self.board for digit in row])
 
-    def print_board(self,board_str):
+    def print_board(self, board_str):
         print(''.join([ (c if c!='0' else ' ') + (' ' if (i+1)%3 else '\n') for i,c in enumerate(board_str)]))
 
     @staticmethod
@@ -93,10 +93,7 @@ class PuzzleBoard():
             q3=dict()
             for board,path in q1.items():
                 if board in q2:
-                    if path[0] == start:
-                        full_path=path[:-1]+list(reversed(q2[board]))
-                    else:
-                        full_path=q2[board]+list(reversed(path[:-1]))
+                    full_path=path[:-1]+list(reversed(q2[board])) if path[0]==start else q2[board]+list(reversed(path[:-1]))
                     print("path: ",full_path)
                     for b in full_path:
                         self.print_board(b)

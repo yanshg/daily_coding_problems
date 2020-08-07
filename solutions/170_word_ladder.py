@@ -86,10 +86,7 @@ def word_ladder_bibfs(start,end,words):
         for word,path in q1.items():
             if word in q2:
                 # find cross word
-                if path[0] == start:
-                    full_path=path[:-1] + list(reversed(q2[word]))
-                else:
-                    full_path=q2[word] + list(reversed(path[:-1]))
+                full_path=path[:-1]+list(reversed(q2[word])) if path[0]==start else q2[word]+list(reversed(path[:-1]))
                 return full_path
 
             visited.add(word)
