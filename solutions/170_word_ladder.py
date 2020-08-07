@@ -73,23 +73,20 @@ def word_ladder_bibfs(start,end,words):
 
     graph = build_graph(start,words)
 
+    visited = set()
     q1 = { start: [start] }
     q2 = { end:   [end] }
-
-    is_q1_start = True
-    visited = set()
 
     while q1 and q2:
         if len(q1)>len(q2):
             q1,q2 = q2, q1
-            is_q1_start = not is_q1_start
 
         q3 = dict()
 
         for word,path in q1.items():
             if word in q2:
                 # find cross word
-                if is_q1_start:
+                if path[0] == start:
                     full_path=path[:-1] + list(reversed(q2[word]))
                 else:
                     full_path=q2[word] + list(reversed(path[:-1]))

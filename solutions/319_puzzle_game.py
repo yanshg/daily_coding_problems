@@ -43,15 +43,15 @@ class PuzzleBoard():
     def print_board(self,board_str):
         print(''.join([ (c if c!='0' else ' ') + (' ' if (i+1)%3 else '\n') for i,c in enumerate(board_str)]))
 
+    @staticmethod
+    def swap_chars(string, pos1, pos2):
+        ls = list(string)
+        ls[pos1],ls[pos2] = ls[pos2],ls[pos1]
+        return ''.join(ls)
+
     def next_boards(self, board_str):
-        zero_index=board_str.index('0')
-        next_boards=[]
-        for index in self.adjacent_map[zero_index]:
-            # Note: could NOT use str[index]=c to change string directly, must first convert string to list.
-            next_str=list(board_str)
-            next_str[index],next_str[zero_index]=next_str[zero_index],next_str[index]
-            next_boards+=[''.join(next_str)]
-        return next_boards
+        pos_0 = board_str.index('0')
+        return [ self.swap_chars(board_str,pos_0,pos_adj) for pos_adj in self.adjacent_map[pos_0] ]
 
     # BFS
     def solve_bfs(self):
@@ -115,6 +115,6 @@ class PuzzleBoard():
 
 board=[[3,7,1],[8,5,2],[6,4,None]]
 puzzle=PuzzleBoard(board)
-puzzle.solve_bfs()
+#puzzle.solve_bfs()
 puzzle.solve_bibfs()
 
