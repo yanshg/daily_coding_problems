@@ -18,50 +18,35 @@ from collections import deque
 
 class PuzzleBoard():
     def __init__(self, board=None):
-        self.board=board
-
-    def tostr(self):
-        s=''
-        for row in self.board:
-            for digit in row:
-                if digit is None:
-                    s+='0'
-                else:
-                    s+=str(digit)
-        return s
-
-    def toboard(self,board_str):
-        s=""
-        for i,c in enumerate(board_str):
-            s+=c+" "
-            if (i+1)%3==0:
-                s+="\n"
-        return s
-
-    def endstr(self):
-        return "123456780"
-
-    def adjacent_map(self):
         """
         012
         345
         678
         """
-        return [ [1,3],
-                 [0,2,4],
-                 [1,5],
-                 [0,4,6],
-                 [1,3,5,7],
-                 [2,4,8],
-                 [3,7],
-                 [4,6,8],
-                 [5,7]]
+        self.adjacent_map = [
+            [1,3],
+            [0,2,4],
+            [1,5],
+            [0,4,6],
+            [1,3,5,7],
+            [2,4,8],
+            [3,7],
+            [4,6,8],
+            [5,7]
+        ]
+        self.final_board_str="123456780"
+        self.board=board
+
+    def __repr__(self):
+        return ''.join([str(digit) if digit else '0' for row in self.board for digit in row])
+
+    def print_board(self,board_str):
+        print(''.join([ (c if c!='0' else ' ') + (' ' if (i+1)%3 else '\n') for i,c in enumerate(board_str)]))
 
     def next_boards(self, board_str):
         zero_index=board_str.index('0')
-        adjacent_map=self.adjacent_map()
         next_boards=[]
-        for index in adjacent_map[zero_index]:
+        for index in self.adjacent_map[zero_index]:
             # Note: could NOT use str[index]=c to change string directly, must first convert string to list.
             next_str=list(board_str)
             next_str[index],next_str[zero_index]=next_str[zero_index],next_str[index]
@@ -69,9 +54,9 @@ class PuzzleBoard():
         return next_boards
 
     # BFS
-    def solve(self):
-        start=self.tostr()
-        end=self.endstr()
+    def solve_bfs(self):
+        start=str(self)
+        end=self.final_board_str
 
         visited=set()
         dq=deque([(start,[start])])
@@ -81,7 +66,7 @@ class PuzzleBoard():
             if board==end:
                 print("path: ",path)
                 for b in path:
-                    print(self.toboard(b))
+                    self.print_board(b)
                 return path
 
             visited.add(board)
@@ -93,31 +78,28 @@ class PuzzleBoard():
         return []
 
     # Bidirectional BFS
-    def solve2(self):
-        start=self.tostr()
-        end=self.endstr()
+    def solve_bibfs(self):
+        start=str(self)
+        end=self.final_board_str
 
+        visited=set()
         q1={start: [start]}
         q2={end: [end]}
-
-        is_q1_start=True
-        visited=set()
 
         while q1 and q2:
             if len(q1)>len(q2):
                 q1,q2=q2,q1
-                is_q1_start=not is_q1_start
 
             q3=dict()
             for board,path in q1.items():
                 if board in q2:
-                    if is_q1_start:
+                    if path[0] == start:
                         full_path=path[:-1]+list(reversed(q2[board]))
                     else:
                         full_path=q2[board]+list(reversed(path[:-1]))
                     print("path: ",full_path)
                     for b in full_path:
-                        print(self.toboard(b))
+                        self.print_board(b)
                     return full_path
 
                 visited.add(board)
@@ -133,6 +115,6 @@ class PuzzleBoard():
 
 board=[[3,7,1],[8,5,2],[6,4,None]]
 puzzle=PuzzleBoard(board)
-#puzzle.solve()
-puzzle.solve2()
+puzzle.solve_bfs()
+puzzle.solve_bibfs()
 
