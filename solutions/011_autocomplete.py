@@ -18,6 +18,8 @@ def bruteforce(strs,prefix):
 
 # use Trie data structure
 
+END_FLAG='#'
+
 class Trie:
     def __init__(self):
         self.trie=dict()
@@ -31,18 +33,15 @@ class Trie:
             if c not in trie:
                 trie[c]=dict()
             trie=trie[c]
-        trie['#']=''
+        trie[END_FLAG]=''
 
-    def _elements(self,trie,path='',results=set()):
-        if not trie and path:
-            results.add(path)
-            return results
-
+    def _elements(self,trie):
+        results=[]
         for c in trie:
-            if c=='#':
-                results.add(path)
+            if c==END_FLAG:
+                results+=['']
             else:
-                self._elements(trie[c],path+c,results)
+                results+=[ c + s for s in self._elements(trie[c]) ]
 
         return results
 

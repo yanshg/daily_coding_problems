@@ -23,39 +23,40 @@ Given a friendship list such as the one above, determine the number of friend gr
 # Idea: Disjoint-set data structure, use union and find
 
 class DisjointSet:
-    def __init__(self,n):
-        self.sets=list(range(n))
-        self.sizes=[1]*n
-        self.count=n
+    def __init__(self, n):
+        self.parent = list(range(n))
+        self.sizes = [1] * n
+        self.count = n
 
-    def union(self,x,y):
-        x,y=self.find(x),self.find(y)
-        if x!=y:
-            # Union by size, add student to the bigger set.
-            if self.sizes[x]<self.sizes[y]:
-                x,y=y,x
-            self.sets[y]=x
-            self.sizes[x]+=self.sizes[y]
-            self.count-=1
+    def union(self,p,q):
+        rootp = self.find(p)
+        rootq = self.find(q)
+        if rootp == rootq:
+            return
+
+        if self.sizes[rootp] > self.sizes[rootq]:
+            rootp,rootq = rootq,rootp
+
+        self.parent[rootp] = rootq
+        self.sizes[rootq] += self.sizes[rootp]
+        self.count -= 1
 
     def find(self,x):
-        group=self.sets[x]
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]
+            x = self.parent[x]
+        return x
 
-        while group!=self.sets[group]:
-            group=self.sets[group]
-
-        self.sets[x]=group
-
-        return group
+    def get_count(self):
+        return self.count
 
 def get_friend_groups(students):
-    groups=DisjointSet(len(students))
-
+    ds = DisjointSet(len(students))
     for student,friends in students.items():
         for friend in friends:
-            groups.union(student,friend)
+            ds.union(student,friend)
 
-    return groups.count
+    return ds.get_count()
 
 students={ 0: [1, 2],
            1: [0, 5],
@@ -65,4 +66,4 @@ students={ 0: [1, 2],
            5: [1],
            6: [3]}
 
-assert get_friend_groups(students)==3
+assert get_friend_groups(students) == 3
