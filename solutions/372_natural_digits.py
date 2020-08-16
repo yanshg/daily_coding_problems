@@ -17,6 +17,10 @@ Constraint: don't use any loops.
 import math
 
 def get_digits(n):
-    return math.ceil(math.log10(n))
+    return 1 if n == 0 else (math.floor(math.log10(n)) + 1)
 
+assert get_digits(0) == 1
+assert get_digits(99) == 2
+assert get_digits(100) == 3
+assert get_digits(1000) == 4
 assert get_digits(34576) == 5
