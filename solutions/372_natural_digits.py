@@ -17,6 +17,6 @@ Constraint: don't use any loops.
 import math
 
 def get_digits(n):
-    return math.floor(math.log(n,10)+1)
+    return math.ceil(math.log10(n))
 
 assert get_digits(34576) == 5
