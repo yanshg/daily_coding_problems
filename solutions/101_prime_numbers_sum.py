@@ -23,16 +23,14 @@ If a < c OR a==c AND b < d.
 """
 
 def get_primes(n):
-    is_prime=[True]*(n+1)
-    is_prime[0]=False
-    is_prime[1]=False
-    p=2
-    while p*p<=n:
-        i=p+p
-        while i<=n:
-            is_prime[i]=False
-            i+=p
-        p+=1
+    is_prime = [True]*(n+1)
+    p = 2
+    while p*p <= n and is_prime[p]:
+        i = p * p
+        while i <= n:
+            is_prime[i] = False
+            i += p
+        p += 1
 
     return is_prime
 
