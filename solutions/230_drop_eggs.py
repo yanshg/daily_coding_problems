@@ -12,6 +12,8 @@ For example, if N = 1 and k = 5, we will need to try dropping the egg at every f
 
 """
 
+# Good article:  https://brilliant.org/wiki/egg-dropping/
+#
 # Use DP table
 
 # DP[n][k] means minimum number ot trials with n eggs and k floors
