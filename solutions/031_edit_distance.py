@@ -25,9 +25,11 @@ def edit_distance(s, t, debt=0):
 
 # https://github.com/labuladong/fucking-algorithm/blob/master/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B3%BB%E5%88%97/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.md
 
+# DP[i][j] means the edit distance of word1[:i], word2[:j]
+
 def edit_distance_dp(word1, word2):
     m, n= len(word1), len(word2)
-    dp = [[0 for i in range(0,n+1)] for j in range(0,m+1)]
+    dp = [[0 for i in range(n+1)] for j in range(m+1)]
     for i in range(1,m+1):
         dp[i][0] = i
     for j in range(1,n+1):
