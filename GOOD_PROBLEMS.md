@@ -26,6 +26,11 @@ zip:
 ** 039_conway_cell_life_game.py
 * 194_get_intersect_lines.py
 
+prime:
+* 101_prime_numbers_sum.py
+* 244_prime_generator.py
+* 283_regular_numbers.py
+
 bisect:
 * 175_markov_chain.py
 ** 097_retrieve_value_at_a_time.py
