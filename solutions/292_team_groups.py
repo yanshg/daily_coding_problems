@@ -33,49 +33,63 @@ students = {
 
 """
 
-from collections import defaultdict
+# https://www.geeksforgeeks.org/bipartite-graph/
 
-GROUP1=1
-GROUP2=2
-GROUP_ERROR=3
-
-def get_group(groups,students):
-    group=0
-    for student in students:
-        group1=groups[student]
-        if group1:
-            if group and group1!=group:
-                return GROUP_ERROR
-            group=group1
-    return GROUP1 if not group or group==GROUP2 else GROUP2
+# Check whether a graph is Bipartite by using 2-colors
+#
+# similiar with 207_bipartite_graph.py
 
 # DFS
-def helper(students,student,groups):
-    enemies=students[student]
-    groups[student]=get_group(groups,enemies)
-    for enemy in enemies:
-        if not groups[enemy]:
-            if groups[student]==GROUP_ERROR:
-                groups[enemy]=GROUP_ERROR
-            else:
-                groups[enemy]=GROUP1 if groups[student]==GROUP2 else GROUP2
-            helper(students,enemy,groups)
+def bipartite_groups_dfs(students,student,group_set,visited):
+    visited[student] = group_set
 
-def get_groups(students):
-    groups=defaultdict(int)
+    enemy_set = 1-group_set
+    for enemy in students[student]:
+        if enemy not in visited:
+            if not bipartite_groups_dfs(students,enemy,enemy_set,visited):
+                return False
+        elif visited[enemy] != enemy_set:
+            return False
+
+    return True
+
+def get_groups_dfs(students):
+    visited = dict()
     for student in students:
-        if not groups[student]:
-            helper(students,student,groups)
+        if student not in visited:
+            if not bipartite_groups_dfs(students,student,0,visited):
+                return None
 
-    #print("groups:",groups)
-    group_error={student for student in groups if groups[student]==GROUP_ERROR}
-    if group_error:
-        return None
+    return [ { s for s in visited if visited[s]==0 },
+             { s for s in visited if visited[s]==1 } ]
 
-    group1={student for student in groups if groups[student]==GROUP1}
-    group2={student for student in groups if groups[student]==GROUP2}
-    #print("group1:",group1, "group2:",group2)
-    return [group1,group2]
+# BFS
+from collections import deque
+def bipartite_groups_bfs(students,student,group_set,visited):
+    dq = deque([(student,0)])
+    while dq:
+        s,group_set = dq.popleft()
+        visited[s] = group_set
+
+        enemy_set = 1-group_set
+
+        for enemy in students[s]:
+            if enemy not in visited:
+                dq.append((enemy,enemy_set))
+            elif visited[enemy] != enemy_set:
+                return False
+
+    return True
+
+def get_groups_bfs(students):
+    visited = dict()
+    for student in students:
+        if student not in visited:
+            if not bipartite_groups_bfs(students,student,0,visited):
+                return None
+
+    return [ {s for s in students if visited[s]==0 },
+             {s for s in students if visited[s]==1 } ]
 
 students = {
     0: [3],
@@ -86,7 +100,8 @@ students = {
     5: [3]
 }
 
-assert get_groups(students)==[{0, 1, 4, 5}, {2, 3}]
+assert get_groups_dfs(students)==[{0, 1, 4, 5}, {2, 3}]
+assert get_groups_bfs(students)==[{0, 1, 4, 5}, {2, 3}]
 
 students = {
     0: [3],
@@ -97,5 +112,6 @@ students = {
     5: [3]
 }
 
-assert not get_groups(students)
+assert not get_groups_dfs(students)
+assert not get_groups_bfs(students)
 

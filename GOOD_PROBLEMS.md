@@ -6,6 +6,8 @@ Dynamic programming
 * 194_get_intersect_lines.py
 
 DP table:
+* 031_edit_distance.py
+* 181_split_to_palindrome_strs.py
 * 201_maximum_weight_path.py
 
 Dynamic programming with cache
@@ -77,8 +79,14 @@ Bit Manipulation:
 * 277_validate_utf8.py
 * 338_next_bigger_number.py
 
-Graph:
+Bipartite Graph:
 * 207_bipartite_graph.py
+* 292_team_groups.py
+
+DisjointSet
+* 279_friend_groups.py
+
+Graph:
 * 280_check_cycle_in_graph.py
 * 072_get_largest_value_of_graph.py
 * 246_word_chain_circle.py
@@ -98,7 +106,6 @@ BFS
 Bidirectional BFS
 * 023_minimum_steps_in_matrix.py
 * 170_word_ladder.py
-* 229_snakes_and_ladders.py
 * 319_puzzle_game.py
 
 A* search (f(n)=g(n)+h(n), h(n) is a heuristic function that estimates the cost of the cheapest path from n to the goal)

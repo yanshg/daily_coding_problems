@@ -18,22 +18,23 @@ Given an undirected graph G, check whether it is bipartite. Recall that a graph 
 
 # Use DFS
 
-def bipartite_check_helper(graph,vertex,visited,parent_set):
-    visited[vertex]=parent_set
+def bipartite_graph_dfs(graph,vertex,visited,group_set):
+    visited[vertex]=group_set
 
     for neighbor in graph[vertex]:
         if neighbor not in visited:
-            if not bipartite_check_helper(graph,neighbor,visited,1-parent_set):
+            if not bipartite_graph_dfs(graph,neighbor,visited,1-group_set):
                 return False
-        elif visited[neighbor]==parent_set:
+        elif visited[neighbor]==group_set:
                 return False
+
     return True
 
 def is_bipartite_graph(graph):
     visited=dict()
     for vertex in graph:
         if vertex not in visited:
-            if not bipartite_check_helper(graph,vertex,visited,0):
+            if not bipartite_graph_dfs(graph,vertex,visited,0):
                 return False
     return True
 

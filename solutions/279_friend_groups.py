@@ -34,6 +34,7 @@ class DisjointSet:
         if rootp == rootq:
             return
 
+        # rootp: smaller group, rootq: bigger group
         if self.sizes[rootp] > self.sizes[rootq]:
             rootp,rootq = rootq,rootp
 
@@ -41,6 +42,7 @@ class DisjointSet:
         self.sizes[rootq] += self.sizes[rootp]
         self.count -= 1
 
+    # Squeeze the tree when find
     def find(self,x):
         while self.parent[x] != x:
             self.parent[x] = self.parent[self.parent[x]]
