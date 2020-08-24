@@ -116,6 +116,11 @@ Topological sort
 * 226_alien_dictionary_order.py
 * 360_interleave_playlist.py
 
+Pivot partition
+* 143_partition_with_pivot.py
+* 035_partition_array.py
+* quicksort.py with last element as pivot
+
 Return functions:
 * 005_pair_func.py
 * 301_array_actions_without_resize.py  (BloomFilter)

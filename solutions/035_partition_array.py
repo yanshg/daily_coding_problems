@@ -12,9 +12,9 @@ For example, given the array ['G', 'B', 'R', 'R', 'B', 'R', 'G'], it should beco
 
 # Idea: Use 'mid' pointer to determine if swap lower or higher characters
 #
-#            'R's          'G's         Unknown        'B's
-#       |-------------|-------------|-------------|-------------|
-#                    low           mid           high
+#       |    'R's    |     'G's    |      Unknown      |    'B's     |
+#       |------------|-|-----------|-|---------------|-|-------------|
+#                    low           mid               high
 #
 # arr[:low]:     Strictly 'R's
 # arr[low:mid]:  Strictly 'G's
