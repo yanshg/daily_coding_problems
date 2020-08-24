@@ -20,8 +20,8 @@ def build_graph(lists):
     pre=defaultdict(set)
     suc=defaultdict(set)
     for songs in lists:
-        for i in range(len(songs)-1):
-           s1,s2=songs[i],songs[i+1]
+        for s1,s2 in zip(songs,songs[1:]):
+           # Initialize pre[s1], pre[s2], suc[s1], suc[s2]
            if s1 in suc[s2] or s2 in pre[s1]:
                raise ValueError("{} and {} are out of order in input".format(s1,s2))
 

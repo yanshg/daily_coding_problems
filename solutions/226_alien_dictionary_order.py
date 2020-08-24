@@ -18,8 +18,9 @@ def alien_order(words):
     pre = defaultdict(set)
     suc = defaultdict(set)
 
-    for pair in zip(words, words[1:]):
-        for a, b in zip(*pair):
+    for w1,w2 in zip(words, words[1:]):
+        for a,b in zip(w1,w2):
+            # get first different character
             if a != b:
                 suc[a].add(b)
                 pre[b].add(a)
