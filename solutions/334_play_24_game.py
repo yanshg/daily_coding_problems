@@ -28,14 +28,16 @@ def play_24(nums):
 
     for i in range(n):
         for j in range(n):
-            if i!=j:
-                consolidated_nums=[ num for k,num in enumerate(nums) if i!=k!=j ]
-                for operator in "+-*/":
-                    new_num=operate(nums[i],nums[j],operator)
-                    if new_num is None:
-                        continue
-                    if play_24(consolidated_nums+[new_num]):
-                        return True
+            if i==j:
+                continue
+
+            consolidated_nums=[ num for k,num in enumerate(nums) if i!=k!=j ]
+            for operator in "+-*/":
+                new_num=operate(nums[i],nums[j],operator)
+                if new_num is None:
+                    continue
+                if play_24(consolidated_nums+[new_num]):
+                    return True
     return False
 
 assert play_24([5, 2, 7, 8])
