@@ -29,17 +29,17 @@ def toposort(courses_to_prereqs):
             suc[prereq].add(course)
 
     # get indepedent courses
-    courses_to_process=set(courses_to_prereqs)-set(pre)
+    todo=set(courses_to_prereqs)-set(pre)
 
     order=[]
-    while courses_to_process:
-        course=courses_to_process.pop()
+    while todo:
+        course=todo.pop()
         order.append(course)
 
         for c in suc[course]:
             pre[c].discard(course)
             if not pre[c]:
-                courses_to_process.add(c)
+                todo.add(c)
 
     return order if len(order)==len(courses_to_prereqs) else []
 

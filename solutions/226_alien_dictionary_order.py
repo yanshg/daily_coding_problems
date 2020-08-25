@@ -28,15 +28,15 @@ def alien_order(words):
 
     chars = set(''.join(words))
 
-    chars_to_process = chars - set(pre)
+    todo = chars - set(pre)
     order = []
-    while chars_to_process:
-        ch = chars_to_process.pop()
-        order += [ch]
-        for b in suc[ch]:
-            pre[b].discard(ch)
-            if not pre[b]:
-                chars_to_process.add(b)
+    while todo:
+        c = todo.pop()
+        order += [c]
+        for s in suc[c]:
+            pre[s].discard(c)
+            if not pre[s]:
+                todo.add(s)
 
     return order * (set(order) == chars)
 

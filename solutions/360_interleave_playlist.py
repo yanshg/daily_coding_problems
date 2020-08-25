@@ -40,14 +40,14 @@ def get_playlist(lists):
 
     order=[]
 
-    songs=set([s for s in pre if not pre[s]])
-    while songs:
-        s=songs.pop()
+    todo=set([s for s in pre if not pre[s]])
+    while todo:
+        s=todo.pop()
         order+=[s]
         for s1 in suc[s]:
             pre[s1].discard(s)
             if not pre[s1]:
-                songs.add(s1)
+                todo.add(s1)
 
     return order
 
