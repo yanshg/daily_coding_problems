@@ -27,17 +27,25 @@ You should return 2, since bishops 1 and 3 attack each other, as well as bishops
 
 """
 
+# y=x+b  => y-x = b
+# y=-x+c => y+x = c
+#
+# Just to check if any 2 points with same value of y-x,  or any 2 points with same value of y+x
+#
+# Use hashmap to reduct to O(N)
+
+from collections import defaultdict
+
 def count_attack_bishop_pairs(m,bishops):
-    count=0
-    for i,coord in enumerate(bishops):
-        x,y=coord
-        print("i:",i, coord)
-        for j in range(0,i):
-            x1,y1=bishops[j]
-            if abs(x1-x) == abs(y1-y):
-                count+=1
-                print("j:",j, "count:", count)
-    return count
+    hash_y_minus_x=defaultdict(list)
+    hash_y_plus_x=defaultdict(list)
+
+    for x,y in bishops:
+        hash_y_minus_x[y-x]+=[(x,y)]
+        hash_y_plus_x[y+x]+=[(x,y)]
+
+    return sum([ 1 for k in hash_y_minus_x if len(hash_y_minus_x[k])>1 ] + \
+               [ 1 for k in hash_y_plus_x if len(hash_y_plus_x[k])>1 ])
 
 assert count_attack_bishop_pairs(5, [ (0,0), (1,2), (2,2), (4,0) ])==2
 
