@@ -8,6 +8,8 @@ Write a program that computes the length of the longest common subsequence of th
 
 """
 
+# Recursion
+
 def helper(strings,sequence,indices):
     #print("sequence:",sequence)
 
@@ -34,4 +36,29 @@ def helper(strings,sequence,indices):
 def get_lcs_len(strings):
     return helper(strings,'',[-1]*len(strings))
 
+
+# DP table
+
+# DP[i][j][k]: means the LCS for X[:i+1], Y[:j+1], Z[:k+1]
+#
+
+def get_lcs_len_dp(strings):
+    s1,s2,s3 = strings
+    l,m,n = len(s1),len(s2),len(s3)
+
+    DP = [[[0 for i in range(n+1)] for j in range(m+1)]
+          for k in range(l+1)]
+
+    for i in range(l+1):
+        for j in range(m+1):
+            for k in range(n+1):
+                if s1[i-1]==s2[j-1]==s3[k-1]:
+                    DP[i][j][k] = DP[i-1][j-1][k-1] + 1
+                else:
+                    DP[i][j][k] = max(DP[i-1][j][k], DP[i][j-1][k], DP[i][j][k-1])
+
+    return DP[l][m][n]
+
 assert get_lcs_len(["epidemiologist", "refrigeration", "supercalifragilisticexpialodocious"])==5
+assert get_lcs_len_dp(["epidemiologist", "refrigeration", "supercalifragilisticexpialodocious"])==5
+assert get_lcs_len_dp(['AGGT12','12TXAYB','12XBA']) == 2

@@ -128,6 +128,9 @@ Return functions:
 Longest increasing subsequence
 * 364_longest_increasing_subsequence.py
 
+LCS with DP
+* 209_longest_common_subsequence.py
+
 Intervals
 * 021_minimum_rooms.py
 * 077_merge_intervals.py (use stack)
