@@ -46,8 +46,7 @@ def get_lcs_len_dp(strings):
     s1,s2,s3 = strings
     l,m,n = len(s1),len(s2),len(s3)
 
-    DP = [[[0 for i in range(n+1)] for j in range(m+1)]
-          for k in range(l+1)]
+    DP = [ [ [ 0 for k in range(n+1) ] for j in range(m+1) ] for i in range(l+1) ]
 
     for i in range(l+1):
         for j in range(m+1):
