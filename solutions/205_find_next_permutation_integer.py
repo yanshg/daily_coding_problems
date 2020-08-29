@@ -25,7 +25,7 @@ def get_next_permutation_integer(num):
     l=len(digits)
 
     i=l-1
-    while i>0 and digits[i]<=digits[i-1]:
+    while i>0 and digits[i-1]>=digits[i]:
         i-=1
 
     if i>0:

@@ -15,9 +15,9 @@ Can you perform the operation without allocating extra memory (disregarding the 
 # https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
 
 # Idea:
-#    1. Find the highest index i such that s[i] < s[i+1]. If no such index exists, the permutation is the last permutation.
-#    2. Find the highest index j > i such that s[j] > s[i]. Such a j must exist, since i+1 is such an index.
-#    3. Swap s[i] with s[j].
+#    1. Find the highest index i such that s[i-1] < s[i]. If no such index exists, the permutation is the last permutation.
+#    2. Find the highest index j >= i such that s[j] > s[i-1]. Such a j must exist, since i is such an index.
+#    3. Swap s[i-1] with s[j].
 #    4. Reverse the order of all of the elements after index i till the last element.
 
 
