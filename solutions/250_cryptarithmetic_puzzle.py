@@ -115,7 +115,7 @@ def solve_cryptarithmetic(words):
     crypt_data=init_crypt_data(words)
     nums=set(range(10))
 
-    # Starting from the first character to solv
+    # Starting from the first character to solve
     return solve_puzzle(crypt_data,0,nums)
 
 assert solve_cryptarithmetic(['SEND','MORE','MONEY']) == {'M': 1, 'R': 8, 'D': 7, 'N': 6, 'E': 5, 'S': 9, 'O': 0, 'Y': 2}
