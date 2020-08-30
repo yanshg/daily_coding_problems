@@ -48,7 +48,7 @@ def init_crypt_data(words):
 
     max_len = len(words[-1])
     reversed_words = [ list(reversed(word)) + list((max_len-len(word))*SPACE_CHAR) for word in words ]
-    cols = zip(*reversed_words)
+    cols = list(zip(*reversed_words))
     for col in cols:
         for c in col:
             if c != SPACE_CHAR and c not in values:
@@ -58,12 +58,14 @@ def init_crypt_data(words):
     crypt_data['chars'] = chars
     crypt_data['values'] = values
     crypt_data['cols'] = cols
+    crypt_data['leading_chars'] = [ word[0] for word in words ]
     return crypt_data
 
 def is_valid(crypt_data):
     chars = crypt_data['chars']
     values = crypt_data['values']
     cols = crypt_data['cols']
+    leading_chars = crypt_data['leading_chars']
 
     carry = 0
     for col in cols:
@@ -84,8 +86,8 @@ def is_valid(crypt_data):
 
         carry = value // 10
 
-    for c in cols[-1]:
-        if c != SPACE_CHAR and values[c] == 0:
+    for c in leading_chars:
+        if values[c] == 0:
             return False
 
     return True
@@ -116,5 +118,6 @@ def solve_cryptarithmetic(words):
     # Starting from the first character to solv
     return solve_puzzle(crypt_data,0,nums)
 
-assert solve_cryptarithmetic(['SEND','MORE','MONEY'])=={'S':9,'E':5,'N':6,'D':7,'M':1,'O':0,'R':8,'Y':2}
-assert solve_cryptarithmetic(['CP','IS','FUN','TRUE'])=={'P':2,'S':5,'N':7,'E':4,'C':3,'I':6,'U':8,'F':9,'R':0,'T':1}
+assert solve_cryptarithmetic(['SEND','MORE','MONEY']) == {'M': 1, 'R': 8, 'D': 7, 'N': 6, 'E': 5, 'S': 9, 'O': 0, 'Y': 2}
+assert solve_cryptarithmetic(['CP','IS','FUN','TRUE']) == {'T': 1, 'P': 2, 'R': 0, 'N': 7, 'E': 4, 'U': 8, 'S': 5, 'I': 6, 'C': 3, 'F': 9}
+
