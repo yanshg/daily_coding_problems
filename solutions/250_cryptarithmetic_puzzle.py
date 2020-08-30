@@ -58,7 +58,7 @@ def init_crypt_data(words):
     crypt_data['chars'] = chars
     crypt_data['values'] = values
     crypt_data['cols'] = cols
-    crypt_data['leading_chars'] = [ word[0] for word in words ]
+    crypt_data['leading_chars'] = { word[0] for word in words }
     return crypt_data
 
 def is_valid(crypt_data):
@@ -66,6 +66,10 @@ def is_valid(crypt_data):
     values = crypt_data['values']
     cols = crypt_data['cols']
     leading_chars = crypt_data['leading_chars']
+
+    for c in leading_chars:
+        if values[c] == 0:
+            return False
 
     carry = 0
     for col in cols:
@@ -85,10 +89,6 @@ def is_valid(crypt_data):
             return False
 
         carry = value // 10
-
-    for c in leading_chars:
-        if values[c] == 0:
-            return False
 
     return True
 
