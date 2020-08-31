@@ -15,35 +15,35 @@ Bonus: What input n <= 1000000 gives the longest sequence?
 
 """
 
-# Idea: need use cache
+# Idea: need use memo
+#        |- [1]             if n==1
+# f(n) = |- [n] + f(n//2)   if n is even
+#        |- [n] + f(3*n+1)  if n is odd
 
-def next_collatz(n):
-    if n&1:
-        return 3*n+1
-    return n//2
 
-def get_collatz_seq(n,cache=dict()):
+def get_collatz_seq(n,memo=dict()):
     if n==1:
         return [ 1 ]
 
-    seq=[n]
-    next_val=next_collatz(n)
-    if next_val in cache:
-        seq+=cache[next_val]
+    if n in memo:
+        return memo[n]
+
+    if n&1:
+        memo[n] = [n] + get_collatz_seq(3*n+1,memo)
     else:
-        seq+=get_collatz_seq(next_val,cache)
-    cache[n]=seq
-    return seq
+        memo[n] = [n] + get_collatz_seq(n//2,memo)
+
+    return memo[n]
 
 def get_longest_collatz_seq(n):
-    cache=dict()
+    memo=dict()
     longest=[]
     for i in range(1,n+1):
-        seq=get_collatz_seq(i,cache)
+        seq=get_collatz_seq(i,memo)
+        print(i,": ", seq)
         if len(seq)>len(longest):
             longest=seq
-    print(longest)
     return longest
 
-get_longest_collatz_seq(1000)
+print("1000 longest: ", get_longest_collatz_seq(1000))
 
