@@ -12,26 +12,21 @@ Hint: Make sure each one of the 52! permutations of the deck is equally likely.
 
 """
 
-from collections import defaultdict,Counter
+from collections import defaultdict
 import random
 
-NUM_CARDS=52
-
-def generate_random_number(k):
-    return random.randint(1,k)
+NUM_CARDS=5
 
 def shuffle_cards(cards):
-    #random.shuffle(cards)
-
     n=len(cards)
-    for i in range (0, n-2):
-        index = i + generate_random_number(n-i-1)
+    for i in range(n-1):
+        index = random.randint(i, n-1)
         cards[i], cards[index] = cards[index], cards[i]
 
     return cards
 
 
-num_experiments = 10
+num_experiments = 10000
 count = defaultdict(int)
 
 cards=list(range(NUM_CARDS))
@@ -40,4 +35,4 @@ for i in range(num_experiments):
     print(cards)
     count[tuple(cards)]+=1
 
-print(len(count), Counter(count.values()))
+print(count)
