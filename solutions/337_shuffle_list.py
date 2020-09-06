@@ -59,7 +59,6 @@ def merge(left,right):
             node = right
             right = right.next
 
-        node.next = None
         current.next = node
         current = node
 
