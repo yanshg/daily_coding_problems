@@ -21,9 +21,11 @@ Given an integer N, determine in how many ways this task is possible.
 # Article:  https://cs.stackexchange.com/questions/66658/domino-and-tromino-combined-tiling?answertab=votes#tab-top
 #
 #
-#         |- 1                                 if n==0 or 1
+#         |- 0                                 if n==0
+#         |- 1                                 if n==1
 #  f(n) = |- 2                                 if n==2
-#         |- f(n-1) + f(n-2) + 2*(sum([f(n-k) for k in range(3,n+1)])       if n>=3
+#         |- 5                                 if n==3
+#         |- f(n-1) + f(n-2) + 2*(sum([f(n-k) for k in range(3,n+1)]) if n>=4
 #
 #  =>
 #
@@ -34,14 +36,16 @@ Given an integer N, determine in how many ways this task is possible.
 #  f(n) = 2*f(n-1) + f(n-3)
 
 def get_ways(n):
-    if n==0 or n==1: return 1
+    if n==0 or n==1: return n
     if n==2: return 2
+    if n==3: return 5
 
     return 2 * get_ways(n-1) + get_ways(n-3)
 
 def get_ways_memo(n, memo=dict()):
-    if n==0 or n==1: return 1
+    if n==0 or n==1: return n
     if n==2: return 2
+    if n==3: return 5
 
     if n in memo:
         return memo[n]
@@ -53,15 +57,19 @@ def get_ways_memo(n, memo=dict()):
 #
 # DP[i]: means ways with i length
 #
-#          |- 1                         if i==0 or 1
+#          |- 0                         if i==0
+#          |- 1                         if i==1
 #  DP[i] = |- 2                         if i==2
-#          |- 2 * DP[i-1] + DP[i-3]     if i>=3
+#          |- 5                         if i==3
+#          |- 2 * DP[i-1] + DP[i-3]     if i>=4
 #
 def get_ways_dp(n):
-    DP = [1] * (n+1)
+    DP = [0] * (n+1)
+    DP[1] = 1
     DP[2] = 2
+    DP[3] = 5
 
-    for i in range(3,n+1):
+    for i in range(4,n+1):
         DP[i] = 2 * DP[i-1] + DP[i-3]
 
     return DP[-1]
