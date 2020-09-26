@@ -32,6 +32,17 @@ Do this in O(N) time and O(1) space.
 #                                  If appear third (not exists in ones), throw it away and remove it from twos
 #
 
+# Solution:  there are 2 buckets: ones, twos
+#   for x in nums:
+#       if x in twos:
+#            remove x from twos
+#       elsif x in ones:
+#            remove x from ones
+#            add x in twos
+#       else:
+#            add x in ones
+#   return ones
+
 def get_non_duplicated_number(numbers):
     ones, twos = 0, 0
     for x in numbers:
