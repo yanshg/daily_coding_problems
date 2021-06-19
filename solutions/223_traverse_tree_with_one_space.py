@@ -62,6 +62,7 @@ def moriss_traverse(root):
     results=[]
     curr=root
     while curr:
+        print("curr: ", curr.val)
         if not curr.left:
             results.append(curr.val)
             curr=curr.right
@@ -78,6 +79,7 @@ def moriss_traverse(root):
             else:
                 # Revert the change to original tree
                 # fix the right child of predecessor
+                print("revert the change, pre: ", pre.val, "curr: ", curr.val)
                 pre.right=None
                 results.append(curr.val)
                 curr=curr.right
@@ -97,6 +99,21 @@ def moriss_traverse(root):
 
 """
 
+def inorder_traverse_with_iterator(root):
+    if not root:
+        return
+
+    stack=[]
+    curr=root
+    while curr or stack:
+        while curr:
+            stack.append(curr)
+            curr=curr.left
+
+        curr=stack.pop()
+        yield curr.val
+        curr=curr.right
+
 n1=Node(1)
 n2=Node(2)
 n3=Node(3)
@@ -110,6 +127,13 @@ n2.left=n4
 n2.right=n5
 n3.left=n6
 n3.right=n7
+
+myiter=iter(inorder_traverse_with_iterator(n1))
+try:
+    while True:
+        print(next(myiter))
+except StopIteration:
+    print("Done")
 
 assert inorder_traverse_recursive(n1)==[4,2,5,1,6,3,7]
 assert inorder_traverse_with_stack(n1)==[4,2,5,1,6,3,7]

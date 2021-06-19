@@ -28,20 +28,16 @@ it should become:
 You can assume keys do not contain dots in them, i.e. no clobbering will occur.
 """
 
-def flatten_dict_helper(d,flatten_dict,key_so_far=""):
-    if not isinstance(d,dict):
+def flatten_dict(d,key_so_far=""):
+    if d and isinstance(d,dict):
         if key_so_far:
-            flatten_dict[key_so_far]=d
-        return flatten_dict
-
-    for k in d:
-        flatten_key="{}.{}".format(key_so_far,k) if key_so_far else k
-        flatten_dict_helper(d[k],flatten_dict,flatten_key)
-
-    return flatten_dict
-
-def flatten_dict(d):
-    return flatten_dict_helper(d,{},"")
+            key_so_far+='.'
+        for k in d:
+            yield from flatten_dict(d[k], key_so_far+str(k))
+    elif d:
+        yield key_so_far,d
+    elif not key_so_far:
+        return {}
 
 d = {
     "key": 3,
@@ -59,5 +55,5 @@ flat_d = {
     "foo.bar.baz": 8
 }
 
-assert flatten_dict(d) == flat_d
-assert flatten_dict({}) == {}
+assert dict(flatten_dict(d,'')) == flat_d
+assert dict(flatten_dict({},'')) == {}

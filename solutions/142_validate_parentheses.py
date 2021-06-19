@@ -37,6 +37,47 @@ def validate_parentheses_helper(string,stack=list()):
 def validate_parentheses(string):
     return validate_parentheses_helper(string,[])
 
+
+# Backtrack
+def isvalid(s):
+    bal=0
+    for c in s:
+        if c=='(': bal+=1
+        if c==')': bal-=1
+        if bal<0:  break
+    return bal==0
+
+def backtrack(s, index):
+    if index==len(s):
+        return isvalid(s)
+
+    if s[index]=='*':
+        for c in '() ':
+            s1=s[:]
+            s1[index]=c
+            if backtrack(s1, index+1):
+                return True
+    elif backtrack(s, index+1):
+         return True
+    return False
+
+def validate_parentheses_bt(s):
+    return backtrack(list(s),0)
+
+# DP[i][j]: mean s[i:j+1] is valid then True else False
+
+def validate_parentheses_dp(s):
+    pass
+
+def checkValidString(s):
+    lo = hi = 0
+    for c in s:
+        lo += 1 if c == '(' else -1
+        hi += 1 if c != ')' else -1
+        if hi < 0: break
+        lo = max(lo, 0)
+    return lo == 0
+
 assert validate_parentheses("(()*")
 assert validate_parentheses("(())")
 assert validate_parentheses("((*)")
@@ -44,3 +85,16 @@ assert validate_parentheses("((**")
 assert validate_parentheses("(*)")
 assert not validate_parentheses(")*(")
 
+assert validate_parentheses_bt("(()*")
+assert validate_parentheses_bt("(())")
+assert validate_parentheses_bt("((*)")
+assert validate_parentheses_bt("((**")
+assert validate_parentheses_bt("(*)")
+assert not validate_parentheses_bt(")*(")
+
+assert checkValidString("(()*")
+assert checkValidString("(())")
+assert checkValidString("((*)")
+assert checkValidString("((**")
+assert checkValidString("(*)")
+assert not checkValidString(")*(")

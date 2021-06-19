@@ -8,38 +8,16 @@ Write a program that checks whether an integer is a palindrome. For example, 121
 
 """
 
-FACTOR=10
-
-def helper(num,size):
-    if size==1:
-        return True
-
-    biggest_factor=FACTOR ** (size-1)
-    smallest_factor=FACTOR
-
-    left_digit=num//biggest_factor
-    right_digit=num%smallest_factor
-    if left_digit!=right_digit:
-        return False
-
-    if size<=3:
-        return True
-
-    # get the middle digits
-    num-=left_digit*biggest_factor
-    num=num//smallest_factor
-    return helper(num, size-2)
-
-def get_number_length(num):
-    size=0
+def get_reverse_num(num):
+    reverse_num = 0
     while num:
-        num=num//10
-        size+=1
-    return size
+        reverse_num = (reverse_num * 10) + (num % 10)
+        num = num // 10
+
+    return reverse_num
 
 def is_palindrome_number(num):
-    size=get_number_length(num)
-    return helper(num,size)
+    return num == get_reverse_num(num)
 
 assert is_palindrome_number(5)
 assert is_palindrome_number(11)

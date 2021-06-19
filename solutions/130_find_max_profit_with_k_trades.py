@@ -31,4 +31,6 @@ def helper(prices,n,index,profit,remain_buys,remain_sells,records=[]):
 def get_max_profit_from_k_trades(prices,k):
     return helper(prices,len(prices),0,0,k,k,[])
 
+# DP method
+
 assert get_max_profit_from_k_trades([5,2,4,0,1],2)==3

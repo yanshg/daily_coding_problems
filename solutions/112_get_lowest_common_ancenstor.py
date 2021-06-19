@@ -34,6 +34,39 @@ def get_lca(node1,node2):
 
     return longer
 
+def get_lca1(node1,node2):
+    if not node1 or not node2:
+        return None
+
+    visited=set()
+    while node1:
+        visited.add(node1)
+        node1=node1.parent
+
+    while node2:
+        if node2 in visited:
+            return node2
+        node2=node2.parent
+
+    return None
+
+def get_lca2(node1,node2):
+    if not node1 or not node2:
+        return None
+
+    p1,p2=node1,node2
+    p1_linked,p2_linked=False,False
+    while p1 and p2 and p1!=p2:
+        p1=p1.parent
+        if not p1 and not p1_linked:
+            p1 = node2
+            p1_linked = True
+        p2=p2.parent
+        if not p2 and not p2_linked:
+            p2 = node1
+            p2_linked = True
+    return p1
+
 node1=Node(1)
 node2=Node(2)
 node3=Node(3)
@@ -59,3 +92,11 @@ node10.parent=node8
 assert get_lca(node6,node9)==node3
 assert get_lca(node7,node10)==node3
 assert not get_lca(node11,node10)
+
+assert get_lca1(node6,node9)==node3
+assert get_lca1(node7,node10)==node3
+assert not get_lca1(node11,node10)
+
+assert get_lca2(node6,node9)==node3
+assert get_lca2(node7,node10)==node3
+assert not get_lca2(node11,node10)

@@ -17,8 +17,6 @@ Return the nodes 5 and 15.
 
 """
 
-from collections import deque
-
 class Node:
     def __init__(self,val,left=None,right=None):
         self.val=val
@@ -28,29 +26,20 @@ class Node:
     def __repr__(self):
         return "{}=>({},{})".format(self.val,self.left,self.right)
 
-def sum_to_k(node,target):
-    vhash=dict()
+def sum_to_k(root,target,hashset=set()):
+    if not root:
+        return None
 
-    dq=deque([node])
-    while(dq):
-        n=dq.popleft()
+    v1 = root.val
+    v2 = target - v1
+    if v2 in hashset:
+        return [ v1, v2 ] if v1 <= v2 else [ v2, v1 ]
 
-        val=n.val
-        tv=target-val
-        if tv in vhash:
-            v1=vhash[tv].val
-            if val>v1:
-                return [v1, val]
-            return [val, v1]
+    hashset.add(root.val)
 
-        vhash[val]=n
+    return sum_to_k(root.left,target,hashset) or \
+           sum_to_k(root.right,target,hashset)
 
-        if n.left:
-            dq.append(n.left)
-        if n.right:
-            dq.append(n.right)
-
-    return None
 
 node1=Node(10)
 node2=Node(5)

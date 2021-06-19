@@ -12,7 +12,7 @@ For example, given [5, 7, 10, 3, 4], return 3.
 
 def helper(nums,low,high):
     while low<=high:
-        mid=(low+high)//2
+        mid=low + (high - low)//2
         if nums[low]<nums[mid]:
             if nums[mid]>nums[high]:
                 # mid is in the left ascending part

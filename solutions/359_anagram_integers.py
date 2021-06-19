@@ -16,39 +16,28 @@ Given this string, return the original integers in sorted order. In the example 
 
 from collections import Counter
 
-digit_word_map={
-   '0': 'zero',
-   '1': 'one',
-   '2': 'two',
-   '3': 'three',
-   '4': 'four',
-   '5': 'five',
-   '6': 'six',
-   '7': 'seven',
-   '8': 'eight',
-   '9': 'nine',
-}
+digit_words=[ 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine' ]
 
 def extract_counts(counts,word):
+    results=counts.copy()
     for c in word:
         if c not in counts:
             return None
 
-        counts[c]-=1
-        if counts[c]==0:
-            del counts[c]
+        results[c]-=1
+        if results[c]==0:
+            del results[c]
 
-    return counts
+    return results
 
 def backtrack(counts,mapped_digits,digits):
-    print("counts:", counts, "mapped_digits:", mapped_digits)
     if not counts:
         return mapped_digits
 
     for digit in digits:
-        remaining=extract_counts(counts, digit_word_map[digit])
+        remaining=extract_counts(counts, digit_words[digit])
         if remaining is not None:
-            result=backtrack(remaining, mapped_digits+digit, digits)
+            result=backtrack(remaining, mapped_digits+str(digit), digits-set(range(digit)))
             if result:
                 return result
 
@@ -56,9 +45,9 @@ def backtrack(counts,mapped_digits,digits):
 
 def get_integers(s):
     counts=Counter(s)
-    result=backtrack(counts, '', set(digit_word_map))
+    result=backtrack(counts, '', set(range(10)))
     if result:
-        return int(''.join(sorted(list(result))))
+        return int(result)
     return -1
 
 assert get_integers('niesevehrtfeev') == 357

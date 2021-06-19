@@ -20,7 +20,7 @@ def helper(s,curr='',pals_so_far=[]):
         return pals_so_far if not curr else pals_so_far + list(curr)
 
     candidate=curr+s[0]
-    
+
     pals_with_candidate=[]
     if is_palindrome(candidate):
         pals_with_candidate=helper(s[1:],'',pals_so_far+[candidate])
@@ -30,6 +30,19 @@ def helper(s,curr='',pals_so_far=[]):
 
 def split_to_palindrome_strs(s):
     return helper(s,'',[])
+
+
+# With DP table
+
+
+
+
+
+
+
+
+
+
 
 assert split_to_palindrome_strs("racecarannakayak") == ["racecar", "anna", "kayak"]
 assert split_to_palindrome_strs("abc") == ["a", "b", "c"]

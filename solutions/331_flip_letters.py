@@ -27,13 +27,9 @@ def flip_letters(s):
     rightx=[0]*n
 
     for i in range(1,n):
-        lefty[i]=lefty[i-1]+(s[i-1]=='y')
-    for i in range(n-2,-1,-1):
-        rightx[i]=rightx[i+1]+(s[i+1]=='x')
+        lefty[i] = lefty[i-1] + (s[i-1] == 'y')
+        rightx[n-i-1] = rightx[n-i] + (s[n-i] == 'x')
 
-    flips=n
-    for i in range(n):
-        flips=min(flips, lefty[i]+rightx[i])
-    return flips
+    return min([ lefty[i]+rightx[i] for i in range(n) ])
 
 assert flip_letters('xyxxxyxyy')==2

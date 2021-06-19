@@ -16,19 +16,27 @@ Do not use flatten or otherwise clone the arrays. Some of the arrays can be empt
 
 class TwoDimIterator():
     def __init__(self,array):
-        self.array=array
-        self.generator=self.get_generator()
-        self.next_val=next(self.generator)
+        self.generator=self.create_generator(array)
+        self.next_val=None
+        self.next(raise_exception=False)
 
-    def get_generator(self):
-        for arr in self.array:
-            for num in arr:
-                yield num
+    def create_generator(self,array):
+        for item in array:
+            if not item:
+                continue
+            if isinstance(item, list):
+                for subitem in item:
+                    yield subitem
+            else:
+                yield item
 
     def has_next(self):
         return self.next_val != None
 
-    def next(self):
+    def next(self,raise_exception=True):
+        if raise_exception and self.next_val is None:
+            raise StopIteration
+
         val=self.next_val
         try:
             self.next_val=next(self.generator)
@@ -38,7 +46,7 @@ class TwoDimIterator():
         return val
 
 
-tdi=TwoDimIterator([[1, 2], [3], [], [4, 5, 6]])
+tdi=TwoDimIterator([[1, 2], 3, [], [4, 5, 6]])
 assert tdi.has_next()
 assert tdi.next()==1
 assert tdi.next()==2

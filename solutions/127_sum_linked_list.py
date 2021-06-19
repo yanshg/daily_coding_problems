@@ -34,16 +34,12 @@ class Node:
         return "{}->{}".format(self.val,self.next)
 
 def convert_num_to_list(num):
-    head,prev=None,None
+    head,next=None,None
     while(num):
         digit=num%10
         num//=10
-        node=Node(digit)
-        if not head:
-            head=node
-        if prev:
-            prev.next=node
-        prev=node
+        head=Node(digit,next)
+        next=head
     return head
 
 def convert_list_to_num(head):

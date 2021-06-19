@@ -30,6 +30,15 @@ def get_max_coins(matrix):
 
     return helper(matrix,0,0,len(matrix),len(matrix[0]))
 
+
+# DP method
+# DP[i][j]: mean max coin numbers from [0,0] to [i][j]
+#
+# DP[i][j]= M[i][j] + max(DP[i-1][j], DP[i][j-1])
+
+def get_max_coins_dp(matrix):
+    rows,cols=len(matrix),len(matrix[0])
+
 matrix=[[0, 3, 1, 1],
         [2, 0, 0, 4],
         [1, 5, 3, 1]]

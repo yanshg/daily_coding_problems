@@ -27,7 +27,7 @@ def play_24(nums):
         return nums[0]==24
 
     for i in range(n):
-        for j in range(n):
+        for j in range(i+1,n):
             if i==j:
                 continue
 
@@ -38,6 +38,7 @@ def play_24(nums):
                     continue
                 if play_24(consolidated_nums+[new_num]):
                     return True
+
     return False
 
 assert play_24([5, 2, 7, 8])

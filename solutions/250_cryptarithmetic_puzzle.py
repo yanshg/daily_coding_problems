@@ -47,7 +47,7 @@ def init_crypt_data(words):
     chars = list()
 
     max_len = len(words[-1])
-    reversed_words = [ list(reversed(word)) + list((max_len-len(word))*SPACE_CHAR) for word in words ]
+    reversed_words = map(reversed, map(lambda s: s.rjust(max_len), words));
     cols = list(zip(*reversed_words))
     for col in cols:
         for c in col:

@@ -38,37 +38,6 @@ It takes 1 step to move from (0, 0) to (1, 1). It takes one more step to move fr
 #                                           Notes:  record the intermediate data for path, visited.
 #                                                   return the final path with minimum steps
 
-# DFS
-
-def helper(minx,maxx,miny,maxy,points,index,x,y,path=[],visited=set()):
-    if x<minx or x>maxx or y<miny or y>maxy:
-        return []
-
-    if (x,y)==points[index] and index<len(points)-1:
-        return helper(minx,maxx,miny,maxy,points,index+1,x,y,path[:],visited.copy())
-
-    coord="{}-{}".format(x,y)
-    if coord in visited:
-        return []
-
-    visited.add(coord)
-    path+=[coord]
-
-    if (x,y)==points[index] and index==len(points)-1:
-        print("path: ",path)
-        return path
-
-    pathes=[ helper(minx,maxx,miny,maxy,points,index,x+dx,y+dy,path[:],visited.copy()) for dx in [-1,0,1] for dy in [-1,0,1] ]
-    pathes=[ p for p in pathes if p ]
-    return min(pathes, key=len) if pathes else []
-
-def minimum_moves_in_grid_dfs(points):
-    xs,ys=list(zip(*points))
-    minx,maxx,miny,maxy=min(xs),max(xs),min(ys),max(ys)
-    x,y=points[0]
-    path=helper(minx,maxx,miny,maxy,points,1,x,y,[],set())
-    return len(path)-1 if path else 0
-
 
 # BFS
 
@@ -84,31 +53,31 @@ def minimum_moves_in_grid_bfs(points):
     dq=deque([(start,0,[start])])
     while dq:
         point,index,path=dq.popleft()
-        print("point:",point,"index:",index,"Path:",path)
+        #print("point:",point,"index:",index,"Path:",path)
         if index==n-1:
             print(path)
             return len(path)-1
 
         x,y=point
-        coord="{}-{}".format(x,y)
-        visited.add(coord)
+        visited.add(point)
 
         for dx in [-1,0,1]:
             for dy in [-1,0,1]:
                nx,ny=x+dx,y+dy
-
-               coord="{}-{}".format(nx,ny)
-               if nx<minx or nx>maxx or ny<miny or ny>maxy or \
-                   coord in visited:
-                   continue
-
                point=(nx,ny)
-               if point==points[index+1]:
-                   dq.append((point,index+1,path+[point]))
-               else:
-                   dq.append((point,index,path+[point]))
+
+               if minx<=nx<=maxx and miny<=ny<=maxy and \
+                   point not in visited:
+                   if point==points[index+1]:
+                       dq.clear()
+                       dq.append((point,index+1,path+[point]))
+                       visited.clear()
+                       for point1 in path:
+                           visited.add(point1)
+                   else:
+                       dq.append((point,index,path+[point]))
 
     return 0
 
-assert minimum_moves_in_grid_dfs([(0, 0), (1, 1), (1, 2)])==2
 assert minimum_moves_in_grid_bfs([(0, 0), (1, 1), (1, 2)])==2
+assert minimum_moves_in_grid_bfs([(0, 0), (3, 3), (1, 2)])==5

@@ -167,3 +167,8 @@ Python staticmethod
 * 120_singleton_pattern.py
 * 348_ternary_tree.py
 * 359_anagram_integers.py
+
+Dummy node in linked list
+* 337_shuffle_list.py
+* 052_LRU_cache.py
+* 305_remove_zero_sum_nodes.py

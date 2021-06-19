@@ -28,23 +28,22 @@ def add_count(counter,char):
         del counter[char]
 
 def find_anagram_words_in_string(string,word):
-    results=[]
     counter=defaultdict(int)
+    lw=len(word)
+    for i,c in enumerate(word):
+        add_count(counter,c)
 
-    ls,lw=len(string),len(word)
-    for i in range(lw):
-        add_count(counter,word[i])
-    for i in range(lw):
-        reduce_count(counter,string[i])
-    if not counter:
-        results.append(0)
+    results=[]
+    for i,c in enumerate(string):
+        if i>=lw:
+            # add count for starting char
+            add_count(counter,string[i-lw])
 
-    for i in range(lw,ls):
-        add_count(counter,string[i-lw])
-        reduce_count(counter,string[i])
+        # reduce count for current char
+        reduce_count(counter,c)
+
         if not counter:
-            results.append(i-lw+1)
-
+            results+=[i-lw+1]
     return results
 
 assert bruteforce('abxaba', 'ab')==[0,3,4]

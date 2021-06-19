@@ -12,6 +12,8 @@ For example, given S = [12, 1, 61, 5, 9, 2] and k = 24, return [12, 9, 2, 1] sin
 
 """
 
+# 0-1 Knapsack Issue
+
 def helper(nums,n,k,subset=[]):
     if n==0:
         return subset if k==0 else None

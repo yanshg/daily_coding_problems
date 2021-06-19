@@ -11,16 +11,17 @@ You are asked to play the following game. You and an opponent take turns choosin
 Write a program that returns the maximum amount of money you can win with certainty, if you move first, assuming your opponent plays optimally.
 
 """
-# Idea 1:
-#        F(i, j)  represents the maximum value the user can collect from 
-#                 i'th coin to j'th coin.
+
+# Using DP table
 #
-#        F(i, j)  = Max(Vi + min(F(i+2, j), F(i+1, j-1) ), 
-#                       Vj + min(F(i+1, j-1), F(i, j-2) )) 
+# DP[i][j]:  the maximum value the user can collect from coins[i:j+1]
 #
-#        Base Cases:
-#                     F(i, j)  = Vi           If j == i
-#                     F(i, j)  = max(Vi, Vj)  If j == i+1
+#     DP(i, j)  = Max(Vi + min(DP(i+2, j), DP(i+1, j-1) ),
+#                     Vj + min(DP(i+1, j-1), DP(i, j-2) ))
+#
+# Base Cases:
+#     DP(i, j)  = Vi           If j == i
+#     DP(i, j)  = max(Vi, Vj)  If j == i+1
 
 
 def helper1(nums,i,j,path=[],sum=0):
@@ -54,14 +55,14 @@ def max_amount_coins_row1(nums):
 
 # Idea 2:
 
-#    F(i, j)  represents the maximum value the user can collect from 
-#             i'th coin to j'th coin.
+#    DP(i, j)  means the maximum value the user can collect from
+#              i'th coin to j'th coin.
 #
-#    F(i, j)  = Max(Sum - F(i+1, j, Sum-Vi), 
-#                   Sum - F(i, j-1, Sum-Vj)) 
+#    DP(i, j)  = Max(Sum - DP(i+1, j, Sum-Vi),
+#                    Sum - DP(i, j-1, Sum-Vj))
 #
 #    Base Case:
-#         F(i, j)  = max(Vi, Vj)  If j == i+1
+#         DP(i, j)  = max(Vi, Vj)  If j == i+1
 #
 # For both of your choices, the opponent gives you total Sum minus maximum of his value
 

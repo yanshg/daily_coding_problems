@@ -9,6 +9,7 @@ For example, if the list is [1, 2, 3, 4, 5] and K is 9, then it should return [2
 
 """
 
+# Prefix sum
 def get_contiguous_numbers_sum_to_target(list,target):
     l=len(list)
     sums=[];
@@ -27,17 +28,15 @@ def get_contiguous_numbers_sum_to_target(list,target):
 def get_contiguous_positive_numbers_sum_to_target(list,target):
     summed=0
     start=end=0
-    i=0
-    while i<len(list):
+    while end<len(list):
         if summed==target:
             return list[start:end]
         elif summed>target:
             summed-=list[start]
             start+=1
         elif summed<target:
-            summed+=list[i]
-            end=i+1
-            i+=1
+            summed+=list[end]
+            end+=1
     return []
 
 assert get_contiguous_numbers_sum_to_target([1, 2, 3, 4, 5], 0) == []

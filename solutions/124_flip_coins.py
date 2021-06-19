@@ -13,13 +13,11 @@ import random
 
 def flip_coins(n):
     rounds=0
-    while True:
+    while n>1:
         rounds+=1
         for i in range(n):
             if (random.random()<0.5):
                 n-=1
-        if n<=1:
-            break
     return rounds
 
 num=64

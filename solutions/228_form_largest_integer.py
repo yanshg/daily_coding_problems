@@ -17,10 +17,8 @@ Given a list of numbers, create an algorithm that arranges them in order to form
 
 
 def form_largest_integer(arr):
-    l=len(str(max(arr)))+1
-    str_arr=list(map(str,arr))
-    extval=[ ((s*l)[:l],s) for s in str_arr ]
-    extval.sort(key=lambda x:x[0],reverse=True)
-    return int(''.join([ x[1] for x in extval ]))
+    l=len(str(max(arr)))
+    str_arr=sorted(map(str,arr), key=lambda s: (s*l)[:l], reverse=True)
+    return int(''.join(str_arr))
 
 assert form_largest_integer([10, 7, 76, 415])==77641510

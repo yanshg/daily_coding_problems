@@ -24,5 +24,20 @@ def get_majority_element(nums):
 
     return None
 
+# Boyer-Moore Majorite Vote Algorithm
+def get_majority_element1(nums):
+    m = -1
+    i = 0
+    for num in nums:
+        if i == 0:
+            m = num
+            i = 1
+        elif m == num:
+            i += 1
+        else:
+            i -= 1
+    return m
+
 assert get_majority_element([1, 2, 1, 1, 3, 4, 0])==1
+assert get_majority_element1([1, 2, 1, 1, 3, 1, 1, 4, 0, 1])==1
 

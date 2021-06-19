@@ -13,16 +13,13 @@ def get_smallest_distance(word1,word2,sentence):
         return 0
 
     words=sentence.split()
-    distance=len(words)+1
-    positions=dict()
-
+    min_dist=len(words)+1
+    prev = -1
     for i,word in enumerate(words):
         if word in [word1,word2]:
-            positions[word]=i
-
-        if word1 in positions and word2 in positions:
-            distance=min(distance,abs(positions[word1]-positions[word2])-1)
-        
-    return distance
+            if prev != -1 and word != words[prev]:
+                min_distance=min(min_dist, i-prev-1)
+            prev = i
+    return min_distance
 
 assert get_smallest_distance('hello','world', "dog cat hello cat dog dog hello cat world")==1
