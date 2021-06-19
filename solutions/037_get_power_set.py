@@ -10,24 +10,14 @@ For example, given the set {1, 2, 3}, it should return {{}, {1}, {2}, {3}, {1, 2
 You may also use a list or array to represent a set.
 """
 
-# Idea: P(S) = P(S-a0) + { (a0 + Pi) for Pi in P(S-a0) }
+# Idea: P(S) = P(S-a0) + { (a0 | Pi) for Pi in P(S-a0) }
 
 def get_power_set(arr):
     if len(arr)==0:
         return [set()]
 
-    power_set=list()
-
-    first=arr[0]
-    sub_power_set=get_power_set(arr[1:])
-    power_set.extend(sub_power_set)
-
-    for s in sub_power_set:
-        new_set=s.copy()
-        new_set.add(first)
-        power_set.append(new_set)
-
-    return power_set
+    sub_power_set = get_power_set(arr[1:])
+    return sub_power_set + [ ({arr[0]} | s) for s in sub_power_set ]
 
 assert get_power_set([]) == [set()]
 assert get_power_set([1]) == [set(), {1}]
